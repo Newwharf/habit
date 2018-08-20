@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flowermake.habit.dao.PlanLogMapper">
+	<resultMap id="BaseResultMap" type="com.flowermake.habit.domain.PlanLog">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="dt_cdate" jdbcType="TIMESTAMP" property="dtCdate" />
+		<result column="dt_ledate" jdbcType="TIMESTAMP" property="dtLedate" />
+		<result column="ti_state" jdbcType="TINYINT" property="tiState" />
+		<result column="i_planid" jdbcType="BIGINT" property="iPlanid" />
+		<result column="i_userid" jdbcType="BIGINT" property="iUserid" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, dt_cdate, dt_ledate, ti_state, i_planid,i_userid
+	</sql>
+	<select id="selectLastByPlanId" resultMap="BaseResultMap">
+		select * from
+		h_plan_log
+		where i_planid=#{p_id}
+		order by dt_cdate DESC
+		limit 0,1
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from h_plan_log
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		h_plan_log
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.flowermake.habit.domain.PlanLog">
+		insert into h_plan_log (id,
+		dt_cdate, dt_ledate,
+		ti_state, i_planid,i_userid)
+		values
+		(#{id,jdbcType=BIGINT},
+		#{dtCdate,jdbcType=TIMESTAMP},
+		#{dtLedate,jdbcType=TIMESTAMP},
+		#{tiState,jdbcType=TINYINT},
+		#{iPlanid,jdbcType=BIGINT},#{iUserid,jdbcType=BIGINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.flowermake.habit.domain.PlanLog">
+		insert into h_plan_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate,
+			</if>
+			<if test="dtLedate != null">
+				dt_ledate,
+			</if>
+			<if test="tiState != null">
+				ti_state,
+			</if>
+			<if test="iPlanid != null">
+				i_planid,
+			</if>
+			<if test="iUserid != null">
+				i_userid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="dtCdate != null">
+				#{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dtLedate != null">
+				#{dtLedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tiState != null">
+				#{tiState,jdbcType=TINYINT},
+			</if>
+			<if test="iPlanid != null">
+				#{iPlanid,jdbcType=BIGINT},
+			</if>
+			<if test="iUserid != null">
+				#{iUserid,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.flowermake.habit.domain.PlanLog">
+		update h_plan_log
+		<set>
+			<if test="dtCdate != null">
+				dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dtLedate != null">
+				dt_ledate = #{dtLedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tiState != null">
+				ti_state = #{tiState,jdbcType=TINYINT},
+			</if>
+			<if test="iPlanid != null">
+				i_planid = #{iPlanid,jdbcType=BIGINT},
+			</if>
+			<if test="iUserid != null">
+				i_userid = #{iUserid,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.flowermake.habit.domain.PlanLog">
+		update h_plan_log
+		set dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
+		dt_ledate =
+		#{dtLedate,jdbcType=TIMESTAMP},
+		ti_state = #{tiState,jdbcType=TINYINT},
+		i_planid = #{iPlanid,jdbcType=BIGINT},
+		i_userid = #{iUserid,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

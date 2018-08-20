@@ -1,0 +1,65 @@
+body .dialog_2button .layui-layer-btn {
+	background-color: #021221;
+	height: 50px;
+	position: absolute;
+	bottom: 0px;
+	padding: 0px;
+	width: 100%;
+}
+
+body .dialog_2button .layui-layer-btn a {
+	width: 100%;
+	height: 100%;
+	float: left;
+	display: block;
+	padding: 0px;
+	margin: 0px;
+	border-radius: 0px;
+	border: 0px;
+	text-align: center;
+	line-height: 50px;
+	color: white;
+	background-color: #021221;
+}
+
+body .dialog_2button .layui-layer-close2 {
+	background: url(../../../../img/close.png) no-repeat;
+	background-size: 30px 30px;
+}
+
+body .dialog_2button .information_panel {
+	margin: 30px 0 0 0;
+	width: 100%;
+}
+
+body .dialog_2button .information_panel_input {
+	width: 80%;
+	padding-right: 9px;
+	margin: auto;
+}
+
+body .dialog_2button .information_panel_label>font {
+	right: 25px;
+}
+
+body .dialog_2button .information_panel_label+div {
+	top: 20px;
+	width: 60%;
+	margin-left: 0px;
+}
+
+body .dialog_2button .information_panel_input>font {
+	right: 8px;
+}
+
+body .dialog_2button .information_panel_label+div select {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	border: none;
+	width: 120%;
+	color: #727272;
+	font-size: 20px;
+	background-color: transparent;
+	position: relative;
+}

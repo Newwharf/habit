@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flowermake.habit.dao.BodyDataLogMapper">
+	<resultMap id="BaseResultMap" type="com.flowermake.habit.domain.BodyDataLog">
+		<id column="i_id" jdbcType="BIGINT" property="iId" />
+		<result column="i_userid" jdbcType="BIGINT" property="iUserid" />
+		<result column="ti_index" jdbcType="TINYINT" property="tiIndex" />
+		<result column="f_score" jdbcType="REAL" property="fScore" />
+		<result column="dt_cdate" jdbcType="TIMESTAMP" property="dtCdate" />
+		<result column="v_comments" jdbcType="VARCHAR" property="vComments" />
+	</resultMap>
+
+	<select id="selectByIndex" resultMap="BaseResultMap">
+		select * from
+		h_body_data_log where ti_index=#{index} and i_userid=#{uid} order by
+		dt_cdate
+		desc limit #{m},#{n}
+	</select>
+
+	<select id="selectLatelyLog" resultMap="BaseResultMap">
+		select
+		hbdl.*
+		from
+		h_body_data_log hbdl
+		inner join
+		(select
+		ti_index,max(dt_cdate)
+		max_dt_cdate
+		from
+		h_body_data_log
+		where
+		i_userid=#{uid}
+		group by ti_index)
+		maxhbdl
+		on
+		hbdl.ti_index=maxhbdl.ti_index and
+		hbdl.dt_cdate=maxhbdl.max_dt_cdate;
+	</select>
+	<sql id="Base_Column_List">
+		i_id, i_userid, ti_index, f_score, dt_cdate, v_comments
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from h_body_data_log
+		where i_id = #{iId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		h_body_data_log
+		where i_id = #{iId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.flowermake.habit.domain.BodyDataLog">
+		insert into h_body_data_log
+		(i_id, i_userid, ti_index,
+		f_score, dt_cdate, v_comments
+		)
+		values
+		(#{iId,jdbcType=BIGINT}, #{iUserid,jdbcType=BIGINT},
+		#{tiIndex,jdbcType=TINYINT},
+		#{fScore,jdbcType=REAL},
+		#{dtCdate,jdbcType=TIMESTAMP}, #{vComments,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.flowermake.habit.domain.BodyDataLog">
+		insert into h_body_data_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				i_id,
+			</if>
+			<if test="iUserid != null">
+				i_userid,
+			</if>
+			<if test="tiIndex != null">
+				ti_index,
+			</if>
+			<if test="fScore != null">
+				f_score,
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate,
+			</if>
+			<if test="vComments != null">
+				v_comments,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				#{iId,jdbcType=BIGINT},
+			</if>
+			<if test="iUserid != null">
+				#{iUserid,jdbcType=BIGINT},
+			</if>
+			<if test="tiIndex != null">
+				#{tiIndex,jdbcType=TINYINT},
+			</if>
+			<if test="fScore != null">
+				#{fScore,jdbcType=REAL},
+			</if>
+			<if test="dtCdate != null">
+				#{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vComments != null">
+				#{vComments,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.flowermake.habit.domain.BodyDataLog">
+		update h_body_data_log
+		<set>
+			<if test="iUserid != null">
+				i_userid = #{iUserid,jdbcType=BIGINT},
+			</if>
+			<if test="tiIndex != null">
+				ti_index = #{tiIndex,jdbcType=TINYINT},
+			</if>
+			<if test="fScore != null">
+				f_score = #{fScore,jdbcType=REAL},
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vComments != null">
+				v_comments = #{vComments,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where i_id = #{iId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.flowermake.habit.domain.BodyDataLog">
+		update
+		h_body_data_log
+		set i_userid = #{iUserid,jdbcType=BIGINT},
+		ti_index =
+		#{tiIndex,jdbcType=TINYINT},
+		f_score = #{fScore,jdbcType=REAL},
+		dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
+		v_comments =
+		#{vComments,jdbcType=VARCHAR}
+		where i_id = #{iId,jdbcType=BIGINT}
+	</update>
+</mapper>

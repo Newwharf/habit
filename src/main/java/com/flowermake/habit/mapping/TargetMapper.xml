@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flowermake.habit.dao.TargetMapper">
+	<resultMap id="BaseResultMap" type="com.flowermake.habit.domain.Target">
+		<id column="i_id" jdbcType="BIGINT" property="iId" />
+		<result column="i_userid" jdbcType="BIGINT" property="iUserid" />
+		<result column="ti_index" jdbcType="TINYINT" property="tiIndex" />
+		<result column="ti_nexus" jdbcType="TINYINT" property="tiNexus" />
+		<result column="f_value" jdbcType="REAL" property="fValue" />
+		<result column="ti_flag" jdbcType="TINYINT" property="tiFlag" />
+		<result column="ti_state" jdbcType="TINYINT" property="tiState" />
+		<result column="dt_cdate" jdbcType="TIMESTAMP" property="dtCdate" />
+		<result column="v_msg" jdbcType="VARCHAR" property="vMsg" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		i_id, i_userid, ti_index, ti_nexus, f_value, ti_flag, ti_state,
+		dt_cdate,v_msg
+	</sql>
+
+	<select id="selectByIndex" resultMap="BaseResultMap">
+		select * from
+		h_target
+		where
+		i_userid=#{uid}
+		and
+		ti_state!=1
+		and
+		ti_index=#{index}
+		and
+		ti_flag=#{flag}
+		order by ti_flag ASC,dt_cdate DESC
+		limit #{start},#{end}
+	</select>
+
+	<select id="selectByCdt" resultMap="BaseResultMap">
+		select * from
+		h_target
+		where
+		i_userid=#{uid}
+		and
+		dt_cdate<![CDATA[ >= ]]>#{startCdt}
+		and
+		dt_cdate<![CDATA[ <= ]]>#{endCdt}
+		and
+		ti_state!=1
+		order by ti_flag ASC,dt_cdate DESC
+		limit #{start},#{end}
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from h_target
+		where i_id = #{iId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from h_target
+		where i_id = #{iId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.flowermake.habit.domain.Target">
+		insert into h_target (i_id, i_userid, ti_index,
+		ti_nexus, f_value, ti_flag,
+		ti_state, dt_cdate,v_msg)
+		values (#{iId,jdbcType=BIGINT}, #{iUserid,jdbcType=BIGINT},
+		#{tiIndex,jdbcType=TINYINT},
+		#{tiNexus,jdbcType=TINYINT}, #{fValue,jdbcType=REAL}, #{tiFlag,jdbcType=TINYINT},
+		#{tiState,jdbcType=TINYINT},
+		#{dtCdate,jdbcType=TIMESTAMP},#{vMsg,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.flowermake.habit.domain.Target">
+		insert into h_target
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				i_id,
+			</if>
+			<if test="iUserid != null">
+				i_userid,
+			</if>
+			<if test="tiIndex != null">
+				ti_index,
+			</if>
+			<if test="tiNexus != null">
+				ti_nexus,
+			</if>
+			<if test="fValue != null">
+				f_value,
+			</if>
+			<if test="tiFlag != null">
+				ti_flag,
+			</if>
+			<if test="tiState != null">
+				ti_state,
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate,
+			</if>
+			<if test="vMsg != null">
+				v_msg,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				#{iId,jdbcType=BIGINT},
+			</if>
+			<if test="iUserid != null">
+				#{iUserid,jdbcType=BIGINT},
+			</if>
+			<if test="tiIndex != null">
+				#{tiIndex,jdbcType=TINYINT},
+			</if>
+			<if test="tiNexus != null">
+				#{tiNexus,jdbcType=TINYINT},
+			</if>
+			<if test="fValue != null">
+				#{fValue,jdbcType=REAL},
+			</if>
+			<if test="tiFlag != null">
+				#{tiFlag,jdbcType=TINYINT},
+			</if>
+			<if test="tiState != null">
+				#{tiState,jdbcType=TINYINT},
+			</if>
+			<if test="dtCdate != null">
+				#{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vMsg != null">
+				#{vMsg,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.flowermake.habit.domain.Target">
+		update h_target
+		<set>
+			<if test="iUserid != null">
+				i_userid = #{iUserid,jdbcType=BIGINT},
+			</if>
+			<if test="tiIndex != null">
+				ti_index = #{tiIndex,jdbcType=TINYINT},
+			</if>
+			<if test="tiNexus != null">
+				ti_nexus = #{tiNexus,jdbcType=TINYINT},
+			</if>
+			<if test="fValue != null">
+				f_value = #{fValue,jdbcType=REAL},
+			</if>
+			<if test="tiFlag != null">
+				ti_flag = #{tiFlag,jdbcType=TINYINT},
+			</if>
+			<if test="tiState != null">
+				ti_state = #{tiState,jdbcType=TINYINT},
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vMsg != null">
+				v_msg = #{vMsg,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where i_id = #{iId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.flowermake.habit.domain.Target">
+		update h_target
+		set i_userid = #{iUserid,jdbcType=BIGINT},
+		ti_index = #{tiIndex,jdbcType=TINYINT},
+		ti_nexus = #{tiNexus,jdbcType=TINYINT},
+		f_value = #{fValue,jdbcType=REAL},
+		ti_flag = #{tiFlag,jdbcType=TINYINT},
+		ti_state = #{tiState,jdbcType=TINYINT},
+		dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
+		v_msg = #{vMsg,jdbcType=VARCHAR}
+		where i_id = #{iId,jdbcType=BIGINT}
+	</update>
+</mapper>

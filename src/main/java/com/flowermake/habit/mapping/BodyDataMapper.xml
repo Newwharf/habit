@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flowermake.habit.dao.BodyDataMapper">
+	<resultMap id="BaseResultMap" type="com.flowermake.habit.domain.BodyData">
+		<id column="i_id" jdbcType="BIGINT" property="iId" />
+		<result column="i_userid" jdbcType="BIGINT" property="iUserid" />
+		<result column="f_lastheight" jdbcType="REAL" property="fLastheight" />
+		<result column="f_lastweight" jdbcType="REAL" property="fLastweight" />
+		<result column="f_lastbodyfat" jdbcType="REAL" property="fLastbodyfat" />
+		<result column="f_lastshouldersize" jdbcType="REAL"
+			property="fLastshouldersize" />
+		<result column="f_lastbust" jdbcType="REAL" property="fLastbust" />
+		<result column="f_lastabdominalsize" jdbcType="REAL"
+			property="fLastabdominalsize" />
+		<result column="f_lastwaistline" jdbcType="REAL" property="fLastwaistline" />
+		<result column="f_lasthipline" jdbcType="REAL" property="fLasthipline" />
+		<result column="f_lastlforearmsize" jdbcType="REAL"
+			property="fLastlforearmsize" />
+		<result column="f_lastrforearmsize" jdbcType="REAL"
+			property="fLastrforearmsize" />
+		<result column="f_lastlarmsize" jdbcType="REAL" property="fLastlarmsize" />
+		<result column="f_lastrarmsize" jdbcType="REAL" property="fLastrarmsize" />
+		<result column="f_lastlthighsize" jdbcType="REAL" property="fLastlthighsize" />
+		<result column="f_lastrthighsize" jdbcType="REAL" property="fLastrthighsize" />
+		<result column="f_lastlcrussize" jdbcType="REAL" property="fLastlcrussize" />
+		<result column="f_lastrcrussize" jdbcType="REAL" property="fLastrcrussize" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		i_id, i_userid, f_lastheight, f_lastweight, f_lastbodyfat,
+		f_lastshouldersize, f_lastbust,
+		f_lastabdominalsize, f_lastwaistline, f_lasthipline, f_lastlforearmsize,
+		f_lastrforearmsize,
+		f_lastlarmsize, f_lastrarmsize, f_lastlthighsize, f_lastrthighsize, f_lastlcrussize,
+		f_lastrcrussize
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from h_body_data
+		where i_id = #{iId,jdbcType=BIGINT}
+	</select>
+	<select id="selectByUserId" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from h_body_data
+		where i_userid = #{iUserid,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from h_body_data
+		where i_id = #{iId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.flowermake.habit.domain.BodyData">
+		insert into h_body_data (i_id, i_userid, f_lastheight,
+		f_lastweight, f_lastbodyfat, f_lastshouldersize,
+		f_lastbust, f_lastabdominalsize, f_lastwaistline,
+		f_lasthipline, f_lastlforearmsize, f_lastrforearmsize,
+		f_lastlarmsize, f_lastrarmsize, f_lastlthighsize,
+		f_lastrthighsize, f_lastlcrussize, f_lastrcrussize
+		)
+		values (#{iId,jdbcType=BIGINT}, #{iUserid,jdbcType=BIGINT},
+		#{fLastheight,jdbcType=REAL},
+		#{fLastweight,jdbcType=REAL}, #{fLastbodyfat,jdbcType=REAL}, #{fLastshouldersize,jdbcType=REAL},
+		#{fLastbust,jdbcType=REAL}, #{fLastabdominalsize,jdbcType=REAL},
+		#{fLastwaistline,jdbcType=REAL},
+		#{fLasthipline,jdbcType=REAL}, #{fLastlforearmsize,jdbcType=REAL},
+		#{fLastrforearmsize,jdbcType=REAL},
+		#{fLastlarmsize,jdbcType=REAL}, #{fLastrarmsize,jdbcType=REAL}, #{fLastlthighsize,jdbcType=REAL},
+		#{fLastrthighsize,jdbcType=REAL}, #{fLastlcrussize,jdbcType=REAL},
+		#{fLastrcrussize,jdbcType=REAL}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.flowermake.habit.domain.BodyData">
+		insert into h_body_data
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				i_id,
+			</if>
+			<if test="iUserid != null">
+				i_userid,
+			</if>
+			<if test="fLastheight != null">
+				f_lastheight,
+			</if>
+			<if test="fLastweight != null">
+				f_lastweight,
+			</if>
+			<if test="fLastbodyfat != null">
+				f_lastbodyfat,
+			</if>
+			<if test="fLastshouldersize != null">
+				f_lastshouldersize,
+			</if>
+			<if test="fLastbust != null">
+				f_lastbust,
+			</if>
+			<if test="fLastabdominalsize != null">
+				f_lastabdominalsize,
+			</if>
+			<if test="fLastwaistline != null">
+				f_lastwaistline,
+			</if>
+			<if test="fLasthipline != null">
+				f_lasthipline,
+			</if>
+			<if test="fLastlforearmsize != null">
+				f_lastlforearmsize,
+			</if>
+			<if test="fLastrforearmsize != null">
+				f_lastrforearmsize,
+			</if>
+			<if test="fLastlarmsize != null">
+				f_lastlarmsize,
+			</if>
+			<if test="fLastrarmsize != null">
+				f_lastrarmsize,
+			</if>
+			<if test="fLastlthighsize != null">
+				f_lastlthighsize,
+			</if>
+			<if test="fLastrthighsize != null">
+				f_lastrthighsize,
+			</if>
+			<if test="fLastlcrussize != null">
+				f_lastlcrussize,
+			</if>
+			<if test="fLastrcrussize != null">
+				f_lastrcrussize,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				#{iId,jdbcType=BIGINT},
+			</if>
+			<if test="iUserid != null">
+				#{iUserid,jdbcType=BIGINT},
+			</if>
+			<if test="fLastheight != null">
+				#{fLastheight,jdbcType=REAL},
+			</if>
+			<if test="fLastweight != null">
+				#{fLastweight,jdbcType=REAL},
+			</if>
+			<if test="fLastbodyfat != null">
+				#{fLastbodyfat,jdbcType=REAL},
+			</if>
+			<if test="fLastshouldersize != null">
+				#{fLastshouldersize,jdbcType=REAL},
+			</if>
+			<if test="fLastbust != null">
+				#{fLastbust,jdbcType=REAL},
+			</if>
+			<if test="fLastabdominalsize != null">
+				#{fLastabdominalsize,jdbcType=REAL},
+			</if>
+			<if test="fLastwaistline != null">
+				#{fLastwaistline,jdbcType=REAL},
+			</if>
+			<if test="fLasthipline != null">
+				#{fLasthipline,jdbcType=REAL},
+			</if>
+			<if test="fLastlforearmsize != null">
+				#{fLastlforearmsize,jdbcType=REAL},
+			</if>
+			<if test="fLastrforearmsize != null">
+				#{fLastrforearmsize,jdbcType=REAL},
+			</if>
+			<if test="fLastlarmsize != null">
+				#{fLastlarmsize,jdbcType=REAL},
+			</if>
+			<if test="fLastrarmsize != null">
+				#{fLastrarmsize,jdbcType=REAL},
+			</if>
+			<if test="fLastlthighsize != null">
+				#{fLastlthighsize,jdbcType=REAL},
+			</if>
+			<if test="fLastrthighsize != null">
+				#{fLastrthighsize,jdbcType=REAL},
+			</if>
+			<if test="fLastlcrussize != null">
+				#{fLastlcrussize,jdbcType=REAL},
+			</if>
+			<if test="fLastrcrussize != null">
+				#{fLastrcrussize,jdbcType=REAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.flowermake.habit.domain.BodyData">
+		update h_body_data
+		<set>
+			<if test="iUserid != null">
+				i_userid = #{iUserid,jdbcType=BIGINT},
+			</if>
+			<if test="fLastheight != null">
+				f_lastheight = #{fLastheight,jdbcType=REAL},
+			</if>
+			<if test="fLastweight != null">
+				f_lastweight = #{fLastweight,jdbcType=REAL},
+			</if>
+			<if test="fLastbodyfat != null">
+				f_lastbodyfat = #{fLastbodyfat,jdbcType=REAL},
+			</if>
+			<if test="fLastshouldersize != null">
+				f_lastshouldersize = #{fLastshouldersize,jdbcType=REAL},
+			</if>
+			<if test="fLastbust != null">
+				f_lastbust = #{fLastbust,jdbcType=REAL},
+			</if>
+			<if test="fLastabdominalsize != null">
+				f_lastabdominalsize = #{fLastabdominalsize,jdbcType=REAL},
+			</if>
+			<if test="fLastwaistline != null">
+				f_lastwaistline = #{fLastwaistline,jdbcType=REAL},
+			</if>
+			<if test="fLasthipline != null">
+				f_lasthipline = #{fLasthipline,jdbcType=REAL},
+			</if>
+			<if test="fLastlforearmsize != null">
+				f_lastlforearmsize = #{fLastlforearmsize,jdbcType=REAL},
+			</if>
+			<if test="fLastrforearmsize != null">
+				f_lastrforearmsize = #{fLastrforearmsize,jdbcType=REAL},
+			</if>
+			<if test="fLastlarmsize != null">
+				f_lastlarmsize = #{fLastlarmsize,jdbcType=REAL},
+			</if>
+			<if test="fLastrarmsize != null">
+				f_lastrarmsize = #{fLastrarmsize,jdbcType=REAL},
+			</if>
+			<if test="fLastlthighsize != null">
+				f_lastlthighsize = #{fLastlthighsize,jdbcType=REAL},
+			</if>
+			<if test="fLastrthighsize != null">
+				f_lastrthighsize = #{fLastrthighsize,jdbcType=REAL},
+			</if>
+			<if test="fLastlcrussize != null">
+				f_lastlcrussize = #{fLastlcrussize,jdbcType=REAL},
+			</if>
+			<if test="fLastrcrussize != null">
+				f_lastrcrussize = #{fLastrcrussize,jdbcType=REAL},
+			</if>
+		</set>
+		where i_id = #{iId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.flowermake.habit.domain.BodyData">
+		update h_body_data
+		set i_userid = #{iUserid,jdbcType=BIGINT},
+		f_lastheight = #{fLastheight,jdbcType=REAL},
+		f_lastweight = #{fLastweight,jdbcType=REAL},
+		f_lastbodyfat = #{fLastbodyfat,jdbcType=REAL},
+		f_lastshouldersize = #{fLastshouldersize,jdbcType=REAL},
+		f_lastbust = #{fLastbust,jdbcType=REAL},
+		f_lastabdominalsize = #{fLastabdominalsize,jdbcType=REAL},
+		f_lastwaistline = #{fLastwaistline,jdbcType=REAL},
+		f_lasthipline = #{fLasthipline,jdbcType=REAL},
+		f_lastlforearmsize = #{fLastlforearmsize,jdbcType=REAL},
+		f_lastrforearmsize = #{fLastrforearmsize,jdbcType=REAL},
+		f_lastlarmsize = #{fLastlarmsize,jdbcType=REAL},
+		f_lastrarmsize = #{fLastrarmsize,jdbcType=REAL},
+		f_lastlthighsize = #{fLastlthighsize,jdbcType=REAL},
+		f_lastrthighsize = #{fLastrthighsize,jdbcType=REAL},
+		f_lastlcrussize = #{fLastlcrussize,jdbcType=REAL},
+		f_lastrcrussize = #{fLastrcrussize,jdbcType=REAL}
+		where i_id = #{iId,jdbcType=BIGINT}
+	</update>
+</mapper>

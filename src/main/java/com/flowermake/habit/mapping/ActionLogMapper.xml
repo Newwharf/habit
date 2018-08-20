@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flowermake.habit.dao.ActionLogMapper">
+	<resultMap id="BaseResultMap" type="com.flowermake.habit.domain.ActionLog">
+		<id column="i_id" jdbcType="BIGINT" property="iId" />
+		<result column="i_planlogid" jdbcType="BIGINT" property="iPlanlogid" />
+		<result column="i_actionid" jdbcType="BIGINT" property="iActionid" />
+		<result column="ti_actiontype" jdbcType="TINYINT" property="tiActiontype" />
+		<result column="v_actionunit" jdbcType="VARCHAR" property="vActionunit" />
+		<result column="i_numbyplan" jdbcType="INTEGER" property="iNumbyplan" />
+		<result column="f_scoreweight" jdbcType="REAL" property="fScoreweight" />
+		<result column="i_scorenum" jdbcType="INTEGER" property="iScorenum" />
+		<result column="v_comments" jdbcType="VARCHAR" property="vComments" />
+		<result column="i_scoretime" jdbcType="INTEGER" property="iScoretime" />
+		<result column="dt_cdate" jdbcType="TIMESTAMP" property="dtCdate" />
+		<result column="dt_ledate" jdbcType="TIMESTAMP" property="dtLedate" />
+		<result column="ti_state" jdbcType="TINYINT" property="tiState" />
+		<result column="i_userid" jdbcType="BIGINT" property="iUserid" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		i_id, i_planlogid, i_actionid, ti_actiontype, v_actionunit,
+		i_numbyplan,
+		f_scoreweight,
+		i_scorenum, v_comments, i_scoretime,
+		dt_cdate, dt_ledate, ti_state,i_userid
+	</sql>
+	<select id="selectByLastPlanLog" resultMap="BaseResultMap">
+		select hal.* from
+		h_action_log hal where hal.i_planlogid=(select id from
+		h_plan_log where
+		i_planid=#{pid} order by dt_cdate DESC limit 0,1);
+	</select>
+	<select id="selectByAid" resultMap="BaseResultMap">
+		select * from h_action_log
+		where i_actionid=#{aid} order by dt_cdate desc limit #{m},#{n}
+	</select>
+	<select id="selectLatelyLog" resultMap="BaseResultMap">
+		select
+		hal.*
+		from
+		h_action_log hal
+		inner join
+		(select
+		i_actionid,max(dt_cdate) max_dt_cdate
+		from
+		h_action_log
+		where
+		i_userid=#{uid}
+		group by i_actionid) maxhal
+		on
+		hal.i_actionid=maxhal.i_actionid and hal.dt_cdate=maxhal.max_dt_cdate;
+	</select>
+	<select id="selectByPIdBeforeDate" resultMap="BaseResultMap">
+
+		select hal.*
+		from
+		h_action_log hal
+		left join
+		h_plan_action hpa
+		on
+		hal.i_actionid=hpa.i_actionid
+		where
+		hpa.i_planid=#{pid}
+		and
+		hpa.i_actionid=#{aid}
+		and
+		hal.dt_cdate &lt; #{cdate}
+		and
+		hal.ti_state=0
+		order by hal.dt_cdate desc
+		limit #{len}
+
+	</select>
+
+	<select id="selectByPIdAfterDate" resultMap="BaseResultMap">
+
+		select hal.*
+		from
+		h_action_log hal
+		left join
+		h_plan_action hpa
+		on
+		hal.i_actionid=hpa.i_actionid
+		where
+		hpa.i_planid=#{pid}
+		and
+		hpa.i_actionid=#{aid}
+		and
+		hal.dt_cdate &gt; #{cdate}
+		and
+		hal.ti_state=0
+		order by hal.dt_cdate asc
+		limit #{len}
+
+	</select>
+
+	<select id="selectLast" resultMap="BaseResultMap">
+		select hal.*
+		from
+		h_action_log
+		hal
+		left join
+		h_plan_action hpa
+		on
+		hal.i_actionid=hpa.i_actionid
+		where
+		hpa.i_planid=#{pid}
+		and
+		hpa.i_actionid=#{aid}
+		and
+		hal.ti_state=0
+		order by
+		hal.dt_cdate desc
+		limit #{n}
+	</select>
+	<select id="selectByPLId" resultMap="BaseResultMap">
+		select * from
+		h_action_log
+		where i_planlogid=#{pl_id}
+		order by i_numbyplan ASC
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from h_action_log
+		where i_id = #{iId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		h_action_log
+		where i_id = #{iId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.flowermake.habit.domain.ActionLog">
+		insert into h_action_log
+		(i_id, i_planlogid, i_actionid,
+		ti_actiontype, v_actionunit,
+		i_numbyplan,
+		f_scoreweight, i_scorenum, v_comments,
+		i_scoretime,
+		dt_cdate, dt_ledate,
+		ti_state,i_userid)
+		values (#{iId,jdbcType=BIGINT},
+		#{iPlanlogid,jdbcType=BIGINT},
+		#{iActionid,jdbcType=BIGINT},
+		#{tiActiontype,jdbcType=TINYINT}, #{vActionunit,jdbcType=VARCHAR},
+		#{iNumbyplan,jdbcType=INTEGER},
+		#{fScoreweight,jdbcType=REAL},
+		#{iScorenum,jdbcType=INTEGER},
+		#{vComments,jdbcType=VARCHAR},
+		#{iScoretime,jdbcType=INTEGER}, #{dtCdate,jdbcType=TIMESTAMP},
+		#{dtLedate,jdbcType=TIMESTAMP},
+		#{tiState,jdbcType=TINYINT},#{iUserid,jdbcType=BIGINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.flowermake.habit.domain.ActionLog">
+		insert into h_action_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				i_id,
+			</if>
+			<if test="iPlanlogid != null">
+				i_planlogid,
+			</if>
+			<if test="iActionid != null">
+				i_actionid,
+			</if>
+			<if test="tiActiontype != null">
+				ti_actiontype,
+			</if>
+			<if test="vActionunit != null">
+				v_actionunit,
+			</if>
+			<if test="iNumbyplan != null">
+				i_numbyplan,
+			</if>
+			<if test="fScoreweight != null">
+				f_scoreweight,
+			</if>
+			<if test="iScorenum != null">
+				i_scorenum,
+			</if>
+			<if test="vComments != null">
+				v_comments,
+			</if>
+			<if test="iScoretime != null">
+				i_scoretime,
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate,
+			</if>
+			<if test="dtLedate != null">
+				dt_ledate,
+			</if>
+			<if test="tiState != null">
+				ti_state,
+			</if>
+			<if test="iUserid != null">
+				i_userid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				#{iId,jdbcType=BIGINT},
+			</if>
+			<if test="iPlanlogid != null">
+				#{iPlanlogid,jdbcType=BIGINT},
+			</if>
+			<if test="iActionid != null">
+				#{iActionid,jdbcType=BIGINT},
+			</if>
+			<if test="tiActiontype != null">
+				#{tiActiontype,jdbcType=TINYINT},
+			</if>
+			<if test="vActionunit != null">
+				#{vActionunit,jdbcType=VARCHAR},
+			</if>
+			<if test="iNumbyplan != null">
+				#{iNumbyplan,jdbcType=INTEGER},
+			</if>
+			<if test="fScoreweight != null">
+				#{fScoreweight,jdbcType=REAL},
+			</if>
+			<if test="iScorenum != null">
+				#{iScorenum,jdbcType=INTEGER},
+			</if>
+			<if test="vComments != null">
+				#{vComments,jdbcType=VARCHAR},
+			</if>
+			<if test="iScoretime != null">
+				#{iScoretime,jdbcType=INTEGER},
+			</if>
+			<if test="dtCdate != null">
+				#{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dtLedate != null">
+				#{dtLedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tiState != null">
+				#{tiState,jdbcType=TINYINT},
+			</if>
+			<if test="iUserid != null">
+				#{iUserid,jdbcType=BIGINT},
+			</if>
+
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.flowermake.habit.domain.ActionLog">
+		update h_action_log
+		<set>
+			<if test="iPlanlogid != null">
+				i_planlogid = #{iPlanlogid,jdbcType=BIGINT},
+			</if>
+			<if test="iActionid != null">
+				i_actionid = #{iActionid,jdbcType=BIGINT},
+			</if>
+			<if test="tiActiontype != null">
+				ti_actiontype = #{tiActiontype,jdbcType=TINYINT},
+			</if>
+			<if test="vActionunit != null">
+				v_actionunit = #{vActionunit,jdbcType=VARCHAR},
+			</if>
+			<if test="iNumbyplan != null">
+				i_numbyplan = #{iNumbyplan,jdbcType=INTEGER},
+			</if>
+			<if test="fScoreweight != null">
+				f_scoreweight = #{fScoreweight,jdbcType=REAL},
+			</if>
+			<if test="iScorenum != null">
+				i_scorenum = #{iScorenum,jdbcType=INTEGER},
+			</if>
+			<if test="vComments != null">
+				v_comments = #{vComments,jdbcType=VARCHAR},
+			</if>
+			<if test="iScoretime != null">
+				i_scoretime = #{iScoretime,jdbcType=INTEGER},
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dtLedate != null">
+				dt_ledate = #{dtLedate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tiState != null">
+				ti_state = #{tiState,jdbcType=TINYINT},
+			</if>
+			<if test="iUserid != null">
+				i_userid = #{iUserid,jdbcType=BIGINT},
+			</if>
+		</set>
+		where i_id = #{iId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.flowermake.habit.domain.ActionLog">
+		update
+		h_action_log
+		set i_planlogid = #{iPlanlogid,jdbcType=BIGINT},
+		i_actionid = #{iActionid,jdbcType=BIGINT},
+		ti_actiontype =
+		#{tiActiontype,jdbcType=TINYINT},
+		v_actionunit =
+		#{vActionunit,jdbcType=VARCHAR},
+		i_numbyplan =
+		#{iNumbyplan,jdbcType=INTEGER},
+		f_scoreweight =
+		#{fScoreweight,jdbcType=REAL},
+		i_scorenum =
+		#{iScorenum,jdbcType=INTEGER},
+		v_comments =
+		#{vComments,jdbcType=VARCHAR},
+		i_scoretime =
+		#{iScoretime,jdbcType=INTEGER},
+		dt_cdate =
+		#{dtCdate,jdbcType=TIMESTAMP},
+		dt_ledate =
+		#{dtLedate,jdbcType=TIMESTAMP},
+		ti_state = #{tiState,jdbcType=TINYINT},
+		i_userid = #{iUserid,jdbcType=BIGINT}
+		where i_id =
+		#{iId,jdbcType=BIGINT}
+	</update>
+</mapper>

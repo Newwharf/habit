@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flowermake.habit.dao.PlanActionMapper">
+	<resultMap id="BaseResultMap" type="com.flowermake.habit.domain.PlanAction">
+		<result column="i_planid" jdbcType="BIGINT" property="iPlanid" />
+		<result column="i_actionid" jdbcType="BIGINT" property="iActionid" />
+		<result column="i_num" jdbcType="INTEGER" property="iNum" />
+		<result column="dt_cdate" jdbcType="TIMESTAMP" property="dtCdate" />
+		<result column="ti_state" jdbcType="TINYINT" property="tiState" />
+	</resultMap>
+	<update id="updateStateByPlanId">
+		update h_plan_action set ti_state=1 where i_planid=#{p_id}
+	</update>
+	<insert id="insert" parameterType="com.flowermake.habit.domain.PlanAction">
+		insert into h_plan_action
+		(i_planid, i_actionid, i_num,
+		dt_cdate, ti_state)
+		values
+		(#{iPlanid,jdbcType=BIGINT}, #{iActionid,jdbcType=BIGINT},
+		#{iNum,jdbcType=INTEGER},
+		#{dtCdate,jdbcType=TIMESTAMP},
+		#{tiState,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.flowermake.habit.domain.PlanAction">
+		insert into h_plan_action
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="iPlanid != null">
+				i_planid,
+			</if>
+			<if test="iActionid != null">
+				i_actionid,
+			</if>
+			<if test="iNum != null">
+				i_num,
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate,
+			</if>
+			<if test="tiState != null">
+				ti_state,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="iPlanid != null">
+				#{iPlanid,jdbcType=BIGINT},
+			</if>
+			<if test="iActionid != null">
+				#{iActionid,jdbcType=BIGINT},
+			</if>
+			<if test="iNum != null">
+				#{iNum,jdbcType=INTEGER},
+			</if>
+			<if test="dtCdate != null">
+				#{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tiState != null">
+				#{tiState,jdbcType=TINYINT},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="selectByPlanId" resultMap="BaseResultMap">
+		select * from
+		h_plan_action
+		where
+		i_planid=#{p_id}
+		and
+		ti_state=0
+		order by dt_cdate DESC
+		limit #{start},#{end}
+	</select>
+
+	<select id="selectByActionId" resultMap="BaseResultMap">
+		select * from
+		h_plan_action
+		where
+		i_actionid=#{a_id}
+		and
+		ti_state=0
+		order by dt_cdate
+		DESC
+		limit #{start},#{end}
+	</select>
+</mapper>
