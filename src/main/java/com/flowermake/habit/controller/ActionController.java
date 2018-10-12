@@ -32,6 +32,11 @@ public class ActionController {
 	@Resource
 	private IActionService actionService;
 
+	@RequestMapping("/test")
+	public String test() throws Exception {
+		return "test";
+	}
+
 	@RequestMapping("/actionlist")
 	public String actionList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		User user = (User) request.getSession().getAttribute("user");
@@ -118,12 +123,12 @@ public class ActionController {
 			msg = "请先删除训练计划里的该动作！";
 		} else {
 			Action action = actionService.findActionById(actionId);
-			if ( user.getiId().equals(action.getiUserid())) {
+			if (user.getiId().equals(action.getiUserid())) {
 				action.setsState((byte) 1);
 				if (actionService.updateAction(action) != 1) {
 					msg = "失败了！系统懵逼中！";
 				}
-			}else {
+			} else {
 				msg = "同学！你不能删除别人的动作！";
 			}
 		}

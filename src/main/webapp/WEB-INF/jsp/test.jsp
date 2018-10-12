@@ -1,123 +1,161 @@
-<%@page import="com.flowermake.habit.domain.BodyData"%>
 <%@page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@page import="com.flowermake.habit.domain.User"%>
-<%@page import="com.flowermake.habit.domain.Target"%>
-
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />
 <html>
 <head>
-<title>habit</title>
-<link rel="icon" href="<%=basePath%>/img/favicon.ico" type="image/x-icon" />
-<link rel="shortcut icon" href="<%=basePath%>/img/favicon.ico" type="image/x-icon" />
-<link rel="bookmark" href="<%=basePath%>/img/favicon.ico" type="image/x-icon" />
-<link rel="stylesheet" href="<%=basePath%>css/style.css" type="text/css" />
-<link rel="stylesheet" href="<%=basePath%>plugs/layer/skin/dialog_2button/style.css" type="text/css" />
+<title>红包活动验证</title>
+<script type="text/javascript" src="../plugs/jquery/jquery-3.3.1.min.js"></script>
+<style type="text/css">
+body {
+	background-image: url('../img/bmg.png');
+	background-position: top left;
+	background-repeat: no-repeat;
+	background-size: 80%;
+	background-color: #da2134;
+	font-weight: 300;
+}
 
+.redbagbody {
+	width: auto;
+	height: auto;
+	position: absolute;
+	top: 2rem;
+	left: 2rem;
+	right: 2rem;
+	bottom: 2rem;
+	background-image: linear-gradient(-30deg, #da2134, #fb585a);
+	box-shadow: 0 0 0.5rem #6a1e21;
+	overflow: hidden;
+}
 
-<!-- 引入JS -->
-<script type="text/javascript" src="<%=basePath%>plugs/jquery/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="<%=basePath%>plugs/layer/layer.js"></script>
-<script type="text/javascript" src="<%=basePath%>plugs/echarts/echarts.js"></script>
-<script type="text/javascript" src="<%=basePath%>js/chart.js"></script>
-<script src="https://s3.ssl.qhres.com/!fd546749/chimee-player.browser.js" type="text/javascript"></script>
+.redbagtop {
+	width: inherit;
+	height: 12rem;
+	border-radius: 50% 50% 50% 50%;
+	background-image: linear-gradient(90deg, #f44b54, #e22942);
+	box-shadow: 0 0.1rem 0.5rem #6a1e21;
+	position: relative;
+	bottom: 6rem;
+	text-align: center;
+}
 
+.redbagtop img {
+	position: relative;
+	top: 9rem;
+	width: 5.5rem;
+}
+
+.input_area {
+	width: auto;
+	height: 8rem;
+	position: absolute;
+	left: 1.5rem;
+	right: 1.5rem;
+	overflow: hidden;
+}
+
+.input_area input {
+	background-color: transparent;
+	border-style: none none solid none;
+	border-bottom: 0.01rem solid #ebebeb;
+	width: 100%;
+	height: 2rem;
+	font-size: 1.2rem;
+	color: white;
+	position: relative;
+	left: 2.2rem;
+}
+
+.input_area div {
+	position: relative;
+}
+
+.input_area img {
+	width: 1.5rem;
+	position: absolute;
+	top: 0.2rem;
+}
+
+.sendcode {
+	width: 5.5rem;
+	height: 1.5rem;
+	background-color: #ffd200;
+	color: da2134;
+	font-size: 14px;
+	text-align: center;
+	top: 0rem;
+	right: 0rem;
+	line-height: 1.5rem;
+	border-radius: 5px 5px 5px 5px;
+}
+
+.submit {
+	width: auto;
+	height: 2.5rem;
+	background-color: #ffd200;
+	color: da2134;
+	position: absolute;
+	line-height: 2.5rem;
+	text-align: center;
+	left: 1.5rem;
+	right: 1.5rem;
+	top: 23rem;
+	left: 1.5rem;
+	border-radius: 20px 20px 20px 20px;
+}
+</style>
 <script type="text/javascript">
 	$(function() {
-		
-		/**
-		var aggdPlugin = ChimeePlayer.popupFactory({
-			name : 'time-ad' ,
-			className : 'time-ad' ,
-			title : false ,
-			body : '' ,
-			offset : '0px 10px auto auto' ,
-			operable : false
-			});
-			ChimeePlayer.install(aggdPlugin);
-			var player = new ChimeePlayer({
-			wrapper : '.chimee-container' ,
-			//src : '../video/aaaa.mp4' ,
-			src:'http://test.patient.wechat.yaoshi365.com/uploads/video/video_1.mp4',
-			isLive : false ,
-			box : 'native' ,
-			autoplay : false ,
-			controls : true ,
-			plugin : [aggdPlugin.name]
-			});**/
 
-		//***************************************************
-		
+		//发送验证码代码部分开始
+		var sec = 121;
+		var isTimeRun = false;
+		$('.sendcode').on('click', function() {
 
-		$("#abc").blur(function() {
+			if (!isTimeRun) {
+				var interval = setInterval(function() {
 
-			alert(0.3333333333.toString().match(/^\d+(?:\.\d{0,2})?/));
-		});
-		var myChart
-		var option;
-		$("#test_button").on("click", function() {
-
-			var content = $("#recard_dialog");
-			var newTargetDialog = layer.open({
-			type : 1 ,
-			skin : 'dialog_2button' ,
-			closeBtn : 2 ,
-			content : content ,
-			area : ['90%' , '500px'] ,
-			title : false ,
-			btn : ['确定'] ,
-			offset : '40px' ,
-			yes : function() {
-
-				//var x_values = ['01.01 22:10' , '01.01 22:20' , '01.01 22:30' , '01.01 22:40' , '2323'];
-				var new_data = ['01.01 22:10',40];
-				//updateData(myChart, x_values, y_values)
-				addData(myChart, option, new_data);
+					isTimeRun = true;
+					sec--;
+					if (sec <= 0) {
+						clearInterval(interval);
+						sec = 120;
+						isTimeRun = false;
+						$('.sendcode').html('发送验证码');
+						return;
+					}
+					$('.sendcode').html(sec);
+				}, 1000);
+				//执行调用发送验证码的操作......
 			}
-			});
-			// 基于准备好的dom，初始化echarts实例
-			myChart = echarts.init($("#dialog_chart").get(0));
-			$("#chart").width(content.width());
-			//var x_value1 = ['01.01 22:10' , '01.01 22:20' , '01.01 22:30' , '01.01 22:30' , '01.01 22:40'];
-			//var y_value1 = [40 , 50 , 55 , 60 , 45];
-			var data_value = [['1',40],['2',45],['3',35],['4',45],['5',50]];
-			option = dialogBaseData(data_value, content.width());
-			option.grid.left = "30%";
-			myChart.setOption(option);
 		});
+		//发送验证码代码部分结束
 	});
 </script>
 </head>
-
 <body>
 
-	<button id="test_button">click me</button>
-	<input type="text" id="abc" style="background-color: blue;">
+	<div class="redbagbody">
+		<div class="redbagtop">
+			<img src="../img/money.png">
+		</div>
+		<div class="input_area">
+			<div>
+				<img src="../img/phone.png">
+				<input type="text" name="phone" value="">
+			</div>
+			<div style="top: 2rem;">
+				<img src="../img/code.png">
+				<input type="text" name="code" value="">
+				<div class="sendcode" style="position: absolute;">发送验证码</div>
+			</div>
+		</div>
+
+		<div class="submit">提交</div>
+
+	</div>
 
 </body>
-
-<div id="recard_dialog" style="height: 1000px; background-color: #ffffff; position: relative; display: none;">
-	<div id="dialog_chart" style="height: 220px;"></div>
-	<div style="height: 1px; width: 100%; background-color: #ffb5ae; position: absolute; top: 185px; z-index: 100;"></div>
-</div>
-
-
-<!-- 
-<div class="chimee-container">
-	<video tabindex="-1"></video>
-</div>
- -->
-
-
-
-
-
-
 </html>
 
 
