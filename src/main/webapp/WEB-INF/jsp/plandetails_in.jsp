@@ -155,7 +155,7 @@
 		<input type="hidden" id="numbyplan" value="">
 		<input type="hidden" id="aid" value="">
 		<input type="hidden" id="plid" value="">
-		<input type="hidden" id="plaisrecord" value="">
+		<input type="hidden" id="plaisrecord" weight_isrecord=0 score_isrecord=0 value="">
 		
 
 	</div>

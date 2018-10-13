@@ -366,7 +366,9 @@ public class PlanController {
 				JSONObject jsonObj = new JSONObject();
 				jsonObj.put("alid", actionLog.getiId());
 				jsonObj.put("num", actionLog.getiNumbyplan());
-				jsonObj.put("date", Commons.formatDate(actionLog.getDtCdate(), "MM.dd HH:mm"));
+				// jsonObj.put("date", Commons.formatDate(actionLog.getDtCdate(), "MM.dd
+				// HH:mm"));
+				jsonObj.put("date", actionLog.getDtCdate().getTime()+"");
 				jsonObj.put("scoreweight", actionLog.getfScoreweight());
 				if (action.getTiType() == 0) {
 					jsonObj.put("score", actionLog.getiScorenum());

@@ -3,24 +3,50 @@ $(function() {
 	var myChart;
 	var option;
 	var logNum=0;
+	
+	// 次数失去焦点处理时间
+	$("#score").on("blur", function() {
+				
+		// 添加、修改相关操作
+		if ($("#plaisrecord").attr("score_isrecord")==1) {
+			// 做修改操作
+			option.dataset.source[2].splice(logNum, 1, $(this).val());
+			updateData(myChart,  option.dataset);
+			} else {
+				// 得到当前时间
+				var date = new Date();
+				var dateStr = date.getTime();
+				//var dateStr = date.getMonth() + "." + date.getDay() + " " + date.getHours() + ":" + date.getMinutes()+":"+date.get;
+				// 做添加操作
+				addData(myChart, option, dateStr,null,$(this).val());
+				logNum++;
+				$("#plaisrecord").attr("score_isrecord",1);
+			}
+		if($("#plaisrecord").attr("score_isrecord")==1&&$("#plaisrecord").attr("weight_isrecord")==1){
+			$("#plaisrecord").val(1);
+		}
+		});
+	
 	// 负重失去焦点处理事件
 	$("#scoreweight").on("blur", function() {
 
-		var x_data = option.xAxis.data;
-		var y_data = option.series[0].data;
-		// TODO 添加之后的处理，修改之后的相关处理还未完成
-		if ($("#plaisrecord").val()==1) {
+		
+		// 添加、修改相关操作
+		if ($("#plaisrecord").attr("weight_isrecord")==1) {
 			// 做修改操作
-			y_data.splice(logNum-1, 1, $(this).val());
-			updateData(myChart, x_data,y_data)
+			option.dataset.source[1].splice(logNum, 1, $(this).val());
+			updateData(myChart,  option.dataset);
 		} else {
 			// 得到当前时间
 			var date = new Date();
 			var dateStr = date.getMonth() + "." + date.getDay() + " " + date.getHours() + ":" + date.getMinutes();
 			// 做添加操作
-			addData(myChart, option, $(this).val(),dateStr);
+			addData(myChart, option, dateStr,$(this).val(),null);
 			logNum++;
-			$("#plaisrecord").val("1");
+			$("#plaisrecord").attr("weight_isrecord",1);
+		}
+		if($("#plaisrecord").attr("score_isrecord")==1&&$("#plaisrecord").attr("weight_isrecord")==1){
+			$("#plaisrecord").val(1);
 		}
 	});
 	// 列表记录按钮处理事件
@@ -111,25 +137,26 @@ $(function() {
 			} ,
 			success : function(data) {
 				layer.close(layer_load);
-				var xData = [];
-				var yData = [];
+				var dataset={source:[["时间"],["负重"],["次数"]]};
 				
 				for(var i=0;i<data.length;i++){
+					
 					if(data[i].lognum!=null){
 						logNum = data[i].lognum;
 					}else{
-						var logData = [data[i].date,data[i].scoreweight]; 
-						xData.push(data[i].date);
-						yData.push(data[i].scoreweight);
+						dataset.source[0].push(data[i].date);
+						dataset.source[1].push(data[i].scoreweight);
+						dataset.source[2].push(data[i].score);
 					}
 				}
+				
 				// 获取echarts绘图区
 				myChart = echarts.init($("#dialog_chart").get(0));
 				
 				// 设置绘图区宽度
 				$("#chart").width(content.width());
 				// 设置echarts参数
-				option = dialogBaseData({"x":xData,"y":yData}, content.width());
+				option = dialogBaseData(dataset, content.width());
 				// 设置绘图区grid偏移
 				var leftOffSet = ((2-(logNum==-1?4:logNum))*25);
 				option.grid.left=leftOffSet+"%";
@@ -182,6 +209,10 @@ function setRecordDialog(img_obj) {
 	$("#aid").val(actionid);
 	$("#plid").val(planlogid);
 	$("#plaisrecord").val(isrecord);
+	if(isrecord=="1"){
+		$("#plaisrecord").attr("weight_isrecord",1);
+		$("#plaisrecord").attr("score_isrecord",1);
+	}
 	if (actiontype == "0") {
 		$("#score_unit").text(actionunit);
 		$("#score_title").text("次数")

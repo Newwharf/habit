@@ -48,8 +48,8 @@
 
 		<img id="deleteplan" alt="" src="/habit/img/details_delete.png" width="25px" planid="<%=plan.getiId()%>">
 		&nbsp;&nbsp;
-		<img id="moreplan" alt="" src="/habit/img/details_more.png" width="25px">
-		&nbsp;&nbsp;
+		<!--<img id="moreplan" alt="" src="/habit/img/details_more.png" width="25px">
+		&nbsp;&nbsp;-->
 		<img id="editplan" alt="" src="/habit/img/details_edit.png" width="25px" planid="<%=plan.getiId()%>">
 	</p>
 	<div style="width: 90%; margin: 5% 5% 100px 5%">
