@@ -2,26 +2,30 @@ $(function() {
 
 	var myChart;
 	var option;
-	var logNum=0;
+	var scoreLogNum=0;
+	var weightLogNum=0;
 	
-	// 次数失去焦点处理时间
+	
+	// 次数失去焦点处理事件
 	$("#score").on("blur", function() {
 				
 		// 添加、修改相关操作
 		if ($("#plaisrecord").attr("score_isrecord")==1) {
 			// 做修改操作
-			option.dataset.source[2].splice(logNum, 1, $(this).val());
-			updateData(myChart,  option.dataset);
+			option.dataset.source[2].splice(scoreLogNum, 1, $(this).val());
 			} else {
-				// 得到当前时间
-				var date = new Date();
-				var dateStr = date.getTime();
-				//var dateStr = date.getMonth() + "." + date.getDay() + " " + date.getHours() + ":" + date.getMinutes()+":"+date.get;
-				// 做添加操作
-				addData(myChart, option, dateStr,null,$(this).val());
-				logNum++;
+				// 添加次数
+				option.dataset.source[2].push($(this).val());
+				if(option.dataset.source[0].length!=option.dataset.source[2].length){
+					// 如果时间没添加过，添加事件
+					option.dataset.source[0].push(new Date().getTime());
+				}
+				
+				scoreLogNum++;
 				$("#plaisrecord").attr("score_isrecord",1);
 			}
+		// 刷新折线图
+		myChart.setOption(option);
 		if($("#plaisrecord").attr("score_isrecord")==1&&$("#plaisrecord").attr("weight_isrecord")==1){
 			$("#plaisrecord").val(1);
 		}
@@ -34,17 +38,19 @@ $(function() {
 		// 添加、修改相关操作
 		if ($("#plaisrecord").attr("weight_isrecord")==1) {
 			// 做修改操作
-			option.dataset.source[1].splice(logNum, 1, $(this).val());
-			updateData(myChart,  option.dataset);
+			option.dataset.source[1].splice(weightLogNum, 1, $(this).val());
 		} else {
-			// 得到当前时间
-			var date = new Date();
-			var dateStr = date.getMonth() + "." + date.getDay() + " " + date.getHours() + ":" + date.getMinutes();
-			// 做添加操作
-			addData(myChart, option, dateStr,$(this).val(),null);
-			logNum++;
+			// 添加负重
+			option.dataset.source[1].push($(this).val());
+			if(option.dataset.source[0].length!=option.dataset.source[1].length){
+				// 如果时间没添加过，添加事件
+				option.dataset.source[0].push(new Date().getTime());
+			}
+			weightLogNum++;
 			$("#plaisrecord").attr("weight_isrecord",1);
 		}
+		// 刷新折线图
+		myChart.setOption(option);
 		if($("#plaisrecord").attr("score_isrecord")==1&&$("#plaisrecord").attr("weight_isrecord")==1){
 			$("#plaisrecord").val(1);
 		}
@@ -76,6 +82,11 @@ $(function() {
 		title : false ,
 		btn : ['确定'] ,
 		offset : '40px' ,
+		end:function(){
+			$("#plaisrecord").val(0);
+			$("#plaisrecord").attr("score_isrecord",0);
+			$("#plaisrecord").attr("weight_isrecord",0);
+		},
 		yes : function() {
 
 			if ($("#score").val() == "" || $("#scoreweight").val() == "") {
@@ -137,18 +148,56 @@ $(function() {
 			} ,
 			success : function(data) {
 				layer.close(layer_load);
-				var dataset={source:[["时间"],["负重"],["次数"]]};
+				let dataset={source:[["时间"],["负重"],["次数"]]};
 				
-				for(var i=0;i<data.length;i++){
+				for(let i=0;i<data.length;i++){
 					
 					if(data[i].lognum!=null){
-						logNum = data[i].lognum;
+						weightLogNum = data[i].lognum;
+						scoreLogNum = data[i].lognum;
 					}else{
-						dataset.source[0].push(data[i].date);
 						dataset.source[1].push(data[i].scoreweight);
 						dataset.source[2].push(data[i].score);
 					}
 				}
+				
+				// 将时间固定成5
+				for(let i=0;i<5;i++){
+					dataset.source[0].push(i);
+				}
+				
+				
+				// 设置偏移量与视图区宽度
+				let 	grid_w = content.width();
+				let grid_leftOffSet = 0;
+				
+				switch(dataset.source[1].length-1)
+				{
+				    case 3:
+				        if(scoreLogNum==-1||scoreLogNum==3){
+				        		grid_leftOffSet=-20;
+				        }
+				        break;
+				    case 4:
+				    		if(scoreLogNum==-1||scoreLogNum==4){
+				    			grid_leftOffSet=-30;
+				        }else if(scoreLogNum==3){
+				        		grid_leftOffSet=-20;
+				        }
+				        break;
+				    case 5:
+				    	if(scoreLogNum==-1||scoreLogNum==5){
+				    			grid_leftOffSet=-60;
+				        }else if(scoreLogNum==3){
+				        		grid_leftOffSet=-20;
+				        }else if(scoreLogNum==4){
+				        		grid_leftOffSet=-30;
+				        }
+				        break;
+				    default:
+				}
+				
+//				alert("grid_w："+grid_w+"，grid_leftOffSet："+grid_leftOffSet+"，logNum："+scoreLogNum+"，length："+(dataset.source[1].length-1));;
 				
 				// 获取echarts绘图区
 				myChart = echarts.init($("#dialog_chart").get(0));
@@ -156,10 +205,8 @@ $(function() {
 				// 设置绘图区宽度
 				$("#chart").width(content.width());
 				// 设置echarts参数
-				option = dialogBaseData(dataset, content.width());
-				// 设置绘图区grid偏移
-				var leftOffSet = ((2-(logNum==-1?4:logNum))*25);
-				option.grid.left=leftOffSet+"%";
+				option = dialogBaseData(dataset, grid_w);
+				option.grid.left=grid_leftOffSet+"%";
 				// 绘制图表
 				myChart.setOption(option);
 			}

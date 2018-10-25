@@ -56,13 +56,13 @@
 		from
 		h_action_log hal
 		left join
-		h_plan_action hpa
+		h_plan_log hpl
 		on
-		hal.i_actionid=hpa.i_actionid
+		hal.i_planlogid=hpl.id
 		where
-		hpa.i_planid=#{pid}
+		hpl.i_planid=#{pid}
 		and
-		hpa.i_actionid=#{aid}
+		hal.i_actionid=#{aid}
 		and
 		hal.dt_cdate &lt; #{cdate}
 		and
@@ -78,13 +78,13 @@
 		from
 		h_action_log hal
 		left join
-		h_plan_action hpa
+		h_plan_log hpl
 		on
-		hal.i_actionid=hpa.i_actionid
+		hal.i_planlogid=hpl.id
 		where
-		hpa.i_planid=#{pid}
+		hpl.i_planid=#{pid}
 		and
-		hpa.i_actionid=#{aid}
+		hal.i_actionid=#{aid}
 		and
 		hal.dt_cdate &gt; #{cdate}
 		and
@@ -100,13 +100,13 @@
 		h_action_log
 		hal
 		left join
-		h_plan_action hpa
+		h_plan_log hpl
 		on
-		hal.i_actionid=hpa.i_actionid
+		hal.i_planlogid=hpl.id
 		where
-		hpa.i_planid=#{pid}
+		hpl.i_planid=#{pid}
 		and
-		hpa.i_actionid=#{aid}
+		hal.i_actionid=#{aid}
 		and
 		hal.ti_state=0
 		order by

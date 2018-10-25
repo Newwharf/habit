@@ -4,8 +4,10 @@ function dialogBaseData(data, p_div_w) {
 		dataset : data,
 		grid : {
 			width : p_div_w * 1.36 + 'px',
-			height : '285px',
+			height : '145px',
 			top : 40,
+			backgroundColor:'#000000',
+			show: false,
 			left : '0%'
 		},
 		xAxis : {
@@ -31,10 +33,10 @@ function dialogBaseData(data, p_div_w) {
 				padding : [ 0, 0, 0, 10 ]
 			},
 			axisTick : {
-				show : true,
+				show : false,
 				alignWithLabel : true,
 				interval : 0,
-				length : 400,
+				length : 1000,
 				inside : true,
 				color : '#ffb5ae',
 				lineStyle : {

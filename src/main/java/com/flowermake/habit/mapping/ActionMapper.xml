@@ -29,7 +29,8 @@
 		left join h_plan_action hpa on
 		ha.i_id=hpa.i_actionid where
 		hpa.i_planid=#{pid} and
-		ha.i_userid=#{uid}
+		ha.i_userid=#{uid} and 
+		hpa.ti_state=0
 	</select>
 	<select id="selectByUserId" resultMap="BaseResultMap">
 		select * from
