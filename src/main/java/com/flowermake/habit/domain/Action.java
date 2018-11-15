@@ -16,6 +16,8 @@ public class Action {
     private Byte sState;
 
     private Date dtCdate;
+    
+    private Long iActionTypeid;
 
     public Long getiId() {
         return iId;
@@ -72,4 +74,13 @@ public class Action {
     public void setDtCdate(Date dtCdate) {
         this.dtCdate = dtCdate;
     }
+
+	public Long getiActionTypeid() {
+		return iActionTypeid;
+	}
+
+	public void setiActionTypeid(Long iActionTypeid) {
+		this.iActionTypeid = iActionTypeid;
+	}
+    
 }

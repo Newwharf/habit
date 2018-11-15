@@ -197,7 +197,6 @@ $(function() {
 				    default:
 				}
 				
-//				alert("grid_w："+grid_w+"，grid_leftOffSet："+grid_leftOffSet+"，logNum："+scoreLogNum+"，length："+(dataset.source[1].length-1));;
 				
 				// 获取echarts绘图区
 				myChart = echarts.init($("#dialog_chart").get(0));

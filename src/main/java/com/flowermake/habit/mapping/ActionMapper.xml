@@ -9,6 +9,7 @@
 		<result column="i_userid" jdbcType="BIGINT" property="iUserid" />
 		<result column="s_state" jdbcType="TINYINT" property="sState" />
 		<result column="dt_cdate" jdbcType="TIMESTAMP" property="dtCdate" />
+		<result column="i_actiontypeid" jdbcType="BIGINT" property="iActionTypeid" />
 	</resultMap>
 	<resultMap id="PlanActionResultMap"
 		type="com.flowermake.habit.domain.Action_PlanDetailsJSPTemp">

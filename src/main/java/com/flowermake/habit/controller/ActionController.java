@@ -140,4 +140,27 @@ public class ActionController {
 		Commons.ajaxResponse(response, msg);
 	}
 
+	@RequestMapping("/actionlist")
+	public String actionTypeList(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		User user = (User) request.getSession().getAttribute("user");
+		
+		
+		return "actionlist";
+	}
+	
+	@RequestMapping("addactiontype")
+	public void addActionType(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		
+	}
+	
+	@RequestMapping("editactiontype")
+	public void editActionType(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		
+	}
+	
+	@RequestMapping("deleteactiontype")
+	public void deleteActionType(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		
+	}
+	
 }
