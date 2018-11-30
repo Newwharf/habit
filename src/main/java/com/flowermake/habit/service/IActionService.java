@@ -3,9 +3,20 @@ package com.flowermake.habit.service;
 import java.util.List;
 
 import com.flowermake.habit.domain.Action;
+import com.flowermake.habit.domain.Action_NewPlanJSPTemp;
 import com.flowermake.habit.domain.Action_PlanDetailsJSPTemp;
 
 public interface IActionService {
+
+	/**
+	 * 查询该用户下所有未删除的动作
+	 * 
+	 * @param uid
+	 *            用户id
+	 * @return 带分类的动作集合
+	 * @throws Exception
+	 */
+	public List<Action_NewPlanJSPTemp> selectByUserId(long uid) throws Exception;
 
 	/**
 	 * 添加一个动作，添加动作之前会调用valiDataAction进行验证
@@ -27,10 +38,10 @@ public interface IActionService {
 	public String valiDataAction(Action action) throws Exception;
 
 	/**
-	 * 根据用户id查询未删除的动作
+	 * 根据分类id查询未删除的动作
 	 * 
-	 * @param uid
-	 *            用户id
+	 * @param typeid
+	 *            分类id
 	 * @param m
 	 *            分页开始的条数
 	 * @param n
@@ -38,7 +49,7 @@ public interface IActionService {
 	 * @return 动作集合
 	 * @throws Exception
 	 */
-	public List<Action> findActionByUserId(long uid, int m, int n) throws Exception;
+	public List<Action> findActionByTypeId(long typeid, int m, int n) throws Exception;
 
 	/**
 	 * 根据动作id删除一个动作
@@ -80,5 +91,19 @@ public interface IActionService {
 	 * @return 动作集合
 	 * @throws Exception
 	 */
-	List<Action_PlanDetailsJSPTemp> selectByPlan(long pid, long uid) throws Exception;
+	public List<Action_PlanDetailsJSPTemp> selectByPlan(long pid, long uid) throws Exception;
+
+	/**
+	 * 查询该用户下所有未删除的动作
+	 * 
+	 * @param uid
+	 *            用户id
+	 * @param m
+	 *            分页起始位置
+	 * @param n
+	 *            分页取多少条
+	 * @return List<Action>
+	 * @throws Exception
+	 */
+	public List<Action> selectActionByUserId(long uid, int m, int n) throws Exception;
 }

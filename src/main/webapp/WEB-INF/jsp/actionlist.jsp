@@ -12,6 +12,7 @@
 	User user = (User) session.getAttribute("user");
 
 	List<Action> actionList = (List<Action>) request.getAttribute("actionList");
+	long actiontypeid = (Long) request.getAttribute("actiontypeid");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />
@@ -37,10 +38,11 @@
 </head>
 
 <body style="background-color: #f8f8f8;">
+	<div class="add_button" actiontypeid="<%=actiontypeid%>">+</div>
 	<div id="action_list" style="width: 90%; margin: auto;">
 
 		<%
-			if (actionList != null) {
+			if (actionList.size()>0) {
 		%>
 		<%
 			for (Action action : actionList) {
@@ -53,7 +55,7 @@
 			<div>
 				<span id="action_name_<%=action.getiId()%>"><%=action.getvName()%></span><br>
 				<font id="action_type_<%=action.getiId()%>">计次动作</font>
-				<img class="action_edit" alt="" src="/habit/img/edit.png" width="25px" actionid='<%=action.getiId()%>' actionname='<%=action.getvName()%>' actiontype='<%=action.getTiType()%>' actionunit='<%=action.getvUnit()%>'>
+				<img class="action_edit" alt="" src="/habit/img/edit.png" width="25px" actionid='<%=action.getiId()%>' actionname='<%=action.getvName()%>' actiontype='<%=action.getTiType()%>' actionunit='<%=action.getvUnit()%>' actiontypeid='<%=action.getiActionTypeid()%>'>
 			</div>
 			<%
 				} else {
@@ -62,7 +64,7 @@
 			<div>
 				<span id="action_name_<%=action.getiId()%>"><%=action.getvName()%></span><br>
 				<font id="action_type_<%=action.getiId()%>">计时动作</font>
-				<img class="action_edit" alt="" src="/habit/img/edit.png" width="25px" actionid='<%=action.getiId()%>' actionname='<%=action.getvName()%>' actiontype='<%=action.getTiType()%>' actionunit='<%=action.getvUnit()%>'>
+				<img class="action_edit" alt="" src="/habit/img/edit.png" width="25px" actionid='<%=action.getiId()%>' actionname='<%=action.getvName()%>' actiontype='<%=action.getTiType()%>' actionunit='<%=action.getvUnit()%>' actiontypeid='<%=action.getiActionTypeid()%>'>
 			</div>
 			<%
 				}
@@ -74,17 +76,14 @@
 			}
 		%>
 		<%
+			} else {
+		%>
+		
+		<div class="nulltip" style="width: 100%;text-align: center;font-size: 20px;margin-top: 70%;">点击右下角按钮来添加动作</div>
+		
+		<%
 			}
 		%>
-
-		<div class="new_button" style="left: 50%; position: relative; width: 50%; height: 60px; background-color: white;">
-			<div style="width: 3px; height: 100%; background-color: #FF0000; float: right;"></div>
-			<div style="float: right; padding-right: 35px; line-height: 60px;">
-				<span style="font-size: 18px; color: #9b9b9b;">添加动作</span>
-				<img src="../img/new.png" width="25px;" style="position: absolute; top: 17px; left: 17px;">
-			</div>
-		</div>
-
 	</div>
 
 	<!-- 新增动作面板 -->

@@ -9,7 +9,8 @@
 		<result column="ti_state" jdbcType="TINYINT" property="tiState" />
 	</resultMap>
 	<update id="updateStateByPlanId">
-		update h_plan_action set ti_state=1 where i_planid=#{p_id}
+		update h_plan_action set ti_state=1 where
+		i_planid=#{p_id}
 	</update>
 	<insert id="insert" parameterType="com.flowermake.habit.domain.PlanAction">
 		insert into h_plan_action
@@ -20,6 +21,23 @@
 		#{iNum,jdbcType=INTEGER},
 		#{dtCdate,jdbcType=TIMESTAMP},
 		#{tiState,jdbcType=TINYINT})
+	</insert>
+	<insert id="insertList" parameterType="java.util.List">
+		insert into h_plan_action
+		(i_planid, i_actionid, i_num,
+		dt_cdate,
+		ti_state)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.iPlanid,jdbcType=BIGINT},
+			#{item.iActionid,jdbcType=BIGINT},
+			#{item.iNum,jdbcType=INTEGER},
+			#{item.dtCdate,jdbcType=TIMESTAMP},
+			#{item.tiState,jdbcType=TINYINT}
+			)
+		</foreach>
 	</insert>
 	<insert id="insertSelective" parameterType="com.flowermake.habit.domain.PlanAction">
 		insert into h_plan_action
@@ -58,6 +76,14 @@
 			</if>
 		</trim>
 	</insert>
+	<select id="selectByActionTypeId" resultMap="BaseResultMap">
+		SELECT hpa.* FROM
+		h_plan_action hpa left join h_action ha on
+		hpa.i_actionid=ha.i_id left
+		join h_actiontype hat on ha.i_actiontypeid
+		= hat.i_id where
+		hpa.ti_state=#{state} and hat.i_id=#{at_id} limit #{start},#{end};
+	</select>
 
 	<select id="selectByPlanId" resultMap="BaseResultMap">
 		select * from

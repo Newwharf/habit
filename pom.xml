@@ -201,6 +201,8 @@
 			</plugin>
 		</plugins>
 
+
+
 		<!-- 保证com文件夹下的所有文件包括xml都能一起打包 -->
 		<resources>
 			<resource>

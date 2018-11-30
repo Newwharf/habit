@@ -29,12 +29,11 @@
 <!-- 引入主样式 -->
 <link rel="stylesheet" href="<%=basePath%>css/style.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>plugs/layer/skin/dialog_2button/style.css" type="text/css" />
-
+<link rel="stylesheet" href="<%=basePath%>plugs/layui/css/layui.css" type="text/css" />
 <!-- 引入JS -->
 <script type="text/javascript" src="<%=basePath%>plugs/jquery/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>plugs/layer/layer.js"></script>
-<script type="text/javascript" src="<%=basePath%>plugs/jquery/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="<%=basePath%>plugs/layer/layer.js"></script>
+<script type="text/javascript" src="<%=basePath%>plugs/layui/layui.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/common.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/editplan.js"></script>
 
@@ -93,42 +92,18 @@
 
 <!-- 添加动作面板 -->
 <div class="list_panel_dialog" style="display: none;">
-	<%
-		for (int i = 0; i < actionList.size(); i++) {
-			Action action = actionList.remove(i);
-			boolean isSelected = false;
-			for (int m = 0; m < tempActionList.size(); m++) {
-				if (action.equals(tempActionList.get(m).getAid())) {
+	<div class="panel_dialog_loding" style="display: none;">
+		<img alt="" src="/habit/img/big_loding.gif" width="40px;">
+	</div>
+	<div class="panel_dialog_nulltip" style="display: none;">
+		<img alt="" src="/habit/img/nulltip.png" width="60px;">
+		<p style="margin-top: 10px;">
+			动作列表空了<br>请先去动作管理中添加
+		</p>
+		<p style="margin-left: auto; margin-right: auto; margin-top: 20px; width: 70%; font-size: 13px; color: #999">我知道这里不能直接点到动作管理里面是一件体验很不好的事，但主要是写起来有点麻烦，所以求求你们理解理解我这个头发快掉光的年轻人吧。你可以返回主页，然后点击左上角头像，就能管理动作了，快快去吧。多一点理解，少一点脱发，愿人间充满温暖与爱。</p>
+	</div>
 
-					tempActionList.remove(m);
-					isSelected = true;
-	%>
-	<div style="display: none;" actionid="<%=action.getiId()%>" actionname="<%=action.getvName()%>" actiontype="<%=action.getTiType()%>" actionunit="<%=action.getvUnit()%>" class="list_panel_dialog_item action_show" id="list_panel_dialog_item_<%=action.getiId()%>">
-		<div class="list_panel_dialog_item_tap <%=action.getTiType() == 0 ? "dialog_rm" : "dialog_time"%>"></div>
-		<div class="list_panel_dialog_item_msg"><%=action.getvName()%></div>
-	</div>
-	<div class='line_01' style="display: none;"></div>
-	<%
-		break;
-				}
-			}
-			if (!isSelected) {
-	%>
-	<div actionid="<%=action.getiId()%>" actionname="<%=action.getvName()%>" actiontype="<%=action.getTiType()%>" actionunit="<%=action.getvUnit()%>" class="list_panel_dialog_item action_show" id="list_panel_dialog_item_<%=action.getiId()%>">
-		<div class="list_panel_dialog_item_tap <%=action.getTiType() == 0 ? "dialog_rm" : "dialog_time"%>"></div>
-		<div class="list_panel_dialog_item_msg"><%=action.getvName()%></div>
-	</div>
-	<div class='line_01'></div>
-	<%
-		}
-	%>
-	<%
-		}
-	%>
-	<p class="panel_dialog_nodata" style="<%=isSelectAll ? "display: none;" : ""%>" id="action_nodata">
-		<span>已经没有更多动作了<br>没有了，被选完了
-		</span>
-	</p>
+	<ul loaded="0" id="actionlistul" class="layui-nav layui-nav-tree" style="width: 100%; display: none;"></ul>
 </div>
 <input type="hidden" id="hidder_planid" value="<%=plan.getiId()%>">
 </html>

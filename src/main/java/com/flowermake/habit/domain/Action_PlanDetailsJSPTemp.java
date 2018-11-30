@@ -1,6 +1,10 @@
 package com.flowermake.habit.domain;
 
-//plandetails页面的临时action展示视图
+/**
+ * plandetails页面的临时action展示视图
+ * @author lihan
+ *
+ */
 public class Action_PlanDetailsJSPTemp {
 
 	/**

@@ -4,7 +4,6 @@ $(function() {
 	isCtrlBack = true;
 	// 点击头像区域触发更多面板
 	$(".headclick").on("touchstart", function(e) {
-
 		// 禁止滚动
 		$("body").css("overflow", "hidden");
 		// 以动画形式显示更多面板动画层
@@ -56,7 +55,7 @@ $(function() {
 			$("#button_logchart").hide();
 		}, 300);
 	});
-	// 用户基本信息按钮事件
+	// 身体指标按钮事件
 	$("#button_userinfo").on("click", function() {
 
 		layer.load(1, {
@@ -64,13 +63,13 @@ $(function() {
 		});
 		$(location).attr('href', 'user/userinformation');
 	});
-	// 用户动作管理按钮事件
+	// 动作管理按钮事件
 	$("#button_action").on("click", function() {
 
 		layer.load(1, {
 			shade : [0.5 , '#000']
 		});
-		$(location).attr('href', 'action/actionlist');
+		$(location).attr('href', 'action/actiontypelist');
 	});
 	// 分析报表按钮事件
 	$("#button_logchart").on("click", function() {

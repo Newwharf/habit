@@ -20,9 +20,38 @@
 		<result column="ti_type" jdbcType="TINYINT" property="type" />
 		<result column="v_unit" jdbcType="VARCHAR" property="unit" />
 	</resultMap>
+	<resultMap id="ActionTypeResultMap"
+		type="com.flowermake.habit.domain.Action_NewPlanJSPTemp">
+		<id column="actiontypeid" jdbcType="BIGINT" property="actionTypeId" />
+		<id column="actionid" jdbcType="BIGINT" property="actionId" />
+		<result column="actiontypename" jdbcType="VARCHAR" property="actionTypeName" />
+		<result column="actionname" jdbcType="VARCHAR" property="actionName" />
+		<result column="actiontype" jdbcType="TINYINT" property="actionType" />
+		<result column="actionunit" jdbcType="VARCHAR" property="actionUnit" />
+	</resultMap>
 	<sql id="Base_Column_List">
-		i_id, v_name, ti_type, v_unit, i_userid, s_state, dt_cdate
+		i_id, v_name, ti_type, v_unit, i_userid, s_state,
+		dt_cdate,i_actiontypeid
 	</sql>
+	<select id="selectActionByUserId" resultMap="BaseResultMap">
+		select * from h_action where i_userid=#{uid} and s_state=0 limit #{m},#{n}
+	</select>
+	<select id="selectByUserId" resultMap="ActionTypeResultMap">
+		select
+		hat.i_id as
+		actiontypeid,hat.v_name as actiontypename,ha.i_id as
+		actionid,ha.v_name as actionname,ha.v_unit as actionunit,ha.ti_type as
+		actiontype
+		from
+		h_action ha
+		left join
+		h_actiontype hat
+		on
+		ha.i_actiontypeid=hat.i_id
+		where ha.s_state=0
+		and hat.ti_state=0 and
+		hat.i_userid=#{uid}
+	</select>
 	<select id="selectByPlan" resultMap="PlanActionResultMap">
 		select
 		ha.i_id,ha.v_name,ha.ti_type,ha.v_unit,hpa.i_planid,hpa.i_num from
@@ -30,16 +59,16 @@
 		left join h_plan_action hpa on
 		ha.i_id=hpa.i_actionid where
 		hpa.i_planid=#{pid} and
-		ha.i_userid=#{uid} and 
+		ha.i_userid=#{uid} and
 		hpa.ti_state=0
 	</select>
-	<select id="selectByUserId" resultMap="BaseResultMap">
+	<select id="selectByTypeId" resultMap="BaseResultMap">
 		select * from
 		h_action
 		where
 		s_state=0
 		and
-		i_userid=#{uid}
+		i_actiontypeid=#{typeid}
 		order by dt_cdate DESC
 		limit
 		#{start},#{end}
@@ -60,13 +89,13 @@
 		insert into h_action (i_id,
 		v_name, ti_type,
 		v_unit, i_userid, s_state,
-		dt_cdate)
+		dt_cdate,i_actiontypeid)
 		values
 		(#{iId,jdbcType=BIGINT}, #{vName,jdbcType=VARCHAR},
 		#{tiType,jdbcType=TINYINT},
 		#{vUnit,jdbcType=VARCHAR},
 		#{iUserid,jdbcType=BIGINT}, #{sState,jdbcType=TINYINT},
-		#{dtCdate,jdbcType=TIMESTAMP})
+		#{dtCdate,jdbcType=TIMESTAMP},#{iActionTypeid,jdbcType=BIGINT})
 	</insert>
 	<insert id="insertSelective" parameterType="com.flowermake.habit.domain.Action">
 		insert into h_action

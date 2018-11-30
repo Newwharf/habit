@@ -9,11 +9,21 @@ public class ActionType {
 
     private Date dtCdate;
 
-    private String tiState;
+    private byte tiState;
 
     private Long iUserid;
+    
+    private String vRemarks;
 
-    public Long getiId() {
+    public String getvRemarks() {
+		return vRemarks;
+	}
+
+	public void setvRemarks(String vRemarks) {
+		this.vRemarks = vRemarks;
+	}
+
+	public Long getiId() {
         return iId;
     }
 
@@ -37,12 +47,12 @@ public class ActionType {
         this.dtCdate = dtCdate;
     }
 
-    public String getTiState() {
+    public byte getTiState() {
         return tiState;
     }
 
-    public void setTiState(String tiState) {
-        this.tiState = tiState == null ? null : tiState.trim();
+    public void setTiState(byte tiState) {
+        this.tiState = tiState;
     }
 
     public Long getiUserid() {
@@ -52,4 +62,5 @@ public class ActionType {
     public void setiUserid(Long iUserid) {
         this.iUserid = iUserid;
     }
+    
 }

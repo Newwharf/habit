@@ -1,105 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flowermake.habit.dao.ActionTypeMapper">
-  <resultMap id="BaseResultMap" type="com.flowermake.habit.domain.ActionType">
-    <id column="i_id" jdbcType="BIGINT" property="iId" />
-    <result column="v_name" jdbcType="VARCHAR" property="vName" />
-    <result column="dt_cdate" jdbcType="TIMESTAMP" property="dtCdate" />
-    <result column="ti_state" jdbcType="VARCHAR" property="tiState" />
-    <result column="i_userid" jdbcType="BIGINT" property="iUserid" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    i_id, v_name, dt_cdate, ti_state, i_userid
-  </sql>
-  <select id="selectByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from h_actiontype
-    where 
-    i_userid = #{uid,jdbcType=BIGINT}
-    and
-    ti_state=0
-    order by dt_cdate asc
-    limit #{m},#{n}
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from h_actiontype
-    where 
-    i_id = #{iId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from h_actiontype
-    where i_id = #{iId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.flowermake.habit.domain.ActionType">
-    insert into h_actiontype (i_id, v_name, dt_cdate, 
-      ti_state, i_userid)
-    values (#{iId,jdbcType=BIGINT}, #{vName,jdbcType=VARCHAR}, #{dtCdate,jdbcType=TIMESTAMP}, 
-      #{tiState,jdbcType=VARCHAR}, #{iUserid,jdbcType=BIGINT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.flowermake.habit.domain.ActionType">
-    insert into h_actiontype
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="iId != null">
-        i_id,
-      </if>
-      <if test="vName != null">
-        v_name,
-      </if>
-      <if test="dtCdate != null">
-        dt_cdate,
-      </if>
-      <if test="tiState != null">
-        ti_state,
-      </if>
-      <if test="iUserid != null">
-        i_userid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="iId != null">
-        #{iId,jdbcType=BIGINT},
-      </if>
-      <if test="vName != null">
-        #{vName,jdbcType=VARCHAR},
-      </if>
-      <if test="dtCdate != null">
-        #{dtCdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="tiState != null">
-        #{tiState,jdbcType=VARCHAR},
-      </if>
-      <if test="iUserid != null">
-        #{iUserid,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.flowermake.habit.domain.ActionType">
-    update h_actiontype
-    <set>
-      <if test="vName != null">
-        v_name = #{vName,jdbcType=VARCHAR},
-      </if>
-      <if test="dtCdate != null">
-        dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="tiState != null">
-        ti_state = #{tiState,jdbcType=VARCHAR},
-      </if>
-      <if test="iUserid != null">
-        i_userid = #{iUserid,jdbcType=BIGINT},
-      </if>
-    </set>
-    where i_id = #{iId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.flowermake.habit.domain.ActionType">
-    update h_actiontype
-    set v_name = #{vName,jdbcType=VARCHAR},
-      dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
-      ti_state = #{tiState,jdbcType=VARCHAR},
-      i_userid = #{iUserid,jdbcType=BIGINT}
-    where i_id = #{iId,jdbcType=BIGINT}
-  </update>
+	<resultMap id="BaseResultMap" type="com.flowermake.habit.domain.ActionType">
+		<id column="i_id" jdbcType="BIGINT" property="iId" />
+		<result column="v_name" jdbcType="VARCHAR" property="vName" />
+		<result column="dt_cdate" jdbcType="TIMESTAMP" property="dtCdate" />
+		<result column="ti_state" jdbcType="TINYINT" property="tiState" />
+		<result column="i_userid" jdbcType="BIGINT" property="iUserid" />
+		<result column="v_remarks" jdbcType="VARCHAR" property="vRemarks" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		i_id, v_name, dt_cdate, ti_state, i_userid,v_remarks
+	</sql>
+	<select id="selectByUserId" resultMap="BaseResultMap">
+		select
+		*
+		from h_actiontype
+		where
+		i_userid = #{uid}
+		and
+		ti_state=0
+		order by dt_cdate
+		desc
+		limit
+		#{m},#{n}
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from h_actiontype
+		where
+		i_id = #{iId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		update h_actiontype set ti_state=1 where i_id = #{iId,jdbcType=BIGINT};
+		update h_action set s_state=1 where i_actiontypeid = #{iId,jdbcType=BIGINT};
+	</delete>
+	<insert id="insert" parameterType="com.flowermake.habit.domain.ActionType">
+		insert into h_actiontype
+		(i_id, v_name, dt_cdate,
+		ti_state, i_userid,v_remarks)
+		values
+		(#{iId,jdbcType=BIGINT}, #{vName,jdbcType=VARCHAR},
+		#{dtCdate,jdbcType=TIMESTAMP},
+		#{tiState,jdbcType=TINYINT},
+		#{iUserid,jdbcType=BIGINT},#{vRemarks,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.flowermake.habit.domain.ActionType">
+		insert into h_actiontype
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				i_id,
+			</if>
+			<if test="vName != null">
+				v_name,
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate,
+			</if>
+			<if test="tiState != null">
+				ti_state,
+			</if>
+			<if test="iUserid != null">
+				i_userid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				#{iId,jdbcType=BIGINT},
+			</if>
+			<if test="vName != null">
+				#{vName,jdbcType=VARCHAR},
+			</if>
+			<if test="dtCdate != null">
+				#{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tiState != null">
+				#{tiState,jdbcType=TINYINT},
+			</if>
+			<if test="iUserid != null">
+				#{iUserid,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.flowermake.habit.domain.ActionType">
+		update h_actiontype
+		<set>
+			<if test="vName != null">
+				v_name = #{vName,jdbcType=VARCHAR},
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tiState != null">
+				ti_state = #{tiState,jdbcType=TINYINT},
+			</if>
+			<if test="iUserid != null">
+				i_userid = #{iUserid,jdbcType=BIGINT},
+			</if>
+		</set>
+		where i_id = #{iId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.flowermake.habit.domain.ActionType">
+		update
+		h_actiontype
+		set v_name = #{vName,jdbcType=VARCHAR},
+		dt_cdate =
+		#{dtCdate,jdbcType=TIMESTAMP},
+		ti_state = #{tiState,jdbcType=TINYINT},
+		i_userid = #{iUserid,jdbcType=BIGINT},
+		v_remarks =
+		#{vRemarks,jdbcType=VARCHAR}
+		where i_id = #{iId,jdbcType=BIGINT}
+	</update>
 </mapper>

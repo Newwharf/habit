@@ -153,12 +153,14 @@ public class PlanController {
 		// 保存Plan对象及PlanAction对象
 		// TODO 此处应加事务
 		if (planService.addPlan(plan) == 1) {
-			for (PlanAction planAction : planActionList) {
-				planActionService.addPlanAction(planAction);
+			if (planActionService.insertList(planActionList) == planActionList.size()) {
+				JSONObject jsonObj = new JSONObject();
+				jsonObj.put("pid", plan.getiId() + "");
+				Commons.ajaxResponse(response, jsonObj.toJSONString());
+			} else {
+				response.setStatus(500);
+				Commons.ajaxResponse(response, "失败了！系统懵逼中！");
 			}
-			JSONObject jsonObj = new JSONObject();
-			jsonObj.put("pid", plan.getiId() + "");
-			Commons.ajaxResponse(response, jsonObj.toJSONString());
 		} else {
 			response.setStatus(500);
 			Commons.ajaxResponse(response, "失败了！系统懵逼中！");
@@ -310,7 +312,7 @@ public class PlanController {
 		Plan plan = planService.findPlanById(new Long(request.getParameter("pid")));
 		if (user.getiId().equals(plan.getiUserid())) {
 			List<PlanAction> planActionList = planActionService.findPlanActionByPlanId(plan.getiId(), 0, 100);
-			List<Action> actionList = actionService.findActionByUserId(user.getiId(), 0, 100);
+			List<Action> actionList = actionService.selectActionByUserId(user.getiId(), 0, 100);
 			List<Action_PlanDetailsJSPTemp> tempActionList = new ArrayList<Action_PlanDetailsJSPTemp>();
 
 			// 组装tempActionList
@@ -368,7 +370,7 @@ public class PlanController {
 				jsonObj.put("num", actionLog.getiNumbyplan());
 				// jsonObj.put("date", Commons.formatDate(actionLog.getDtCdate(), "MM.dd
 				// HH:mm"));
-				jsonObj.put("date", actionLog.getDtCdate().getTime()+"");
+				jsonObj.put("date", actionLog.getDtCdate().getTime() + "");
 				jsonObj.put("scoreweight", actionLog.getfScoreweight());
 				if (action.getTiType() == 0) {
 					jsonObj.put("score", actionLog.getiScorenum());

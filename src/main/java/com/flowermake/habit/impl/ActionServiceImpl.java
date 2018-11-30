@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.flowermake.habit.dao.ActionMapper;
 import com.flowermake.habit.domain.Action;
+import com.flowermake.habit.domain.Action_NewPlanJSPTemp;
 import com.flowermake.habit.domain.Action_PlanDetailsJSPTemp;
 import com.flowermake.habit.service.IActionService;
 
@@ -32,8 +33,8 @@ public class ActionServiceImpl implements IActionService {
 		return "success";
 	}
 
-	public List<Action> findActionByUserId(long uid, int m, int n) throws Exception {
-		return actionMaaper.selectByUserId(uid, m, n);
+	public List<Action> findActionByTypeId(long typeid, int m, int n) throws Exception {
+		return actionMaaper.selectByTypeId(typeid, m, n);
 	}
 
 	public int deleteActionById(long id) throws Exception {
@@ -50,6 +51,14 @@ public class ActionServiceImpl implements IActionService {
 
 	public List<Action_PlanDetailsJSPTemp> selectByPlan(long pid, long uid) throws Exception {
 		return actionMaaper.selectByPlan(pid, uid);
+	}
+
+	public List<Action_NewPlanJSPTemp> selectByUserId(long uid) throws Exception {
+		return actionMaaper.selectByUserId(uid);
+	}
+
+	public List<Action> selectActionByUserId(long uid, int m, int n) throws Exception {
+		return actionMaaper.selectActionByUserId(uid, m, n);
 	}
 
 }

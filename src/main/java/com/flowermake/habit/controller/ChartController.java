@@ -37,7 +37,7 @@ public class ChartController {
 		User user = (User) request.getSession().getAttribute("user");
 		List<BodyDataLog> bdlList = bdlService.selectLatelyLog(user.getiId());
 		List<ActionLog> actionLogList = actionLogService.selectLatelyLog(user.getiId());
-		List<Action> actionList = actionService.findActionByUserId(user.getiId(), 0, 100);
+		List<Action> actionList = actionService.selectActionByUserId(user.getiId(), 0, 100);
 		Map<Byte, BodyDataLog> bdlMap = new HashMap<Byte, BodyDataLog>();
 		Map<Long, ActionLog> actionLogMap = new HashMap<Long, ActionLog>();
 		for (BodyDataLog bdl : bdlList) {

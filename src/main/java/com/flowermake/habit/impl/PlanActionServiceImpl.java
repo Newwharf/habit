@@ -42,4 +42,12 @@ public class PlanActionServiceImpl implements IPlanActionService {
 		return planActionMapper.updateStateByPlanId(planid);
 	}
 
+	public List<PlanAction> selectByActionTypeId(long state, long at_id, int start, int end) throws Exception {
+		return planActionMapper.selectByActionTypeId(state, at_id, start, end);
+	}
+
+	public int insertList(List<PlanAction> list) throws Exception {
+		return planActionMapper.insertList(list);
+	}
+
 }

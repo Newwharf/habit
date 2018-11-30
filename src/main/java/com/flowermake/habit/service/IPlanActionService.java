@@ -11,6 +11,22 @@ import com.flowermake.habit.domain.PlanAction;
 public interface IPlanActionService {
 
 	/**
+	 * 根据动作分类id查询关联表
+	 * 
+	 * @param state
+	 *            关联表状态，0正常，1已删除
+	 * @param at_id
+	 *            动作分类id
+	 * @param start
+	 *            分页开始位置
+	 * @param end
+	 *            分页总条数
+	 * @return 关联表集合
+	 * @throws Exception
+	 */
+	List<PlanAction> selectByActionTypeId(long state, long at_id, int start, int end) throws Exception;
+
+	/**
 	 * 添加一个训练动作关联
 	 * 
 	 * @param planAction
@@ -77,4 +93,14 @@ public interface IPlanActionService {
 	 * @throws Exception
 	 */
 	public int deleteByPlanId(long planid) throws Exception;
+
+	/**
+	 * 插入一批关联动作
+	 * 
+	 * @param list
+	 *            要插入的集合
+	 * @return
+	 * @throws Exception
+	 */
+	public int insertList(List<PlanAction> list) throws Exception;
 }
