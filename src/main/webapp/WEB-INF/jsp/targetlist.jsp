@@ -54,6 +54,7 @@
 </head>
 
 <body style="background-color: #f8f8f8;">
+	<div class="add_button">+</div>
 	<div id="target_list" style="width: 90%; margin: auto;">
 		<%
 			if (targetListSize > 0) {
@@ -92,15 +93,6 @@
 		<%
 			}
 		%>
-
-		<div class="new_button" style="left: 50%; position: relative; width: 50%; height: 60px; background-color: white;">
-			<div style="width: 3px; height: 100%; background-color: #FF0000; float: right;"></div>
-			<div style="float: right; padding-right: 35px; line-height: 60px;">
-				<span style="font-size: 18px; color: #9b9b9b;">添加目标</span>
-				<img src="../img/new.png" width="25px;" style="position: absolute; top: 17px; left: 17px;">
-			</div>
-		</div>
-
 	</div>
 
 </body>

@@ -27,18 +27,22 @@
 <link rel="icon" href="<%=basePath%>/img/favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="<%=basePath%>/img/favicon.ico" type="image/x-icon" />
 <link rel="bookmark" href="<%=basePath%>/img/favicon.ico" type="image/x-icon" />
-<!-- 引入输入框样式 -->
-<link rel="stylesheet" href="<%=basePath%>css/input_skin/component.css" type="text/css" />
+<!-- 引入样式 -->
+<%-- <link rel="stylesheet" href="<%=basePath%>css/input_skin/component.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/input_skin/font-awesome.min.css" type="text/css" />
-<link rel="stylesheet" href="<%=basePath%>css/input_skin/normalize.css" type="text/css" />
+<link rel="stylesheet" href="<%=basePath%>css/input_skin/normalize.css" type="text/css" /> --%>
 <link rel="stylesheet" href="<%=basePath%>css/style.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/loding01.css" type="text/css" />
+<link rel="stylesheet" href="<%=basePath%>plugs/cropper/cropper1.4.3.min.css" type="text/css" />
+
 
 <!-- 引入JS -->
 <script type="text/javascript" src="<%=basePath%>plugs/jquery/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>plugs/layer/layer.js"></script>
+<script type="text/javascript" src="<%=basePath%>plugs/cropper/cropper1.4.3.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/common.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/userinformation.js"></script>
+
 
 </head>
 
@@ -46,8 +50,8 @@
 	<div id="maindiv">
 		<!-- 基本信息 -->
 		<div class="information_panel information_panel_headimg">
-			<img src="<%=vImgUrl%>" width="85px;" style="border-radius: 50%; position: absolute; left: 0; right: 0; margin: auto; top: -43px;">
-
+			<img id="headimg" src="<%=vImgUrl%>" width="85px;" style="border-radius: 50%; position: absolute; left: 0; right: 0; margin: auto; top: -43px;">
+			<input type="file" id="headimgfile" style="display: none;" />
 			<div class="information_panel_input">
 				<div class="information_panel_label">
 					<font>昵称</font>
@@ -319,18 +323,12 @@
 		</button>
 	</div>
 
-	<!-- 	
-	<div id="loading" style="display: none">
-		<div id="loading-center">
-			<div id="loading-center-absolute">
-				<div class="object" id="object_four"></div>
-				<div class="object" id="object_three"></div>
-				<div class="object" id="object_two"></div>
-				<div class="object" id="object_one"></div>
-			</div>
-		</div>
+	<div id="clip_div" style="display: none; width: 100%; height: 100%; background-color: black; position: fixed; top: 0; left: 0;z-index: 999;">
+		<img id="clip_img" src="">
+		<div id="clip_cancel" style="background-color: #ff0000; width: 50%; height: 50px; position: fixed; bottom: 0; left: 0; text-align: center; color: #fff;line-height: 50px;">取消</div>
+		<div id="clip_ok" style="background-color: #ff0000; width: 50%; height: 50px; position: fixed; bottom: 0; right: 0; text-align: center; color: #fff;line-height: 50px;">确定</div>
 	</div>
- -->
+
 </body>
 </html>
 

@@ -56,8 +56,10 @@ public class UserController {
 		String name = request.getParameter("username");
 		String birthday = request.getParameter("birthday");
 		String sex = request.getParameter("sex");
+		String headimg = request.getParameter("headimg");
 
 		// 组装用户对象
+		user.setvImgurl(headimg);
 		user.setvName(name);
 		user.setdBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(birthday));
 		user.setTiSex(new Byte(sex));

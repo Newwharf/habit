@@ -1,4 +1,46 @@
 $(function() {
+	var cropper;
+	$("#headimg").on("click", function() {
+		$("#headimgfile").click();
+	});
+
+	$("#clip_ok").on("click", function() {
+		let imgdata = cropper.getCroppedCanvas({
+			width : 85,
+			height : 85,
+			imageSmoothingQuality : "high"
+		});
+		let base64url = imgdata.toDataURL('image/jpeg');
+		$("#headimg").attr("src", base64url);
+		$("#headimg").attr("trueSrc", base64url);
+		$("#clip_img").attr("src", "");
+		$("#clip_div").hide();
+		cropper.destroy();
+	});
+
+	$("#clip_cancel").on("click", function() {
+		$("#clip_img").attr("src", "");
+		$("#clip_div").hide();
+		cropper.destroy();
+	});
+
+	$("#headimgfile").on("change", function() {
+		let file = document.getElementById("headimgfile").files[0];
+		let reader = new FileReader();
+		reader.onload = function(e) {
+			$("#clip_img").attr("src", e.target.result);
+			cropper = new Cropper(document.getElementById("clip_img"), {
+				aspectRatio : 1 / 1,
+				viewMode : 1,
+				guides : false,
+				background : false,
+				toggleDragModeOnDblclick : false,
+				dragMode : "move"
+			});
+			$("#clip_div").show();
+		};
+		reader.readAsDataURL(file);
+	});
 
 	$("[type='number']").on("blur", function() {
 
@@ -19,7 +61,7 @@ $(function() {
 			alert("你这个体重先去医院吧朋友！");
 			return false;
 		} else if ($("#bodyfat").val() != "" && ($("#bodyfat").val() <= 5 || $("#bodyfat").val() >= 60)) {
-			alert("你这个体脂绝对是病！得治！");
+			alert("你这个体脂绝对是病！得先治！");
 			return false;
 		} else if ($("#shouldersize").val() != "" && ($("#shouldersize").val() <= 5 || $("#shouldersize").val() >= 60)) {
 			alert("这个肩宽不正常，不支持");
@@ -68,91 +110,92 @@ $(function() {
 
 		$("#id_button_ok span").hide();
 		$("#id_button_ok").animate({
-		width : '50px' ,
-		borderRadius : '50%'
+			width : '50px',
+			borderRadius : '50%'
 		}, "fast");
 		$("#loding_tip").show();
 		$.ajax({
-		type : "post" ,
-		url : "edituserinformation" ,
-		dataType : "html" ,
-		data : {
-		"username" : $("#username").val() ,
-		"sex" : $("#sex").val() ,
-		"birthday" : $("#birthday").val() ,
-		"height" : $("#height").val() ,
-		"weight" : $("#weight").val() ,
-		"bodyfat" : $("#bodyfat").val() ,
-		"shouldersize" : $("#shouldersize").val() ,
-		"bust" : $("#bust").val() ,
-		"abdominalsize" : $("#abdominalsize").val() ,
-		"waistline" : $("#waistline").val() ,
-		"hipline" : $("#hipline").val() ,
-		"larmsize" : $("#larmsize").val() ,
-		"lforearmsize" : $("#lforearmsize").val() ,
-		"rarmsize" : $("#rarmsize").val() ,
-		"rforearmsize" : $("#rforearmsize").val() ,
-		"lthighsize" : $("#lthighsize").val() ,
-		"lcrussize" : $("#lcrussize").val() ,
-		"rthighsize" : $("#rthighsize").val() ,
-		"rcrussize" : $("#rcrussize").val() ,
-		"height_isUpdate" : $("[name='height_isUpdate']").val() ,
-		"weight_isUpdate" : $("[name='weight_isUpdate']").val() ,
-		"bodyfat_isUpdate" : $("[name='bodyfat_isUpdate']").val() ,
-		"shouldersize_isUpdate" : $("[name='shouldersize_isUpdate']").val() ,
-		"bust_isUpdate" : $("[name='bust_isUpdate']").val() ,
-		"abdominalsize_isUpdate" : $("[name='abdominalsize_isUpdate']").val() ,
-		"waistline_isUpdate" : $("[name='waistline_isUpdate']").val() ,
-		"hipline_isUpdate" : $("[name='hipline_isUpdate']").val() ,
-		"larmsize_isUpdate" : $("[name='larmsize_isUpdate']").val() ,
-		"lforearmsize_isUpdate" : $("[name='lforearmsize_isUpdate']").val() ,
-		"rarmsize_isUpdate" : $("[name='rarmsize_isUpdate']").val() ,
-		"rforearmsize_isUpdate" : $("[name='rforearmsize_isUpdate']").val() ,
-		"lthighsize_isUpdate" : $("[name='lthighsize_isUpdate']").val() ,
-		"lcrussize_isUpdate" : $("[name='lcrussize_isUpdate']").val() ,
-		"rthighsize_isUpdate" : $("[name='rthighsize_isUpdate']").val() ,
-		"rcrussize_isUpdate" : $("[name='rcrussize_isUpdate']").val()
-		} ,
-		error : function(data) {
+			type : "post",
+			url : "edituserinformation",
+			dataType : "html",
+			data : {
+				"headimg":$("#headimg").attr("src"),
+				"username" : $("#username").val(),
+				"sex" : $("#sex").val(),
+				"birthday" : $("#birthday").val(),
+				"height" : $("#height").val(),
+				"weight" : $("#weight").val(),
+				"bodyfat" : $("#bodyfat").val(),
+				"shouldersize" : $("#shouldersize").val(),
+				"bust" : $("#bust").val(),
+				"abdominalsize" : $("#abdominalsize").val(),
+				"waistline" : $("#waistline").val(),
+				"hipline" : $("#hipline").val(),
+				"larmsize" : $("#larmsize").val(),
+				"lforearmsize" : $("#lforearmsize").val(),
+				"rarmsize" : $("#rarmsize").val(),
+				"rforearmsize" : $("#rforearmsize").val(),
+				"lthighsize" : $("#lthighsize").val(),
+				"lcrussize" : $("#lcrussize").val(),
+				"rthighsize" : $("#rthighsize").val(),
+				"rcrussize" : $("#rcrussize").val(),
+				"height_isUpdate" : $("[name='height_isUpdate']").val(),
+				"weight_isUpdate" : $("[name='weight_isUpdate']").val(),
+				"bodyfat_isUpdate" : $("[name='bodyfat_isUpdate']").val(),
+				"shouldersize_isUpdate" : $("[name='shouldersize_isUpdate']").val(),
+				"bust_isUpdate" : $("[name='bust_isUpdate']").val(),
+				"abdominalsize_isUpdate" : $("[name='abdominalsize_isUpdate']").val(),
+				"waistline_isUpdate" : $("[name='waistline_isUpdate']").val(),
+				"hipline_isUpdate" : $("[name='hipline_isUpdate']").val(),
+				"larmsize_isUpdate" : $("[name='larmsize_isUpdate']").val(),
+				"lforearmsize_isUpdate" : $("[name='lforearmsize_isUpdate']").val(),
+				"rarmsize_isUpdate" : $("[name='rarmsize_isUpdate']").val(),
+				"rforearmsize_isUpdate" : $("[name='rforearmsize_isUpdate']").val(),
+				"lthighsize_isUpdate" : $("[name='lthighsize_isUpdate']").val(),
+				"lcrussize_isUpdate" : $("[name='lcrussize_isUpdate']").val(),
+				"rthighsize_isUpdate" : $("[name='rthighsize_isUpdate']").val(),
+				"rcrussize_isUpdate" : $("[name='rcrussize_isUpdate']").val()
+			},
+			error : function(data) {
 
-			layer.msg("修改失败", {
-			time : "2000" ,
-			offset : "200px" ,
-			anim : "6"
-			});
-			$("#loding_tip").hide();
-			$("#error_tip").show();
-			setTimeout(function() {
+				layer.msg("修改失败", {
+					time : "2000",
+					offset : "200px",
+					anim : "6"
+				});
+				$("#loding_tip").hide();
+				$("#error_tip").show();
+				setTimeout(function() {
 
-				$("#id_button_ok").animate({
-				width : "90%" ,
-				borderRadius : '0%'
-				}, "fast");
-				$("#error_tip").hide();
-				$("#id_button_ok span").show();
-			}, 1000);
-		} ,
-		success : function(data) {
+					$("#id_button_ok").animate({
+						width : "90%",
+						borderRadius : '0%'
+					}, "fast");
+					$("#error_tip").hide();
+					$("#id_button_ok span").show();
+				}, 1000);
+			},
+			success : function(data) {
 
-			layer.msg("修改成功", {
-			time : "2000" ,
-			offset : "200px"
-			});
-			$("#loding_tip").hide();
-			$("#success_tip").show();
-			setTimeout(function() {
+				layer.msg("修改成功", {
+					time : "2000",
+					offset : "200px"
+				});
+				$("#loding_tip").hide();
+				$("#success_tip").show();
+				setTimeout(function() {
 
-				$("#id_button_ok").animate({
-				width : "90%" ,
-				borderRadius : '0%'
-				}, "fast");
-				$("#success_tip").hide();
-				$("#id_button_ok span").show();
-			}, 1000);
-		}
+					$("#id_button_ok").animate({
+						width : "90%",
+						borderRadius : '0%'
+					}, "fast");
+					$("#success_tip").hide();
+					$("#id_button_ok span").show();
+				}, 1000);
+			}
 		});
 		var isUpdate_hidden = $("[type='hidden']");
-		for(var i=0;i<isUpdate_hidden.length;i++){
+		for (var i = 0; i < isUpdate_hidden.length; i++) {
 			isUpdate_hidden.eq(i).val(0);
 		}
 	});

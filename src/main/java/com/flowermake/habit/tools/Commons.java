@@ -22,23 +22,7 @@ public class Commons {
 	 * @throws ParseException
 	 */
 	public static void main(String[] args) throws ParseException {
-//		JSONArray jsarray = new JSONArray();
-//		jsarray.add(0);
-//		jsarray.add(1);
-//		jsarray.add(2);
-//		jsarray.add(3);
-//		jsarray.add(4);
-//		jsarray.add(5);
-//		jsarray.add(6);
-//		jsarray.add(7);
-//		jsarray.add(8);
-//		jsarray.add(9);
-//		jsarray.add(10);
-//		JSONArray tempArray = new Commons().getTargetArrayByIndex(jsarray, 9, 2);
-//
-//		for (Object i : tempArray) {
-//			System.out.println(i.toString());
-//		}
+
 	}
 
 	/**
@@ -176,5 +160,4 @@ public class Commons {
 			}
 		}
 	}
-
 }

@@ -1,128 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flowermake.habit.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.flowermake.habit.domain.User">
-    <id column="i_id" jdbcType="BIGINT" property="iId" />
-    <result column="v_wechatuid" jdbcType="VARCHAR" property="vWechatuid" />
-    <result column="v_name" jdbcType="VARCHAR" property="vName" />
-    <result column="ti_sex" jdbcType="TINYINT" property="tiSex" />
-    <result column="d_birthday" jdbcType="DATE" property="dBirthday" />
-    <result column="v_tel" jdbcType="VARCHAR" property="vTel" />
-    <result column="dt_cdate" jdbcType="TIMESTAMP" property="dtCdate" />
-    <result column="v_imgurl" jdbcType="VARCHAR" property="vImgurl" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    i_id, v_wechatuid, v_name, ti_sex, d_birthday, v_tel, dt_cdate, v_imgurl
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from h_user
-    where i_id = #{iId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from h_user
-    where i_id = #{iId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.flowermake.habit.domain.User">
-    insert into h_user (i_id, v_wechatuid, v_name, 
-      ti_sex, d_birthday, v_tel, 
-      dt_cdate, v_imgurl)
-    values (#{iId,jdbcType=BIGINT}, #{vWechatuid,jdbcType=VARCHAR}, #{vName,jdbcType=VARCHAR}, 
-      #{tiSex,jdbcType=TINYINT}, #{dBirthday,jdbcType=DATE}, #{vTel,jdbcType=VARCHAR}, 
-      #{dtCdate,jdbcType=TIMESTAMP}, #{vImgurl,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.flowermake.habit.domain.User">
-    insert into h_user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="iId != null">
-        i_id,
-      </if>
-      <if test="vWechatuid != null">
-        v_wechatuid,
-      </if>
-      <if test="vName != null">
-        v_name,
-      </if>
-      <if test="tiSex != null">
-        ti_sex,
-      </if>
-      <if test="dBirthday != null">
-        d_birthday,
-      </if>
-      <if test="vTel != null">
-        v_tel,
-      </if>
-      <if test="dtCdate != null">
-        dt_cdate,
-      </if>
-      <if test="vImgurl != null">
-        v_imgurl,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="iId != null">
-        #{iId,jdbcType=BIGINT},
-      </if>
-      <if test="vWechatuid != null">
-        #{vWechatuid,jdbcType=VARCHAR},
-      </if>
-      <if test="vName != null">
-        #{vName,jdbcType=VARCHAR},
-      </if>
-      <if test="tiSex != null">
-        #{tiSex,jdbcType=TINYINT},
-      </if>
-      <if test="dBirthday != null">
-        #{dBirthday,jdbcType=DATE},
-      </if>
-      <if test="vTel != null">
-        #{vTel,jdbcType=VARCHAR},
-      </if>
-      <if test="dtCdate != null">
-        #{dtCdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="vImgurl != null">
-        #{vImgurl,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.flowermake.habit.domain.User">
-    update h_user
-    <set>
-      <if test="vWechatuid != null">
-        v_wechatuid = #{vWechatuid,jdbcType=VARCHAR},
-      </if>
-      <if test="vName != null">
-        v_name = #{vName,jdbcType=VARCHAR},
-      </if>
-      <if test="tiSex != null">
-        ti_sex = #{tiSex,jdbcType=TINYINT},
-      </if>
-      <if test="dBirthday != null">
-        d_birthday = #{dBirthday,jdbcType=DATE},
-      </if>
-      <if test="vTel != null">
-        v_tel = #{vTel,jdbcType=VARCHAR},
-      </if>
-      <if test="dtCdate != null">
-        dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="vImgurl != null">
-        v_imgurl = #{vImgurl,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where i_id = #{iId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.flowermake.habit.domain.User">
-    update h_user
-    set v_wechatuid = #{vWechatuid,jdbcType=VARCHAR},
-      v_name = #{vName,jdbcType=VARCHAR},
-      ti_sex = #{tiSex,jdbcType=TINYINT},
-      d_birthday = #{dBirthday,jdbcType=DATE},
-      v_tel = #{vTel,jdbcType=VARCHAR},
-      dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
-      v_imgurl = #{vImgurl,jdbcType=VARCHAR}
-    where i_id = #{iId,jdbcType=BIGINT}
-  </update>
+	<resultMap id="BaseResultMap" type="com.flowermake.habit.domain.User">
+		<id column="i_id" jdbcType="BIGINT" property="iId" />
+		<result column="v_wechatuid" jdbcType="VARCHAR" property="vWechatuid" />
+		<result column="v_name" jdbcType="VARCHAR" property="vName" />
+		<result column="ti_sex" jdbcType="TINYINT" property="tiSex" />
+		<result column="d_birthday" jdbcType="DATE" property="dBirthday" />
+		<result column="v_tel" jdbcType="VARCHAR" property="vTel" />
+		<result column="dt_cdate" jdbcType="TIMESTAMP" property="dtCdate" />
+		<result column="v_imgurl" jdbcType="VARCHAR" property="vImgurl" />
+		<result column="v_deviceid" jdbcType="VARCHAR" property="vDeviceId" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		i_id, v_wechatuid, v_name, ti_sex, d_birthday, v_tel,
+		dt_cdate,
+		v_imgurl,v_deviceid
+	</sql>
+	<select id="selectByDid" resultMap="BaseResultMap">
+		select * from h_user where
+		v_deviceid=#{did}
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from h_user
+		where i_id = #{iId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from h_user
+		where i_id = #{iId,jdbcType=BIGINT}
+	</delete>
+	<insert id="register">
+		insert into h_user(i_id, v_wechatuid, v_name,ti_sex,
+		d_birthday,
+		v_tel,dt_cdate, v_imgurl,v_deviceid)
+		values(#{user.iId},#{user.vWechatuid},#{user.vName},#{user.tiSex},#{user.dBirthday},#{user.vTel},#{user.dtCdate},#{user.vImgurl},#{user.vDeviceId});
+
+		insert into h_body_data(i_id,i_userid)
+		values(#{bodyData.iId},#{bodyData.iUserid});
+	</insert>
+	<insert id="insert" parameterType="com.flowermake.habit.domain.User">
+		insert into h_user (i_id,
+		v_wechatuid, v_name,
+		ti_sex, d_birthday, v_tel,
+		dt_cdate,
+		v_imgurl,v_deviceid)
+		values (#{iId,jdbcType=BIGINT},
+		#{vWechatuid,jdbcType=VARCHAR},
+		#{vName,jdbcType=VARCHAR},
+		#{tiSex,jdbcType=TINYINT}, #{dBirthday,jdbcType=DATE},
+		#{vTel,jdbcType=VARCHAR},
+		#{dtCdate,jdbcType=TIMESTAMP},
+		#{vImgurl,jdbcType=VARCHAR},#{vDeviceId,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.flowermake.habit.domain.User">
+		insert into h_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				i_id,
+			</if>
+			<if test="vWechatuid != null">
+				v_wechatuid,
+			</if>
+			<if test="vName != null">
+				v_name,
+			</if>
+			<if test="tiSex != null">
+				ti_sex,
+			</if>
+			<if test="dBirthday != null">
+				d_birthday,
+			</if>
+			<if test="vTel != null">
+				v_tel,
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate,
+			</if>
+			<if test="vImgurl != null">
+				v_imgurl,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="iId != null">
+				#{iId,jdbcType=BIGINT},
+			</if>
+			<if test="vWechatuid != null">
+				#{vWechatuid,jdbcType=VARCHAR},
+			</if>
+			<if test="vName != null">
+				#{vName,jdbcType=VARCHAR},
+			</if>
+			<if test="tiSex != null">
+				#{tiSex,jdbcType=TINYINT},
+			</if>
+			<if test="dBirthday != null">
+				#{dBirthday,jdbcType=DATE},
+			</if>
+			<if test="vTel != null">
+				#{vTel,jdbcType=VARCHAR},
+			</if>
+			<if test="dtCdate != null">
+				#{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vImgurl != null">
+				#{vImgurl,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.flowermake.habit.domain.User">
+		update h_user
+		<set>
+			<if test="vWechatuid != null">
+				v_wechatuid = #{vWechatuid,jdbcType=VARCHAR},
+			</if>
+			<if test="vName != null">
+				v_name = #{vName,jdbcType=VARCHAR},
+			</if>
+			<if test="tiSex != null">
+				ti_sex = #{tiSex,jdbcType=TINYINT},
+			</if>
+			<if test="dBirthday != null">
+				d_birthday = #{dBirthday,jdbcType=DATE},
+			</if>
+			<if test="vTel != null">
+				v_tel = #{vTel,jdbcType=VARCHAR},
+			</if>
+			<if test="dtCdate != null">
+				dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="vImgurl != null">
+				v_imgurl = #{vImgurl,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where i_id = #{iId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.flowermake.habit.domain.User">
+		update h_user
+		set
+		v_wechatuid = #{vWechatuid,jdbcType=VARCHAR},
+		v_name =
+		#{vName,jdbcType=VARCHAR},
+		ti_sex = #{tiSex,jdbcType=TINYINT},
+		d_birthday = #{dBirthday,jdbcType=DATE},
+		v_tel =
+		#{vTel,jdbcType=VARCHAR},
+		dt_cdate = #{dtCdate,jdbcType=TIMESTAMP},
+		v_imgurl = #{vImgurl,jdbcType=VARCHAR},
+		v_deviceid =
+		#{vDeviceId,jdbcType=VARCHAR}
+		where i_id = #{iId,jdbcType=BIGINT}
+	</update>
 </mapper>

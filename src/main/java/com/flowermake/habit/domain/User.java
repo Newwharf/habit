@@ -3,83 +3,93 @@ package com.flowermake.habit.domain;
 import java.util.Date;
 
 public class User {
-    private Long iId;
+	private Long iId;
 
-    private String vWechatuid;
+	private String vWechatuid;
 
-    private String vName;
+	private String vName;
 
-    private Byte tiSex;
+	private Byte tiSex;
 
-    private Date dBirthday;
+	private Date dBirthday;
 
-    private String vTel;
+	private String vTel;
 
-    private Date dtCdate;
+	private Date dtCdate;
 
-    private String vImgurl;
+	private String vImgurl;
 
-    public Long getiId() {
-        return iId;
-    }
+	private String vDeviceId;
 
-    public void setiId(Long iId) {
-        this.iId = iId;
-    }
+	public String getvDeviceId() {
+		return vDeviceId;
+	}
 
-    public String getvWechatuid() {
-        return vWechatuid;
-    }
+	public void setvDeviceId(String vDeviceId) {
+		this.vDeviceId = vDeviceId;
+	}
 
-    public void setvWechatuid(String vWechatuid) {
-        this.vWechatuid = vWechatuid == null ? null : vWechatuid.trim();
-    }
+	public Long getiId() {
+		return iId;
+	}
 
-    public String getvName() {
-        return vName;
-    }
+	public void setiId(Long iId) {
+		this.iId = iId;
+	}
 
-    public void setvName(String vName) {
-        this.vName = vName == null ? null : vName.trim();
-    }
+	public String getvWechatuid() {
+		return vWechatuid;
+	}
 
-    public Byte getTiSex() {
-        return tiSex;
-    }
+	public void setvWechatuid(String vWechatuid) {
+		this.vWechatuid = vWechatuid == null ? null : vWechatuid.trim();
+	}
 
-    public void setTiSex(Byte tiSex) {
-        this.tiSex = tiSex;
-    }
+	public String getvName() {
+		return vName;
+	}
 
-    public Date getdBirthday() {
-        return dBirthday;
-    }
+	public void setvName(String vName) {
+		this.vName = vName == null ? null : vName.trim();
+	}
 
-    public void setdBirthday(Date dBirthday) {
-        this.dBirthday = dBirthday;
-    }
+	public Byte getTiSex() {
+		return tiSex;
+	}
 
-    public String getvTel() {
-        return vTel;
-    }
+	public void setTiSex(Byte tiSex) {
+		this.tiSex = tiSex;
+	}
 
-    public void setvTel(String vTel) {
-        this.vTel = vTel == null ? null : vTel.trim();
-    }
+	public Date getdBirthday() {
+		return dBirthday;
+	}
 
-    public Date getDtCdate() {
-        return dtCdate;
-    }
+	public void setdBirthday(Date dBirthday) {
+		this.dBirthday = dBirthday;
+	}
 
-    public void setDtCdate(Date dtCdate) {
-        this.dtCdate = dtCdate;
-    }
+	public String getvTel() {
+		return vTel;
+	}
 
-    public String getvImgurl() {
-        return vImgurl;
-    }
+	public void setvTel(String vTel) {
+		this.vTel = vTel == null ? null : vTel.trim();
+	}
 
-    public void setvImgurl(String vImgurl) {
-        this.vImgurl = vImgurl == null ? null : vImgurl.trim();
-    }
+	public Date getDtCdate() {
+		return dtCdate;
+	}
+
+	public void setDtCdate(Date dtCdate) {
+		this.dtCdate = dtCdate;
+	}
+
+	public String getvImgurl() {
+		return vImgurl;
+	}
+
+	public void setvImgurl(String vImgurl) {
+		this.vImgurl = vImgurl == null ? null : vImgurl.trim();
+	}
 }

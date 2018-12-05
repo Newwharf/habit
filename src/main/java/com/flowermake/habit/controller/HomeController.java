@@ -38,6 +38,9 @@ public class HomeController {
 
 	@RequestMapping("/home")
 	public String home(HttpServletRequest request, Model model) throws Exception {
+		
+		
+		
 		User user = (User) request.getSession().getAttribute("user");
 
 		// 查询并身体数据

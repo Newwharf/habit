@@ -49,11 +49,11 @@ function showToastMsg(msg) {
 }
 // 替换后退事件开始
 window.addEventListener("popstate", function(e) {
-
 	if (isCtrlBack) {
 		toUrl(preUrl);
 	}
 }, false);
+
 function pushHistory() {
 
 	if (isCtrlBack) {

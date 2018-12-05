@@ -7,8 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.flowermake.habit.dao.UserMapper;
+import com.flowermake.habit.domain.BodyData;
 import com.flowermake.habit.domain.User;
 import com.flowermake.habit.service.IUserService;
+import com.flowermake.habit.tools.Commons;
+import com.flowermake.habit.tools.IdWorker;
 
 @Service("userService")
 public class UserServiceImpl implements IUserService {
@@ -20,19 +23,41 @@ public class UserServiceImpl implements IUserService {
 		return this.userMapper.insert(user);
 	}
 
-//	public User findUserByWid(String wid) throws Exception {
-//		return this.userMapper.selectByWid(wid);
-//	}
-
 	public User findUserById(long id) throws Exception {
 		return userMapper.selectByPrimaryKey(id);
 	}
 
 	public int updateUser(User user) throws Exception {
-		return 0;
+		return userMapper.updateByPrimaryKey(user);
 	}
 
+	public User selectByDid(String did) throws Exception {
+		return userMapper.selectByDid(did);
+	}
 
+	public User register(String deviceid) throws Exception {
+		// 组装用户对象
+		User user = new User();
+		user.setdBirthday(Commons.getDateByAge(18));
+		user.setDtCdate(new Date());
+		user.setiId(new IdWorker().nextId());
+		user.setTiSex((byte) 0);
+		user.setvDeviceId(deviceid);
+		user.setvImgurl("img/default_headimg.png");
+		user.setvName("点此设置个人信息");
+		user.setvTel("");
+		user.setvWechatuid("");
 
+		// 组装身体数据对象
+		BodyData bodyData = new BodyData();
+		bodyData.setiId(new IdWorker().nextId());
+		bodyData.setiUserid(user.getiId());
+		if (userMapper.register(user, bodyData) > 0) {
+			return user;
+		} else {
+			return null;
+		}
+
+	}
 
 }
