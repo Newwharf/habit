@@ -85,7 +85,7 @@ $(function() {
 		layer.load(2, {
 			shade : [ 0.5, '#000' ]
 		});
-		// toUrl('plan/tonewplan');
+		toUrl('plan/tonewplan');
 	});
 	// 训练面板每个训练点击详情
 	$(".plan_list_nonull").on("click", function() {
