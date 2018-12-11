@@ -15,6 +15,7 @@ Array.prototype.remove = function(val) {
 };
 var preUrl = "#";
 var isCtrlBack = false;
+var keyback = true;
 function showAjaxErrorMsg(msg) {
 
 	if (msg.length <= 20) {
@@ -38,7 +39,7 @@ function showErrorMsg(msg) {
 }
 function toUrl(url) {
 
-	$(location).attr('href', url);
+	$(location).attr('href', url+'&deviceid='+$("#deviceid").val());
 }
 function showToastMsg(msg) {
 
@@ -49,6 +50,44 @@ function showToastMsg(msg) {
 }
 // 替换后退事件开始
 window.addEventListener("popstate", function(e) {
+	
+	if(keyback){
+		let more_panel_body = $("#more_panel_body");
+		let information_panel = $(".information_panel");
+		let clip_div = $("#clip_div");
+		let recard_dialog = $("#recard_dialog");
+		let list_panel_dialog = $(".list_panel_dialog");
+		
+		if(more_panel_body.length>0){
+			if(more_panel_body.is(':visible')){
+				$("#more_panel_close").click();
+				return;
+			}
+		}if(information_panel.length>0){
+			if(information_panel.is(':visible')){
+				$(".layui-layer-close").click();
+				return;
+			}
+		}if(clip_div.length>0){
+			if(clip_div.is(':visible')){
+				$("#clip_cancel").click();
+				return;
+			}
+		}if(recard_dialog.length>0){
+			if(recard_dialog.is(':visible')){
+				$(".layui-layer-close").click();
+				return;
+			}
+		}if(list_panel_dialog.length>0){
+			if(list_panel_dialog.is(':visible')){
+				$(".layui-layer-close").click();
+				return;
+			}
+			$(".layui-layer-close").click();
+			return;
+		}
+	}
+	
 	if (isCtrlBack) {
 		toUrl(preUrl);
 	}

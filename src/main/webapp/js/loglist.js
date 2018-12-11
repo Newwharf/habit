@@ -1,4 +1,10 @@
 $(function() {
+	
+	//返回按钮处理事件
+	$(".nvabar_back").on("click",function(){
+		keyback = true;
+		window.history.back();
+	});
 
 	$(".remark").on("click", function() {
 
@@ -20,5 +26,5 @@ $(function() {
 		}
 		});
 	});
-	ctrlBack("../chart/logchart?type=1");
+//	ctrlBack("../chart/logchart?type=1");
 });

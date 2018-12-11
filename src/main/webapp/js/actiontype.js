@@ -1,8 +1,14 @@
 $(function() {
 
-	preUrl = "/habit/home";
+	preUrl = "/habit/home?deviceid="+$("#deviceid").val();
 	isCtrlBack = true;
 	var editActionTypeDialog;
+	
+	//返回按钮处理事件
+	$(".nvabar_back").on("click",function(){
+		keyback = true;
+		window.history.back();
+	});
 
 	// 动作分类添加事件
 	$('#target_add').on(
@@ -32,7 +38,7 @@ $(function() {
 							return;
 						}
 						layer.close(newActionTypeDialog);
-						let loding_shade = layer.load(1, {
+						let loding_shade = layer.load(2, {
 							shade : [ 0.5, '#000' ]
 						});
 						$.ajax({
@@ -40,7 +46,8 @@ $(function() {
 							url : "/habit/action/newactiontype",
 							data : {
 								"type_name" : type_name,
-								"type_remarks" : type_remarks
+								"type_remarks" : type_remarks,
+								"deviceid":$("#deviceid").val()
 							},
 							dataType : "json",
 							error : function(data) {
@@ -114,7 +121,7 @@ $(function() {
 					return;
 				}
 				layer.close(editActionTypeDialog);
-				let loding_shade = layer.load(1, {
+				let loding_shade = layer.load(2, {
 					shade : [ 0.5, '#000' ]
 				});
 				$.ajax({
@@ -123,7 +130,8 @@ $(function() {
 					data : {
 						"type_name" : type_name,
 						"type_remarks" : type_remarks,
-						"type_id" : type_id
+						"type_id" : type_id,
+						"deviceid":$("#deviceid").val()
 					},
 					dataType : "json",
 					error : function(data) {
@@ -162,14 +170,15 @@ $(function() {
 			return;
 		}
 		let type_id = $(this).attr("type_id");
-		let loding_shade = layer.load(1, {
+		let loding_shade = layer.load(2, {
 			shade : [ 0.5, '#000' ]
 		});
 		$.ajax({
 			type : "post",
 			url : "/habit/action/deleteactiontype",
 			data : {
-				"type_id" : type_id
+				"type_id" : type_id,
+				"deviceid":$("#deviceid").val()
 			},
 			dataType : "html",
 			error : function(data) {
@@ -209,7 +218,6 @@ $(function() {
 	// 分类点击事件
 	$("#target_msg_list").on("click",".hotarea", function() {
 		
-		$(location).attr('href', 'actionlist?typeid=' + $(this).attr("typeid"));
+		$(location).attr('href', 'actionlist?typeid=' + $(this).attr("typeid")+'&deviceid='+$("#deviceid").val());
 	});
-	ctrlBack("../home");
 });

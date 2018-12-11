@@ -28,9 +28,6 @@
 <link rel="shortcut icon" href="<%=basePath%>/img/favicon.ico" type="image/x-icon" />
 <link rel="bookmark" href="<%=basePath%>/img/favicon.ico" type="image/x-icon" />
 <!-- 引入样式 -->
-<%-- <link rel="stylesheet" href="<%=basePath%>css/input_skin/component.css" type="text/css" />
-<link rel="stylesheet" href="<%=basePath%>css/input_skin/font-awesome.min.css" type="text/css" />
-<link rel="stylesheet" href="<%=basePath%>css/input_skin/normalize.css" type="text/css" /> --%>
 <link rel="stylesheet" href="<%=basePath%>css/style.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/loding01.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>plugs/cropper/cropper1.4.3.min.css" type="text/css" />
@@ -47,6 +44,13 @@
 </head>
 
 <body class="background_img">
+<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
+	<!-- 顶部导航栏 -->
+	<div class="nvabar">
+		<img class="nvabar_back" src="<%=basePath%>img/back.png">
+		<span class="nvabar_title"></span>
+	</div>
+	<div class="nvabar_blank"></div>
 	<div id="maindiv">
 		<!-- 基本信息 -->
 		<div class="information_panel information_panel_headimg">
@@ -323,10 +327,10 @@
 		</button>
 	</div>
 
-	<div id="clip_div" style="display: none; width: 100%; height: 100%; background-color: black; position: fixed; top: 0; left: 0;z-index: 999;">
+	<div id="clip_div" style="display: none; width: 100%; height: 100%; background-color: black; position: fixed; top: 0; left: 0; z-index: 999;">
 		<img id="clip_img" src="">
-		<div id="clip_cancel" style="background-color: #ff0000; width: 50%; height: 50px; position: fixed; bottom: 0; left: 0; text-align: center; color: #fff;line-height: 50px;">取消</div>
-		<div id="clip_ok" style="background-color: #ff0000; width: 50%; height: 50px; position: fixed; bottom: 0; right: 0; text-align: center; color: #fff;line-height: 50px;">确定</div>
+		<div id="clip_cancel" style="background-color: #ff0000; width: 50%; height: 50px; position: fixed; bottom: 0; left: 0; text-align: center; color: #fff; line-height: 50px;">取消</div>
+		<div id="clip_ok" style="background-color: #ff0000; width: 50%; height: 50px; position: fixed; bottom: 0; right: 0; text-align: center; color: #fff; line-height: 50px;">确定</div>
 	</div>
 
 </body>

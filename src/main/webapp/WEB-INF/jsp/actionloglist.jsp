@@ -36,28 +36,46 @@
 </head>
 
 <body style="background-color: #f8f8f8;">
+<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
+	<!-- 顶部导航栏 -->
+	<div class="nvabar">
+		<img class="nvabar_back" src="<%=basePath%>img/back.png">
+		<span class="nvabar_title"></span>
+	</div>
+	<div class="nvabar_blank"></div>
+
 	<div id="actionlogchart">
 		<div id="action_list" style="width: 90%; margin: auto;">
-		<%for(ActionLog actionLog:actionLogList){ %>
+			<%
+				for (ActionLog actionLog : actionLogList) {
+			%>
 			<div class="target_in">
 				<div class="target_in_dec"></div>
 				<div>
-					<span><%=actionLog.getfScoreweight() %> kg/<%=actionLog.getTiActiontype()==0?actionLog.getiScorenum()+" "+actionLog.getvActionunit():actionLog.getiScoretime()+" 秒" %></span><br>
-					<font><%=Commons.formatDate(actionLog.getDtCdate(), "YYYY.MM.dd HH:mm:ss") %></font>
-					<%if(!"".equals(actionLog.getvComments())&&actionLog.getvComments()!=null){ %>
-						<img class="remark" src="<%=basePath%>img/remark.png" width="25px" height="25px" alt="<%=actionLog.getvComments()%>">
-					<%} %>
+					<span><%=actionLog.getfScoreweight()%> kg/<%=actionLog.getTiActiontype() == 0 ? actionLog.getiScorenum() + " " + actionLog.getvActionunit()
+						: actionLog.getiScoretime() + " 秒"%></span><br>
+					<font><%=Commons.formatDate(actionLog.getDtCdate(), "YYYY.MM.dd HH:mm:ss")%></font>
+					<%
+						if (!"".equals(actionLog.getvComments()) && actionLog.getvComments() != null) {
+					%>
+					<img class="remark" src="<%=basePath%>img/remark.png" width="25px" height="25px" alt="<%=actionLog.getvComments()%>">
+					<%
+						}
+					%>
 				</div>
 			</div>
-		<%} %>
+			<%
+				}
+			%>
 		</div>
 	</div>
 
 </body>
 
 <div class="information_panel" style="display: none;">
-<img alt="" src="<%=basePath%>img/mark.png" width="40px" style="margin:10px 0px 20px 30px "><br>
-<p style="margin: 0px 0px 0px 70px;width: 60%;word-wrap:break-word;color: #515151;text-align: center;"></p>
+	<img alt="" src="<%=basePath%>img/mark.png" width="40px" style="margin: 10px 0px 20px 30px">
+	<br>
+	<p style="margin: 0px 0px 0px 70px; width: 60%; word-wrap: break-word; color: #515151; text-align: center;"></p>
 </div>
 </html>
 

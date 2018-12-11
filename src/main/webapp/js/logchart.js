@@ -1,4 +1,10 @@
 $(function() {
+	
+	//返回按钮处理事件
+	$(".nvabar_back").on("click",function(){
+		keyback = true;
+		window.history.back();
+	});
 
 	if (getQueryString("type") == "1") {
 		$("#actionlogchart").show();
@@ -17,20 +23,16 @@ $(function() {
 	$(".logochart_bodydata_item").on("click", function() {
 
 		if ($(this).attr("isJump")=="true") {
-			layer.load(1, {
-				shade : [0.5 , '#000']
-			});
-			$(location).attr('href', '../chart/bdllist?index=' + $(this).attr("data"));
+			
+			toUrl('../chart/bdllist?index=' + $(this).attr("data"));
 		}
 	});
 	$(".target_in").on("click", function() {
 
 		if ($(this).attr("isJump")=="true") {
-			layer.load(1, {
-				shade : [0.5 , '#000']
-			});
-			$(location).attr('href', '../chart/actionloglist?aid=' + $(this).attr("data"));
+			
+			toUrl('../chart/actionloglist?aid=' + $(this).attr("data"));
 		}
 	});
-	ctrlBack("../home");
+	
 });

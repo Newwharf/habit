@@ -1,11 +1,12 @@
 $(function() {
 
-	preUrl = "/habit/home";
+	preUrl = "/habit/home?deviceid="+$("#deviceid").val();
 	isCtrlBack = true;
 	// 点击头像区域触发更多面板
 	$(".headclick").on("touchstart", function(e) {
 		// 禁止滚动
 		$("body").css("overflow", "hidden");
+		$("html").css("overflow", "hidden");
 		// 以动画形式显示更多面板动画层
 		var _touch = e.originalEvent.targetTouches[0];
 		var _x = _touch.pageX;
@@ -45,6 +46,7 @@ $(function() {
 
 		// 开启滚动
 		$("body").css("overflow", "visible");
+		$("html").css("overflow", "visible");
 		// 隐藏相关div
 		$("#more_panel_body").fadeOut(300);
 		$("#more_panel_animation").fadeOut(300);
@@ -55,52 +57,38 @@ $(function() {
 			$("#button_logchart").hide();
 		}, 300);
 	});
-	// 身体指标按钮事件
+	// 个人信息按钮事件
 	$("#button_userinfo").on("click", function() {
-
-		layer.load(1, {
-			shade : [0.5 , '#000']
-		});
-		$(location).attr('href', 'user/userinformation');
+		toUrl('user/userinformation');
+		$("#more_panel_close").click();
 	});
 	// 动作管理按钮事件
 	$("#button_action").on("click", function() {
-
-		layer.load(1, {
-			shade : [0.5 , '#000']
-		});
-		$(location).attr('href', 'action/actiontypelist');
+		
+		toUrl('action/actiontypelist');
+		$("#more_panel_close").click();
 	});
-	// 分析报表按钮事件
+	// 历史记录按钮事件
 	$("#button_logchart").on("click", function() {
-
-		layer.load(1, {
-			shade : [0.5 , '#000']
-		});
-		$(location).attr('href', 'chart/logchart');
+		
+		toUrl('chart/logchart');
+		$("#more_panel_close").click();
 	});
 	$("#plan_add").on("click", function() {
-
-		layer.load(1, {
-			shade : [0.5 , '#000']
-		});
-		$(location).attr('href', 'plan/tonewplan');
+		toUrl('plan/tonewplan');
 	});
 	// 训练面板每个训练点击详情
 	$(".plan_list_nonull").on("click", function() {
 
-		layer.load(1, {
+		layer.load(2, {
 			shade : [0.5 , '#000']
 		});
-		$(location).attr('href', 'plan/toplandetails?planid=' + $(this).attr("planid"));
+		toUrl('plan/toplandetails?planid=' + $(this).attr("planid"));
 	});
 	// 目标面板更多按钮事件
 	$("#target_more").on("click", function() {
 
-		layer.load(1, {
-			shade : [0.5 , '#000']
-		});
-		$(location).attr('href', 'target/targetlist');
+		toUrl('target/targetlist');
 	});
 	// 目标面板添加事件
 	$('#target_add').on("click", function() {
@@ -129,7 +117,7 @@ $(function() {
 				return;
 			}
 			layer.close(newTargetDialog);
-			var loding_shade = layer.load(1, {
+			var loding_shade = layer.load(2, {
 				shade : [0.5 , '#000']
 			});
 			$.ajax({
@@ -138,7 +126,8 @@ $(function() {
 			data : {
 			"ti_index" : $("#ti_index").val() ,
 			"ti_nexus" : $("#ti_nexus").val() ,
-			"f_value" : $("#f_value").val()
+			"f_value" : $("#f_value").val(),
+			"deviceid":$("#deviceid").val()
 			} ,
 			dataType : "json" ,
 			error : function(data) {
@@ -197,5 +186,5 @@ $(function() {
 				break;
 		}
 	});
-	ctrlBack("home");
+	ctrlBack("#");
 });

@@ -2,6 +2,13 @@ $(function() {
 
 	var listDialog;
 	var dialog_height = 0;
+	
+	//返回按钮处理事件
+	$(".nvabar_back").on("click",function(){
+		keyback = true;
+		window.history.back();
+	});
+	
 	// 点击确定按钮的处理事件
 	$("#id_button_ok").on("click", function() {
 
@@ -23,7 +30,7 @@ $(function() {
 			return;
 		} else {
 			// 验证通过，开始组装数据
-			layer.load(1, {
+			layer.load(2, {
 				shade : [ 0.5, '#000' ]
 			});
 			let actionJsonList = [];
@@ -40,7 +47,8 @@ $(function() {
 				data : {
 					"planname" : name,
 					"planid" : $("#hidder_planid").val(),
-					"actionlist" : JSON.stringify(actionJsonList)
+					"actionlist" : JSON.stringify(actionJsonList),
+					"deviceid":$("#deviceid").val()
 				},
 				dataType : "json",
 				error : function(data) {
@@ -52,8 +60,7 @@ $(function() {
 					});
 				},
 				success : function(data) {
-
-					$(location).attr('href', 'toplandetails?planid=' + data.pid);
+					toUrl('toplandetails?planid=' + data.pid);
 				}
 			});
 		}
@@ -82,7 +89,7 @@ $(function() {
 		openActionDialog();
 	});
 
-	ctrlBack("/habit/plan/toplandetails?planid=" + getQueryString("pid"));
+//	ctrlBack("/habit/plan/toplandetails?planid=" + getQueryString("pid"));
 });
 
 // 打开动作选择弹窗
@@ -111,7 +118,7 @@ function initActionList() {
 	}
 	showDialogLoding();
 	$.ajax({
-		url : "../action/ajaxactionlist",
+		url : "../action/ajaxactionlist?deviceid="+$("#deviceid").val(),
 		type : "get",
 		dataType : "json",
 		error : function(data) {

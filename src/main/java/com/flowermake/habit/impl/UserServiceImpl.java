@@ -37,16 +37,17 @@ public class UserServiceImpl implements IUserService {
 
 	public User register(String deviceid) throws Exception {
 		// 组装用户对象
+		IdWorker iw = new IdWorker();
 		User user = new User();
 		user.setdBirthday(Commons.getDateByAge(18));
 		user.setDtCdate(new Date());
-		user.setiId(new IdWorker().nextId());
+		user.setiId(iw.nextId());
 		user.setTiSex((byte) 0);
 		user.setvDeviceId(deviceid);
 		user.setvImgurl("img/default_headimg.png");
 		user.setvName("点此设置个人信息");
 		user.setvTel("");
-		user.setvWechatuid("");
+		user.setvWechatuid(iw.nextId()+"");
 
 		// 组装身体数据对象
 		BodyData bodyData = new BodyData();

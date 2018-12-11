@@ -37,7 +37,13 @@
 </head>
 
 <body style="background-color: #f8f8f8;">
-
+<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
+	<!-- 顶部导航栏 -->
+	<div class="nvabar">
+		<img class="nvabar_back" src="<%=basePath%>img/back.png">
+		<span class="nvabar_title"></span>
+	</div>
+	<div class="nvabar_blank"></div>
 	<div class="newplan_main_div">
 
 		<div class="newplan_main_div_div1">

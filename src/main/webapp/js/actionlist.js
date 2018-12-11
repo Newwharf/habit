@@ -2,6 +2,13 @@ $(function() {
 
 	var editActionDialog;
 	var newActionDialog;
+	
+	//返回按钮处理事件
+	$(".nvabar_back").on("click",function(){
+		keyback = true;
+		window.history.back();
+	});
+	
 	// 修改动作相应处理
 	$("#action_list").on("click", ".action_edit", function() {
 
@@ -38,7 +45,7 @@ $(function() {
 			yes : function() {
 
 				layer.close(editActionDialog);
-				var loding_shade = layer.load(1, {
+				var loding_shade = layer.load(2, {
 					shade : [ 0.5, '#000' ]
 				});
 				v_name = $("#action_name_edit").val();
@@ -68,7 +75,8 @@ $(function() {
 					data : {
 						"v_name" : v_name,
 						"v_unit" : v_unit,
-						"i_id" : i_id
+						"i_id" : i_id,
+						"deviceid":$("#deviceid").val()
 					},
 					dataType : "json",
 					error : function(data) {
@@ -148,7 +156,7 @@ $(function() {
 							return;
 						}
 
-						let loding_shade = layer.load(1, {
+						let loding_shade = layer.load(2, {
 							shade : [ 0.5, '#000' ]
 						});
 						$.ajax({
@@ -158,7 +166,8 @@ $(function() {
 								"v_name" : v_name,
 								"ti_type" : ti_type,
 								"v_unit" : v_unit,
-								"actiontypeid" : actiontypeid
+								"actiontypeid" : actiontypeid,
+								"deviceid":$("#deviceid").val()
 							},
 							dataType : "json",
 							error : function(data) {
@@ -216,14 +225,15 @@ $(function() {
 			return;
 		}
 		var a_id = $(this).attr("actionid");
-		var loding_shade = layer.load(1, {
+		var loding_shade = layer.load(2, {
 			shade : [ 0.5, '#000' ]
 		});
 		$.ajax({
 			type : "post",
 			url : "deleteaction",
 			data : {
-				"a_id" : a_id
+				"a_id" : a_id,
+				"deviceid":$("#deviceid").val()
 			},
 			dataType : "html",
 			error : function(data) {
@@ -260,5 +270,5 @@ $(function() {
 			$("#action_unit").slideUp(200);
 		}
 	});
-	ctrlBack("actiontypelist");
+//	ctrlBack("actiontypelist");
 });

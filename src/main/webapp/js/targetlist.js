@@ -1,4 +1,10 @@
 $(function() {
+	
+	//返回按钮处理事件
+	$(".nvabar_back").on("click",function(){
+		keyback = true;
+		toUrl("/habit/home");
+	});
 
 	$('.add_button').on(
 			"click",
@@ -20,7 +26,7 @@ $(function() {
 					yes : function() {
 
 						layer.close(newTargetDialog);
-						var loding_shade = layer.load(1, {
+						var loding_shade = layer.load(2, {
 							shade : [ 0.5, '#000' ]
 						});
 						var ti_index = $("#ti_index").val();
@@ -40,7 +46,8 @@ $(function() {
 							data : {
 								"ti_index" : $("#ti_index").val(),
 								"ti_nexus" : $("#ti_nexus").val(),
-								"f_value" : $("#f_value").val()
+								"f_value" : $("#f_value").val(),
+								"deviceid":$("#deviceid").val()
 							},
 							dataType : "json",
 							error : function(data) {
@@ -97,14 +104,15 @@ $(function() {
 	$("#target_list").on("click", ".delete_button", function() {
 
 		var t_id = $(this).attr("t_id");
-		var loding_shade = layer.load(1, {
+		var loding_shade = layer.load(2, {
 			shade : [ 0.5, '#000' ]
 		});
 		$.ajax({
 			type : "post",
 			url : "deletetarget",
 			data : {
-				"t_id" : t_id
+				"t_id" : t_id,
+				"deviceid":$("#deviceid").val()
 			},
 			dataType : "html",
 			error : function(data) {

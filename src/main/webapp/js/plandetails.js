@@ -5,6 +5,12 @@ $(function() {
 	var scoreLogNum=0;
 	var weightLogNum=0;
 	
+	//返回按钮处理事件
+	$(".nvabar_back").on("click",function(){
+		keyback = true;
+		toUrl("/habit/home");
+	});
+	
 	
 	// 次数失去焦点处理事件
 	$("#score").on("blur", function() {
@@ -101,7 +107,7 @@ $(function() {
 			actionlog.scoreweight = $("#scoreweight").val();
 			actionlog.comments = $("#comments").val();
 			actionlog.alid = alid;
-			var layer_load = layer.load(1, {
+			var layer_load = layer.load(2, {
 				shade : [0.5 , '#000']
 			});
 			$.ajax({
@@ -114,7 +120,8 @@ $(function() {
 				"scoreweight" : actionlog.scoreweight + "" ,
 				"score" : actionlog.score + "" ,
 				"comments" : actionlog.comments,
-				"alid":actionlog.alid
+				"alid":actionlog.alid,
+				"deviceid":$("#deviceid").val()
 				} ,
 				dataType : "html" ,
 				error : function(data) {
@@ -129,7 +136,7 @@ $(function() {
 		}
 		});
 		// 获取该动作的当前记录集
-		var layer_load = layer.load(1, {
+		var layer_load = layer.load(2, {
 			shade : [0.5 , '#000']
 		});
 		$.ajax({
@@ -139,7 +146,8 @@ $(function() {
 			"pid" : $(this).attr("planid") ,
 			"aid" : $(this).attr("actionid") ,
 			"num" :  $(this).attr("num"),
-			"alid" : $(this).attr("actionlogid")+""
+			"alid" : $(this).attr("actionlogid")+"",
+			"deviceid":$("#deviceid").val()
 			} ,
 			dataType : "json" ,
 			error : function(data) {
@@ -223,7 +231,7 @@ $(function() {
 	});
 	$("#editplan").on("click", function() {
 
-		layer.load(1, {
+		layer.load(2, {
 			shade : [0.5 , '#000']
 		});
 		toUrl("toeditplan?pid=" + $(this).attr("planid"));
@@ -286,7 +294,8 @@ function addActionLog(actionlog) {
 	"num" : actionlog.num + "" ,
 	"scoreweight" : actionlog.scoreweight + "" ,
 	"score" : actionlog.score + "" ,
-	"comments" : actionlog.comments
+	"comments" : actionlog.comments,
+	"deviceid":$("#deviceid").val()
 	} ,
 	dataType : "html" ,
 	error : function(data) {
@@ -301,14 +310,15 @@ function addActionLog(actionlog) {
 }
 function deletePlan(pid) {
 
-	var layer_load = layer.load(1, {
+	var layer_load = layer.load(2, {
 		shade : [0.5 , '#000']
 	});
 	$.ajax({
 	url : "deleteplan" ,
 	type : "post" ,
 	data : {
-		"pid" : pid
+		"pid" : pid,
+		"deviceid":$("#deviceid").val()
 	} ,
 	dataType : "html" ,
 	error : function(data) {
@@ -324,7 +334,7 @@ function deletePlan(pid) {
 }
 function endPlan(pid, plid) {
 
-	var layer_load = layer.load(1, {
+	var layer_load = layer.load(2, {
 		shade : [0.5 , '#000']
 	});
 	$.ajax({
@@ -332,7 +342,8 @@ function endPlan(pid, plid) {
 	type : "post" ,
 	data : {
 	"pid" : pid ,
-	"plid" : plid
+	"plid" : plid,
+	"deviceid":$("#deviceid").val()
 	} ,
 	dataType : "html" ,
 	error : function(data) {
@@ -349,14 +360,15 @@ function endPlan(pid, plid) {
 }
 function startPlan(pid) {
 
-	var layer_load = layer.load(1, {
+	var layer_load = layer.load(2, {
 		shade : [0.5 , '#000']
 	});
 	$.ajax({
 	url : "startplan" ,
 	type : "post" ,
 	data : {
-		"pid" : pid
+		"pid" : pid,
+		"deviceid":$("#deviceid").val()
 	} ,
 	dataType : "json" ,
 	error : function(data) {

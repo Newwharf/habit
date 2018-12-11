@@ -38,11 +38,22 @@
 </head>
 
 <body style="background-color: #f8f8f8;">
-	<div class="add_button" actiontypeid="<%=actiontypeid%>">+</div>
+
+	<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
+
+	<!-- 顶部导航栏 -->
+	<div class="nvabar">
+		<img class="nvabar_back" src="<%=basePath%>img/back.png">
+		<span class="nvabar_title"></span>
+	</div>
+	<div class="nvabar_blank"></div>
+
+
+	<div class="add_button" actiontypeid="<%=actiontypeid%>" style=""></div>
 	<div id="action_list" style="width: 90%; margin: auto;">
 
 		<%
-			if (actionList.size()>0) {
+			if (actionList.size() > 0) {
 		%>
 		<%
 			for (Action action : actionList) {
@@ -78,9 +89,9 @@
 		<%
 			} else {
 		%>
-		
-		<div class="nulltip" style="width: 100%;text-align: center;font-size: 20px;margin-top: 70%;">点击右下角按钮来添加动作</div>
-		
+
+		<div class="nulltip" style="width: 100%; text-align: center; font-size: 20px; margin-top: 70%;">点击右下角按钮来添加动作</div>
+
 		<%
 			}
 		%>

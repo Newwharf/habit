@@ -67,9 +67,15 @@
 </head>
 
 <body class="background_img">
+<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
+	<!-- 顶部导航栏 -->
+	<div class="nvabar">
+		<span class="nvabar_title">力量日记</span>
+	</div>
+	<div class="nvabar_blank"></div>
 
 	<!-- 顶部用户基本信息栏 -->
-	<div style="width: 90%; height: 50px; margin: 10px 5% 10px 5%; position: relative;">
+	<div style="width: 90%; height: 50px; margin: 20px 5% 30px 5%; position: relative;">
 		<div class="head_img headclick" style="background-image: url(<%=vImgUrl%>);float:left;"></div>
 		<div class="headclick" style="float: left; margin-left: 5px;">
 			<span style="font-size: 23px; color: white;"><%=name%></span><br /> <span style="font-size: 14px; color: white;"><%=weightMsg%></span>
@@ -183,7 +189,7 @@
 <div id="more_panel_body">
 	<p class="more_panel_button" id="button_userinfo">
 		<img alt="" src="img/userinfo.png" width="60px">
-		<span>身体指标</span>
+		<span>个人信息</span>
 	</p>
 	<p class="more_panel_button" id="button_action">
 		<img alt="" src="img/action.png" width="60px">

@@ -1,5 +1,12 @@
 $(function() {
 	var cropper;
+	
+	//返回按钮处理事件
+	$(".nvabar_back").on("click",function(){
+		keyback = true;
+		toUrl("/habit/home");
+	});
+	
 	$("#headimg").on("click", function() {
 		$("#headimgfile").click();
 	});
@@ -154,7 +161,8 @@ $(function() {
 				"lthighsize_isUpdate" : $("[name='lthighsize_isUpdate']").val(),
 				"lcrussize_isUpdate" : $("[name='lcrussize_isUpdate']").val(),
 				"rthighsize_isUpdate" : $("[name='rthighsize_isUpdate']").val(),
-				"rcrussize_isUpdate" : $("[name='rcrussize_isUpdate']").val()
+				"rcrussize_isUpdate" : $("[name='rcrussize_isUpdate']").val(),
+				"deviceid":$("#deviceid").val()
 			},
 			error : function(data) {
 
@@ -199,4 +207,5 @@ $(function() {
 			isUpdate_hidden.eq(i).val(0);
 		}
 	});
+	ctrlBack("/habit/home");
 })

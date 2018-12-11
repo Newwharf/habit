@@ -27,9 +27,6 @@
 <link rel="shortcut icon" href="<%=basePath%>/img/favicon.ico" type="image/x-icon" />
 <link rel="bookmark" href="<%=basePath%>/img/favicon.ico" type="image/x-icon" />
 <!-- 引入输入框样式 -->
-<link rel="stylesheet" href="<%=basePath%>css/input_skin/component.css" type="text/css" />
-<link rel="stylesheet" href="<%=basePath%>css/input_skin/font-awesome.min.css" type="text/css" />
-<link rel="stylesheet" href="<%=basePath%>css/input_skin/normalize.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/style.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>css/loding01.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>plugs/layer/skin/dialog_2button/style.css" type="text/css" />
@@ -45,8 +42,14 @@
 
 </head>
 
-<body class="background_img" style="background-size: 100% 300px;">
-
+<body class="background_img" style="background-size: 100% 500px;">
+<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
+	<!-- 顶部导航栏 -->
+	<div class="nvabar">
+		<img class="nvabar_back" src="<%=basePath%>img/back.png">
+		<span class="nvabar_title"></span>
+	</div>
+	<div class="nvabar_blank"></div>
 	<p class="plandetails_topbar">
 		<span><%=plan.getvName()%></span>
 	</p>
@@ -72,7 +75,8 @@
 				<span><%=(i + 1) < 10 ? "0" + (i + 1) : i%></span>
 			</div>
 			<div class="item_50h_d2">
-				<span style="font-size: 18px;"><%=actionLog.getfScoreweight()%>kg/<%=actionLog.getTiActiontype()==0?actionLog.getiScorenum()+actionLog.getvActionunit():actionLog.getiScoretime()+"秒"%></span> <br>
+				<span style="font-size: 18px;"><%=actionLog.getfScoreweight()%>kg/<%=actionLog.getTiActiontype() == 0 ? actionLog.getiScorenum() + actionLog.getvActionunit()
+										: actionLog.getiScoretime() + "秒"%></span> <br>
 				<font style="font-size: 13px;"><%=Commons.formatDate(actionLog.getDtCdate(), "YYYY.MM.dd HH:mm")%></font>
 			</div>
 			<img alt="" src="/habit/img/record.png" height="30px" isrecord="1" planid="<%=plan.getiId()%>" num="<%=actionLog.getiNumbyplan()%>" actiontype="<%=action.getType()%>" actionid="<%=action.getAid()%>" planlogid="<%=planLog.getId()%>" actionlogid="<%=actionLog.getiId()%>" score="<%=action.getType() == 0 ? actionLog.getiScorenum() : actionLog.getiScoretime()%>" scoreweight="<%=actionLog.getfScoreweight()%>" comments="<%=actionLog.getvComments()%>" actionunit="<%=action.getUnit()%>">
@@ -90,7 +94,7 @@
 				<span style="font-size: 15px;">--kg/--</span> <br>
 				<font style="font-size: 13px;">--</font>
 			</div>
-			<img alt="" src="/habit/img/record.png" height="30px" isrecord="0" planid="<%=plan.getiId()%>" num="<%=i + 1%>" actiontype="<%=action.getType()%>" actionid="<%=action.getAid()%>" planlogid="<%=planLog.getId()%>" actionunit="<%=action.getUnit()%>"  style="<%=isShowRecord ? "" : "display:none;"%>">
+			<img alt="" src="/habit/img/record.png" height="30px" isrecord="0" planid="<%=plan.getiId()%>" num="<%=i + 1%>" actiontype="<%=action.getType()%>" actionid="<%=action.getAid()%>" planlogid="<%=planLog.getId()%>" actionunit="<%=action.getUnit()%>" style="<%=isShowRecord ? "" : "display:none;"%>">
 		</div>
 		<div class="line_01"></div>
 		<%
@@ -156,7 +160,7 @@
 		<input type="hidden" id="aid" value="">
 		<input type="hidden" id="plid" value="">
 		<input type="hidden" id="plaisrecord" weight_isrecord=0 score_isrecord=0 value="">
-		
+
 
 	</div>
 

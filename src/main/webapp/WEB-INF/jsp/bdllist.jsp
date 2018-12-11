@@ -31,32 +31,37 @@
 <script type="text/javascript" src="<%=basePath%>plugs/layer/layer.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/common.js"></script>
 <script type="text/javascript">
-
-$(function(){
-	ctrlBack("../chart/logchart");
-});
-
 </script>
 
 </head>
 
 <body style="background-color: #f8f8f8;">
-
+<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
+	<!-- 顶部导航栏 -->
+	<div class="nvabar">
+		<img class="nvabar_back" src="<%=basePath%>img/back.png">
+		<span class="nvabar_title"></span>
+	</div>
+	<div class="nvabar_blank"></div>
 
 
 
 	<div id="actionlogchart">
 		<div id="action_list" style="width: 90%; margin: auto;">
-		<%for(BodyDataLog bdl:bdlList){ %>
+			<%
+				for (BodyDataLog bdl : bdlList) {
+			%>
 			<div class="target_in">
 				<div class="target_in_dec"></div>
 				<div>
-					<span><%=bdl.getfScore() %><%=bdl.getTiIndex()==1?" kg":bdl.getTiIndex()==2?" %":" cm" %></span><br>
-					<font><%=Commons.formatDate(bdl.getDtCdate(), "YYYY.MM.dd HH:mm:ss") %></font>
+					<span><%=bdl.getfScore()%><%=bdl.getTiIndex() == 1 ? " kg" : bdl.getTiIndex() == 2 ? " %" : " cm"%></span><br>
+					<font><%=Commons.formatDate(bdl.getDtCdate(), "YYYY.MM.dd HH:mm:ss")%></font>
 				</div>
 			</div>
-		<%} %>
-			
+			<%
+				}
+			%>
+
 		</div>
 	</div>
 

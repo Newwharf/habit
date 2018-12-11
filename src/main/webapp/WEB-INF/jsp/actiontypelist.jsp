@@ -1,11 +1,13 @@
 <%@page import="com.flowermake.habit.tools.Commons"%>
 <%@page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.flowermake.habit.domain.ActionType"%>
+<%@page import="com.flowermake.habit.domain.User"%>
 
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	User user = (User) session.getAttribute("user");
 	List<ActionType> actionTypeList = (List<ActionType>) request.getAttribute("actionTypeList");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -30,7 +32,13 @@
 </head>
 
 <body style="background-color: #f8f8f8;">
-
+<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
+	<!-- 顶部导航栏 -->
+	<div class="nvabar">
+		<img class="nvabar_back" src="<%=basePath%>img/back.png">
+		<span class="nvabar_title"></span>
+	</div>
+	<div class="nvabar_blank"></div>
 
 
 	<!-- 目标面板 -->
@@ -40,7 +48,7 @@
 				<img alt="" src="<%=basePath%>img/actiontype.png" height="50px" style="margin: 10px 0 10px 20;">
 			</div>
 			<div style="width: 60%; line-height: 70px;">
-				<span style="font-size: 26px; color: black;margin-left: 15px;">动作分类</span>
+				<span style="font-size: 26px; color: black; margin-left: 15px;">动作分类</span>
 			</div>
 			<div id=target_add style="width: 20%; text-align: center;">
 				<img alt="" src="<%=basePath%>img/add.png" height="25px" style="margin: 23px 0 23px 0;">
@@ -61,10 +69,9 @@
 					<div class="line_space_line"></div>
 				</div>
 				<p style="position: relative;">
-					<span class="hotarea" style="position: absolute;height: 100%;width: 70%;z-index: 999;" typeid=<%=actionType.getiId() %>></span>
-					<span><%=actionType.getvName()%></span><br>
+					<span class="hotarea" style="position: absolute; height: 100%; width: 70%; z-index: 999;" typeid=<%=actionType.getiId()%>></span> <span><%=actionType.getvName()%></span><br>
 					<font><%=actionType.getvRemarks()%></font>
-					<img class="actiontype_edit" alt="" src="/habit/img/edit.png" width="25px" style="position: absolute; right: 5%; bottom: 8px;" type_id="<%=actionType.getiId() %>" type_name="<%=actionType.getvName()%>" type_remarks="<%=actionType.getvRemarks()%>">
+					<img class="actiontype_edit" alt="" src="/habit/img/edit.png" width="25px" style="position: absolute; right: 5%; bottom: 8px;" type_id="<%=actionType.getiId()%>" type_name="<%=actionType.getvName()%>" type_remarks="<%=actionType.getvRemarks()%>">
 				</p>
 			</div>
 			<%
