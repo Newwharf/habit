@@ -1,9 +1,9 @@
 $(function() {
-	
-	//返回按钮处理事件
-	$(".nvabar_back").on("click",function(){
+
+	// 返回按钮处理事件
+	$(".nvabar_back").on("click", function() {
 		keyback = true;
-		window.history.back();
+		toUrl("/habit/home");
 	});
 
 	if (getQueryString("type") == "1") {
@@ -22,17 +22,21 @@ $(function() {
 	});
 	$(".logochart_bodydata_item").on("click", function() {
 
-		if ($(this).attr("isJump")=="true") {
-			
-			toUrl('../chart/bdllist?index=' + $(this).attr("data"));
+		if ($(this).attr("isJump") == "true") {
+			layer.load(2, {
+				shade : [ 0.5, '#000' ]
+			});
+			toUrl('bdllist?type=0&index=' + $(this).attr("data"));
 		}
 	});
 	$(".target_in").on("click", function() {
 
-		if ($(this).attr("isJump")=="true") {
-			
-			toUrl('../chart/actionloglist?aid=' + $(this).attr("data"));
+		if ($(this).attr("isJump") == "true") {
+			layer.load(2, {
+				shade : [ 0.5, '#000' ]
+			});
+			toUrl('actionloglist?type=1&aid=' + $(this).attr("data"));
 		}
 	});
-	
+	ctrlBack("/habit/home");
 });

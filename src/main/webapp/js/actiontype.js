@@ -1,13 +1,13 @@
 $(function() {
 
-	preUrl = "/habit/home?deviceid="+$("#deviceid").val();
+	preUrl = "/habit/home?deviceid=" + $("#deviceid").val();
 	isCtrlBack = true;
 	var editActionTypeDialog;
-	
-	//返回按钮处理事件
-	$(".nvabar_back").on("click",function(){
+
+	// 返回按钮处理事件
+	$(".nvabar_back").on("click", function() {
 		keyback = true;
-		window.history.back();
+		toUrl("/habit/home");
 	});
 
 	// 动作分类添加事件
@@ -47,7 +47,7 @@ $(function() {
 							data : {
 								"type_name" : type_name,
 								"type_remarks" : type_remarks,
-								"deviceid":$("#deviceid").val()
+								"deviceid" : $("#deviceid").val()
 							},
 							dataType : "json",
 							error : function(data) {
@@ -131,7 +131,7 @@ $(function() {
 						"type_name" : type_name,
 						"type_remarks" : type_remarks,
 						"type_id" : type_id,
-						"deviceid":$("#deviceid").val()
+						"deviceid" : $("#deviceid").val()
 					},
 					dataType : "json",
 					error : function(data) {
@@ -178,7 +178,7 @@ $(function() {
 			url : "/habit/action/deleteactiontype",
 			data : {
 				"type_id" : type_id,
-				"deviceid":$("#deviceid").val()
+				"deviceid" : $("#deviceid").val()
 			},
 			dataType : "html",
 			error : function(data) {
@@ -216,8 +216,12 @@ $(function() {
 	});
 
 	// 分类点击事件
-	$("#target_msg_list").on("click",".hotarea", function() {
-		
-		$(location).attr('href', 'actionlist?typeid=' + $(this).attr("typeid")+'&deviceid='+$("#deviceid").val());
+	$("#target_msg_list").on("click", ".hotarea", function() {
+		layer.load(2, {
+			shade : [ 0.5, '#000' ]
+		});
+		toUrl('actionlist?typeid=' + $(this).attr("typeid"));
 	});
+	
+	ctrlBack("/habit/home");
 });

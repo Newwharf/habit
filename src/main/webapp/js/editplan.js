@@ -6,7 +6,7 @@ $(function() {
 	//返回按钮处理事件
 	$(".nvabar_back").on("click",function(){
 		keyback = true;
-		window.history.back();
+		toUrl("/habit/plan/toplandetails?planid=" + getQueryString("pid"));
 	});
 	
 	// 点击确定按钮的处理事件
@@ -88,8 +88,7 @@ $(function() {
 		initActionList();
 		openActionDialog();
 	});
-
-//	ctrlBack("/habit/plan/toplandetails?planid=" + getQueryString("pid"));
+	ctrlBack("/habit/plan/toplandetails?planid=" + getQueryString("pid"));
 });
 
 // 打开动作选择弹窗

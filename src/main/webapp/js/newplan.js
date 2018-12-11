@@ -2,11 +2,11 @@ $(function() {
 
 	var listDialog;
 	var dialog_height = 0;
-	
-	//返回按钮处理事件
-	$(".nvabar_back").on("click",function(){
+
+	// 返回按钮处理事件
+	$(".nvabar_back").on("click", function() {
 		keyback = true;
-		window.history.back();
+		toUrl("/habit/home");
 	});
 
 	// 点击确定按钮的处理事件
@@ -47,7 +47,7 @@ $(function() {
 				data : {
 					"planname" : name,
 					"actionlist" : JSON.stringify(actionJsonList),
-					"deviceid":$("#deviceid").val()
+					"deviceid" : $("#deviceid").val()
 				},
 				dataType : "json",
 				error : function(data) {
@@ -59,7 +59,6 @@ $(function() {
 					});
 				},
 				success : function(data) {
-
 					toUrl('toplandetails?planid=' + data.pid);
 				}
 			});
@@ -119,7 +118,7 @@ function initActionList() {
 	}
 	showDialogLoding();
 	$.ajax({
-		url : "../action/ajaxactionlist?deviceid="+$("#deviceid").val(),
+		url : "../action/ajaxactionlist?deviceid=" + $("#deviceid").val(),
 		type : "get",
 		dataType : "json",
 		error : function(data) {

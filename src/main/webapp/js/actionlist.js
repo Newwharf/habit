@@ -6,7 +6,7 @@ $(function() {
 	//返回按钮处理事件
 	$(".nvabar_back").on("click",function(){
 		keyback = true;
-		window.history.back();
+		toUrl("/actiontypelist");
 	});
 	
 	// 修改动作相应处理
@@ -270,5 +270,6 @@ $(function() {
 			$("#action_unit").slideUp(200);
 		}
 	});
-//	ctrlBack("actiontypelist");
+	
+	ctrlBack("actiontypelist");
 });

@@ -31,12 +31,20 @@
 <script type="text/javascript" src="<%=basePath%>plugs/layer/layer.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/common.js"></script>
 <script type="text/javascript">
+	$(function() {
+		//返回按钮处理事件
+		$(".nvabar_back").on("click", function() {
+			keyback = true;
+			toUrl("logchart?type=" + getQueryString("type"));
+		});
+		ctrlBack("logchart?type=" + getQueryString("type"));
+	});
 </script>
 
 </head>
 
 <body style="background-color: #f8f8f8;">
-<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
+	<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
 	<!-- 顶部导航栏 -->
 	<div class="nvabar">
 		<img class="nvabar_back" src="<%=basePath%>img/back.png">

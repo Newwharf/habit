@@ -38,8 +38,12 @@ function showErrorMsg(msg) {
 	});
 }
 function toUrl(url) {
-
-	$(location).attr('href', url+'&deviceid='+$("#deviceid").val());
+	if(url.indexOf("?")>-1){
+		$(location).attr('href', url+'&deviceid='+$("#deviceid").val());
+	}else{
+		$(location).attr('href', url+'?deviceid='+$("#deviceid").val());
+	}
+	
 }
 function showToastMsg(msg) {
 
