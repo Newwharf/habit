@@ -1,17 +1,18 @@
 $(function() {
 	var cropper;
-	
-	//返回按钮处理事件
-	$(".nvabar_back").on("click",function(){
+
+	// 返回按钮处理事件
+	$(".nvabar_back").on("click", function() {
 		keyback = true;
 		toUrl("/habit/home");
 	});
-	
+
 	$("#headimg").on("click", function() {
 		$("#headimgfile").click();
 	});
 
 	$("#clip_ok").on("click", function() {
+		hideLoding();
 		let imgdata = cropper.getCroppedCanvas({
 			width : 85,
 			height : 85,
@@ -26,12 +27,14 @@ $(function() {
 	});
 
 	$("#clip_cancel").on("click", function() {
+		hideLoding();
 		$("#clip_img").attr("src", "");
 		$("#clip_div").hide();
 		cropper.destroy();
 	});
 
 	$("#headimgfile").on("change", function() {
+		showLoding();
 		let file = document.getElementById("headimgfile").files[0];
 		let reader = new FileReader();
 		reader.onload = function(e) {
@@ -44,6 +47,7 @@ $(function() {
 				toggleDragModeOnDblclick : false,
 				dragMode : "move"
 			});
+			hideLoding();
 			$("#clip_div").show();
 		};
 		reader.readAsDataURL(file);
@@ -126,7 +130,7 @@ $(function() {
 			url : "edituserinformation",
 			dataType : "html",
 			data : {
-				"headimg":$("#headimg").attr("src"),
+				"headimg" : $("#headimg").attr("src"),
 				"username" : $("#username").val(),
 				"sex" : $("#sex").val(),
 				"birthday" : $("#birthday").val(),
@@ -162,7 +166,7 @@ $(function() {
 				"lcrussize_isUpdate" : $("[name='lcrussize_isUpdate']").val(),
 				"rthighsize_isUpdate" : $("[name='rthighsize_isUpdate']").val(),
 				"rcrussize_isUpdate" : $("[name='rcrussize_isUpdate']").val(),
-				"deviceid":$("#deviceid").val()
+				"deviceid" : $("#deviceid").val()
 			},
 			error : function(data) {
 

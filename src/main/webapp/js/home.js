@@ -100,7 +100,7 @@ $(function() {
 		layer.load(2, {
 			shade : [ 0.5, '#000' ]
 		});
-		// toUrl('target/targetlist');
+		toUrl('target/targetlist');
 	});
 	// 目标面板添加事件
 	$('#target_add').on(

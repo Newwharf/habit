@@ -53,7 +53,7 @@
 	<div class="nvabar_blank"></div>
 	<div id="maindiv">
 		<!-- 基本信息 -->
-		<div class="information_panel information_panel_headimg">
+		<div class="information_panel information_panel_headimg" type="nodialog">
 			<img id="headimg" src="<%=vImgUrl%>" width="85px;" style="border-radius: 50%; position: absolute; left: 0; right: 0; margin: auto; top: -43px;">
 			<input type="file" id="headimgfile" style="display: none;" />
 			<div class="information_panel_input">
@@ -100,7 +100,7 @@
 		</div>
 
 		<!-- 基本身体数据 -->
-		<div class="information_panel">
+		<div class="information_panel" type="nodialog">
 			<div style="width: 100%; line-height: 60px; height: 50px; padding-left: 20px;">
 				<span style="font-size: 20px; color: black;">基本身体数据</span>
 			</div>
@@ -144,7 +144,7 @@
 		</div>
 
 		<!-- 整体围度 -->
-		<div class="information_panel">
+		<div class="information_panel" type="nodialog">
 			<div style="width: 100%; line-height: 60px; height: 50px; padding-left: 20px;">
 				<span style="font-size: 20px; color: black;">整体围度</span>
 			</div>
@@ -210,7 +210,7 @@
 		</div>
 
 		<!-- 上肢围度 -->
-		<div class="information_panel">
+		<div class="information_panel" type="nodialog">
 			<div style="width: 100%; line-height: 60px; height: 50px; padding-left: 20px;">
 				<span style="font-size: 20px; color: black;">上肢围度</span>
 			</div>
@@ -265,7 +265,7 @@
 		</div>
 
 		<!-- 下肢围度 -->
-		<div class="information_panel">
+		<div class="information_panel" type="nodialog">
 			<div style="width: 100%; line-height: 60px; height: 50px; padding-left: 20px;">
 				<span style="font-size: 20px; color: black;">下肢围度</span>
 			</div>
