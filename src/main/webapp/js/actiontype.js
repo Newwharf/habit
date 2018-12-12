@@ -93,7 +93,7 @@ $(function() {
 	$("#target_msg_list").on("click", ".actiontype_edit", function() {
 
 		$("#update_type_name").val($(this).attr("type_name"));
-		$("#update_type_remarks").val($(this).attr("type_name"));
+		$("#update_type_remarks").val($(this).attr("type_remarks"));
 		let type_id = $(this).attr("type_id");
 		$("#actiontype_delete").attr("type_id", type_id);
 
@@ -133,7 +133,7 @@ $(function() {
 						"type_id" : type_id,
 						"deviceid" : $("#deviceid").val()
 					},
-					dataType : "json",
+					dataType : "HTML",
 					error : function(data) {
 
 						var msg = "失败了！系统懵逼中...";
@@ -154,10 +154,10 @@ $(function() {
 							time : "2000",
 							offset : "200px"
 						});
-						$("#action_type_" + type_id + " p span").text(data.name);
-						$("#action_type_" + type_id + " p font").text(data.remarks);
-						$("#action_type_" + type_id + " p img").attr("type_name", data.name);
-						$("#action_type_" + type_id + " p img").attr("type_remarks", data.remarks);
+						$("#action_type_" + type_id + " p span").text(type_name);
+						$("#action_type_" + type_id + " p font").text(type_remarks);
+						$("#action_type_" + type_id + " p img").attr("type_name", type_name);
+						$("#action_type_" + type_id + " p img").attr("type_remarks", type_remarks);
 					}
 				});
 			}
