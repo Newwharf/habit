@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.flowermake.habit.domain.ActionLog;
+import com.flowermake.habit.domain.ActionLog_LogChartTemp;
 
 public interface ActionLogMapper {
 
@@ -36,5 +37,11 @@ public interface ActionLogMapper {
 	List<ActionLog> selectByAid(@Param("aid") long aid, @Param("m") int m, @Param("n") int n);
 
 	List<ActionLog> selectByLastPlanLog(@Param("pid") long pid);
+
+	List<ActionLog_LogChartTemp> selectChartLogByAid(@Param("aid") long aid, @Param("uid") long uid, @Param("m") int m,
+			@Param("n") int n);
+
+	List<ActionLog_LogChartTemp> selectChartLogByPid(@Param("pid") long pid, @Param("aid") long aid,
+			@Param("uid") long uid, @Param("m") int m, @Param("n") int n);
 
 }

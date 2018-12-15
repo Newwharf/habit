@@ -17,7 +17,6 @@ public class IdWorker {
 	private long sequence = 0L;
 	private long lastTimestamp = -1L;
 	
-
 	
 	public IdWorker() {
 		long workerId = 0;

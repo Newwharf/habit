@@ -47,4 +47,8 @@ public class BodyDataLogServiceImpl implements IBodyDataLogService {
 		return bodyDataLogMapper.selectByIndex(index, uid, m, n);
 	}
 
+	public int insertList(List<BodyDataLog> list) {
+		return bodyDataLogMapper.insertList(list);
+	}
+
 }

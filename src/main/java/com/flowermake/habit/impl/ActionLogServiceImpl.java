@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.flowermake.habit.dao.ActionLogMapper;
 import com.flowermake.habit.domain.ActionLog;
+import com.flowermake.habit.domain.ActionLog_LogChartTemp;
 import com.flowermake.habit.service.IActionLogService;
 
 @Service("actionLogService")
@@ -84,6 +85,14 @@ public class ActionLogServiceImpl implements IActionLogService {
 
 	public List<ActionLog> selectByLastPlanLog(long pid) {
 		return actionLogMapper.selectByLastPlanLog(pid);
+	}
+
+	public List<ActionLog_LogChartTemp> selectChartLogByAid(long aid, long uid, int m, int n) {
+		return actionLogMapper.selectChartLogByAid(aid, uid, m, n);
+	}
+
+	public List<ActionLog_LogChartTemp> selectChartLogByPid(long pid, long aid, long uid, int m, int n) {
+		return actionLogMapper.selectChartLogByPid(pid, aid, uid, m, n);
 	}
 
 }

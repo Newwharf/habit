@@ -23,7 +23,6 @@
 <!-- 引入主样式 -->
 <link rel="stylesheet" href="<%=basePath%>css/style.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath%>plugs/layer/skin/dialog_2button/style.css" type="text/css" />
-
 <!-- 引入相关JS -->
 <script type="text/javascript" src="<%=basePath%>plugs/jquery/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>plugs/layer/layer.js"></script>

@@ -63,6 +63,25 @@
 		#{dtCdate,jdbcType=TIMESTAMP}, #{vComments,jdbcType=VARCHAR}
 		)
 	</insert>
+	<insert id="insertList" parameterType="java.util.List">
+		insert into h_body_data_log
+		(i_id, i_userid, ti_index,
+		f_score,
+		dt_cdate, v_comments
+		)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.iId,jdbcType=BIGINT},
+			#{item.iUserid,jdbcType=BIGINT},
+			#{item.tiIndex,jdbcType=TINYINT},
+			#{item.fScore,jdbcType=REAL},
+			#{item.dtCdate,jdbcType=TIMESTAMP},
+			#{item.vComments,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
 	<insert id="insertSelective" parameterType="com.flowermake.habit.domain.BodyDataLog">
 		insert into h_body_data_log
 		<trim prefix="(" suffix=")" suffixOverrides=",">

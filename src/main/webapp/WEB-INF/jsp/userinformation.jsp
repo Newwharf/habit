@@ -113,7 +113,7 @@
 					<font>身高</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastheight() == null ? "" : bodyData.getfLastheight()%>" id="height" name="height">
+					<input step="0.01" type="number" value="<%=bodyData.getfLastheight() == null ? "" : bodyData.getfLastheight()%>"  history_val="" id="height" name="height">
 					<input type="hidden" name="height_isUpdate" value="0">
 				</div>
 				cm
@@ -124,7 +124,7 @@
 					<font>体重</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastweight() == null ? "" : bodyData.getfLastweight()%>" id="weight" name="weight">
+					<input weight_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastweight() == null ? "" : bodyData.getfLastweight()%>" history_val="" id="weight" name="weight">
 					<input type="hidden" name="weight_isUpdate" value="0">
 				</div>
 				kg
@@ -135,7 +135,7 @@
 					<font>体脂</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastbodyfat() == null ? "" : bodyData.getfLastbodyfat()%>" id="bodyfat" name="bodyfat">
+					<input bodyfat_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastbodyfat() == null ? "" : bodyData.getfLastbodyfat()%>" history_val="" id="bodyfat" name="bodyfat">
 					<input type="hidden" name="bodyfat_isUpdate" value="0">
 				</div>
 				%
@@ -157,7 +157,7 @@
 					<font>肩宽</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastshouldersize() == null ? "" : bodyData.getfLastshouldersize()%>" id="shouldersize" name="shouldersize">
+					<input shouldersize_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastshouldersize() == null ? "" : bodyData.getfLastshouldersize()%>" history_val="" id="shouldersize" name="shouldersize">
 					<input type="hidden" name="shouldersize_isUpdate" value="0">
 				</div>
 				cm
@@ -168,7 +168,7 @@
 					<font>胸围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastbust() == null ? "" : bodyData.getfLastbust()%>" id="bust" name="bust">
+					<input bust_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastbust() == null ? "" : bodyData.getfLastbust()%>" history_val="" id="bust" name="bust">
 					<input type="hidden" name="bust_isUpdate" value="0">
 				</div>
 				cm
@@ -179,7 +179,7 @@
 					<font>腹围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastabdominalsize() == null ? "" : bodyData.getfLastabdominalsize()%>" id="abdominalsize" name="abdominalsize">
+					<input abdominalsize_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastabdominalsize() == null ? "" : bodyData.getfLastabdominalsize()%>" history_val="" id="abdominalsize" name="abdominalsize">
 					<input type="hidden" name="abdominalsize_isUpdate" value="0">
 				</div>
 				cm
@@ -190,7 +190,7 @@
 					<font>腰围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastwaistline() == null ? "" : bodyData.getfLastwaistline()%>" id="waistline" name="waistline">
+					<input waistline_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastwaistline() == null ? "" : bodyData.getfLastwaistline()%>" history_val="" id="waistline" name="waistline">
 					<input type="hidden" name="waistline_isUpdate" value="0">
 				</div>
 				cm
@@ -201,7 +201,7 @@
 					<font>臀围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLasthipline() == null ? "" : bodyData.getfLasthipline()%>" id="hipline" name="hipline">
+					<input hipline_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLasthipline() == null ? "" : bodyData.getfLasthipline()%>" history_val="" id="hipline" name="hipline">
 					<input type="hidden" name="hipline_isUpdate" value="0">
 				</div>
 				cm
@@ -223,7 +223,7 @@
 					<font>左上臂围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastlarmsize() == null ? "" : bodyData.getfLastlarmsize()%>" id="larmsize" name="larmsize">
+					<input larmsize_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastlarmsize() == null ? "" : bodyData.getfLastlarmsize()%>" history_val="" id="larmsize" name="larmsize">
 					<input type="hidden" name="larmsize_isUpdate" value="0">
 				</div>
 				cm
@@ -234,7 +234,7 @@
 					<font>左前臂围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastlforearmsize() == null ? "" : bodyData.getfLastlforearmsize()%>" id="lforearmsize" name="lforearmsize">
+					<input lforearmsize_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastlforearmsize() == null ? "" : bodyData.getfLastlforearmsize()%>" history_val="" id="lforearmsize" name="lforearmsize">
 					<input type="hidden" name="lforearmsize_isUpdate" value="0">
 				</div>
 				cm
@@ -245,7 +245,7 @@
 					<font>右上臂围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastrarmsize() == null ? "" : bodyData.getfLastrarmsize()%>" id="rarmsize" name="rarmsize">
+					<input rarmsize_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastrarmsize() == null ? "" : bodyData.getfLastrarmsize()%>" history_val="" id="rarmsize" name="rarmsize">
 					<input type="hidden" name="rarmsize_isUpdate" value="0">
 				</div>
 				cm
@@ -256,7 +256,7 @@
 					<font>右前臂围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastrforearmsize() == null ? "" : bodyData.getfLastrforearmsize()%>" id="rforearmsize" name="rforearmsize">
+					<input rforearmsize_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastrforearmsize() == null ? "" : bodyData.getfLastrforearmsize()%>" history_val="" id="rforearmsize" name="rforearmsize">
 					<input type="hidden" name="rforearmsize_isUpdate" value="0">
 				</div>
 				cm
@@ -278,7 +278,7 @@
 					<font>左大腿围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastlthighsize() == null ? "" : bodyData.getfLastlthighsize()%>" id="lthighsize" name="lthighsize">
+					<input lthighsize_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastlthighsize() == null ? "" : bodyData.getfLastlthighsize()%>" history_val="" id="lthighsize" name="lthighsize">
 					<input type="hidden" name="lthighsize_isUpdate" value="0">
 				</div>
 				cm
@@ -289,7 +289,7 @@
 					<font>左小腿围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastlcrussize() == null ? "" : bodyData.getfLastlcrussize()%>" id="lcrussize" name="lcrussize">
+					<input lcrussize_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastlcrussize() == null ? "" : bodyData.getfLastlcrussize()%>" history_val="" id="lcrussize" name="lcrussize">
 					<input type="hidden" name="lcrussize_isUpdate" value="0">
 				</div>
 				cm
@@ -300,7 +300,7 @@
 					<font>右大腿围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastrthighsize() == null ? "" : bodyData.getfLastrthighsize()%>" id="rthighsize" name="rthighsize">
+					<input rthighsize_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastrthighsize() == null ? "" : bodyData.getfLastrthighsize()%>" history_val="" id="rthighsize" name="rthighsize">
 					<input type="hidden" name="rthighsize_isUpdate" value="0">
 				</div>
 				cm
@@ -308,10 +308,10 @@
 
 			<div class="information_panel_input" style="border: none;">
 				<div class="information_panel_label">
-					<font>右小臂围</font>
+					<font>右小腿围</font>
 				</div>
 				<div>
-					<input step="0.01" type="number" value="<%=bodyData.getfLastrcrussize() == null ? "" : bodyData.getfLastrcrussize()%>" id="rcrussize" name="rcrussize">
+					<input rcrussize_isUpdate="0" step="0.01" type="number" value="<%=bodyData.getfLastrcrussize() == null ? "" : bodyData.getfLastrcrussize()%>" history_val="" id="rcrussize" name="rcrussize">
 					<input type="hidden" name="rcrussize_isUpdate" value="0">
 				</div>
 				cm

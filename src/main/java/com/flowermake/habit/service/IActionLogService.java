@@ -2,8 +2,8 @@ package com.flowermake.habit.service;
 
 import java.util.List;
 
-
 import com.flowermake.habit.domain.ActionLog;
+import com.flowermake.habit.domain.ActionLog_LogChartTemp;
 
 /**
  * @author lpp
@@ -120,4 +120,36 @@ public interface IActionLogService {
 	 * @return 动作日志集合
 	 */
 	public List<ActionLog> selectByLastPlanLog(long pid);
+
+	/**
+	 * 查询指定动作下的动作日志（logchart视图）
+	 * 
+	 * @param aid
+	 *            动作id
+	 * @param uid
+	 *            用户id
+	 * @param m
+	 *            分页参数，从第几条开始
+	 * @param n
+	 *            分页参数，总共取多少条
+	 * @return List<ActionLog_LogChartTemp>
+	 */
+	public List<ActionLog_LogChartTemp> selectChartLogByAid(long aid, long uid, int m, int n);
+
+	/**
+	 * 查询指定训练指定动作下的动作日志（logchart视图）
+	 * 
+	 * @param pid
+	 *            训练id
+	 * @param aid
+	 *            动作id
+	 * @param uid
+	 *            用户id
+	 * @param m
+	 *            分页参数，从第几条开始
+	 * @param n
+	 *            分页参数，总共取多少条
+	 * @return List<ActionLog_LogChartTemp>
+	 */
+	public List<ActionLog_LogChartTemp> selectChartLogByPid(long pid, long aid, long uid, int m, int n);
 }

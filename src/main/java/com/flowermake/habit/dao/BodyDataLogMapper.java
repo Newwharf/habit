@@ -23,4 +23,6 @@ public interface BodyDataLogMapper {
 
 	List<BodyDataLog> selectByIndex(@Param("index") byte index, @Param("uid") long uid, @Param("m") int m,
 			@Param("n") int n);
+
+	int insertList(List<BodyDataLog> list);
 }

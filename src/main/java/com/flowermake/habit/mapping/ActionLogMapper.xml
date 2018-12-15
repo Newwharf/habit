@@ -17,6 +17,45 @@
 		<result column="ti_state" jdbcType="TINYINT" property="tiState" />
 		<result column="i_userid" jdbcType="BIGINT" property="iUserid" />
 	</resultMap>
+	<resultMap id="LogChartMap"
+		type="com.flowermake.habit.domain.ActionLog_LogChartTemp">
+		<result column="planid" jdbcType="BIGINT" property="planId" />
+		<result column="planname" jdbcType="VARCHAR" property="planName" />
+		<result column="planlogid" jdbcType="BIGINT" property="planLogId" />
+		<result column="planlogcdate" jdbcType="TIMESTAMP" property="planLogCdate" />
+		<result column="planlogedate" jdbcType="TIMESTAMP" property="planLogEdate" />
+		<result column="actionid" jdbcType="BIGINT" property="actionId" />
+		<result column="actionname" jdbcType="VARCHAR" property="actionName" />
+		<result column="actiontype" jdbcType="TINYINT" property="actionType" />
+		<result column="actionunit" jdbcType="VARCHAR" property="actionUnit" />
+		<result column="actionlogid" jdbcType="BIGINT" property="actionLogId" />
+		<result column="actionlognumbyplan" jdbcType="INTEGER"
+			property="actionLogNumByPlan" />
+		<result column="actionlogscorenum" jdbcType="INTEGER" property="actionLogScorenum" />
+		<result column="actionlogscoretime" jdbcType="INTEGER"
+			property="actionLogScoretime" />
+		<result column="actionlogscoreweight" jdbcType="REAL"
+			property="actionLogScoreweight" />
+		<result column="actionlogcomments" jdbcType="VARCHAR" property="actionLogComments" />
+	</resultMap>
+	<sql id="Log_Chart_List">
+		hp.i_id planid,
+		hp.v_name planname,
+		hpl.id planlogid,
+		hpl.dt_cdate planlogcdate,
+		hpl.dt_ledate planlogedate,
+		ha.i_id actionid,
+		ha.v_name actionname,
+		ha.ti_type actiontype,
+		ha.v_unit actionunit,
+		hal.i_id actionlogid,
+		hal.i_numbyplan actionlognumbyplan,
+		hal.i_scorenum actionlogscorenum,
+		hal.i_scoretime actionlogscoretime,
+		hal.f_scoreweight actionlogscoreweight,
+		hal.v_comments
+		actionlogcomments
+	</sql>
 	<sql id="Base_Column_List">
 		i_id, i_planlogid, i_actionid, ti_actiontype, v_actionunit,
 		i_numbyplan,
@@ -24,6 +63,43 @@
 		i_scorenum, v_comments, i_scoretime,
 		dt_cdate, dt_ledate, ti_state,i_userid
 	</sql>
+	<select id="selectChartLogByAid" resultMap="LogChartMap">
+		select
+		<include refid="Log_Chart_List"></include>
+		from h_action ha
+		left join h_action_log hal
+		on ha.i_id=hal.i_actionid
+		left join h_plan_log hpl
+		on hal.i_planlogid=hpl.id
+		left join h_plan hp
+		on hpl.i_planid=hp.i_id
+		where ha.i_id=#{aid}
+		and hal.i_userid=#{uid}
+		order by
+		hpl.dt_cdate,hpl.id desc,
+		hal.i_numbyplan asc
+		limit #{m},#{n}
+	</select>
+	<select id="selectChartLogByPid" resultMap="LogChartMap">
+		select
+		<include refid="Log_Chart_List"></include>
+		from h_action ha
+		left join h_action_log hal
+		on ha.i_id=hal.i_actionid
+		left join h_plan_log hpl
+		on hal.i_planlogid=hpl.id
+		left join h_plan hp
+		on hpl.i_planid=hp.i_id
+		where hp.i_id=#{pid}
+		and ha.i_id=#{aid}
+		and
+		hal.i_userid=#{uid}
+		order by
+		hpl.dt_cdate,hpl.id desc,
+		hal.i_numbyplan
+		asc
+		limit #{m},#{n}
+	</select>
 	<select id="selectByLastPlanLog" resultMap="BaseResultMap">
 		select hal.* from
 		h_action_log hal where hal.i_planlogid=(select id from
@@ -64,7 +140,8 @@
 		and
 		hal.i_actionid=#{aid}
 		and
-		hal.dt_cdate &lt; #{cdate}
+		hal.dt_cdate &lt;
+		#{cdate}
 		and
 		hal.ti_state=0
 		order by hal.dt_cdate desc
@@ -86,7 +163,8 @@
 		and
 		hal.i_actionid=#{aid}
 		and
-		hal.dt_cdate &gt; #{cdate}
+		hal.dt_cdate &gt;
+		#{cdate}
 		and
 		hal.ti_state=0
 		order by hal.dt_cdate asc

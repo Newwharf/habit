@@ -53,9 +53,10 @@ $(function() {
 		reader.readAsDataURL(file);
 	});
 
-	$("[type='number']").on("blur", function() {
-
-		$(this).next().val(1);
+	$("[type='number']").on("change", function() {
+		if($(this).attr("history_val")!=$(this).val()){
+			$(this).next().val(1);
+		}
 	});
 	$("form").submit(function() {
 
@@ -204,12 +205,21 @@ $(function() {
 					$("#success_tip").hide();
 					$("#id_button_ok span").show();
 				}, 1000);
+				initUpdateState();
 			}
 		});
-		var isUpdate_hidden = $("[type='hidden']");
-		for (var i = 0; i < isUpdate_hidden.length; i++) {
-			isUpdate_hidden.eq(i).val(0);
-		}
 	});
 	ctrlBack("/habit/home");
 })
+
+//初始化更新状态
+function initUpdateState(){
+	
+}var isUpdate_hidden = $("[type='hidden']");
+var input_number = $("[type='number']");
+for (var i = 0; i < isUpdate_hidden.length; i++) {
+	isUpdate_hidden.eq(i).val(0);
+}
+for(var i=0;i<input_number.length;i++){
+	input_number.eq(i).attr("history_val",input_number.eq(i).val());
+}

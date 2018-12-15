@@ -6,7 +6,7 @@ $(function() {
 	//返回按钮处理事件
 	$(".nvabar_back").on("click",function(){
 		keyback = true;
-		toUrl("/actiontypelist");
+		toUrl("actiontypelist");
 	});
 	
 	// 修改动作相应处理

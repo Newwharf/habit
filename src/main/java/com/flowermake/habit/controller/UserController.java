@@ -1,7 +1,9 @@
 package com.flowermake.habit.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -100,249 +102,254 @@ public class UserController {
 		int rthighsize_isUpdate = new Integer(request.getParameter("rthighsize_isUpdate"));
 		int rcrussize_isUpdate = new Integer(request.getParameter("rcrussize_isUpdate"));
 
+		List<BodyDataLog> logList = new ArrayList<BodyDataLog>();
+		IdWorker idWorker = new IdWorker();
+
 		// 组装身体数据
 		if (!height.equals("")) {
 			bodyData.setfLastheight(new Float(height));
 			if (height_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 0);
 				bdl.setfScore(bodyData.getfLastheight());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!weight.equals("")) {
 			bodyData.setfLastweight(new Float(weight));
 			if (weight_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 1);
 				bdl.setfScore(bodyData.getfLastweight());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!bodyfat.equals("")) {
 			bodyData.setfLastbodyfat(new Float(bodyfat));
 			if (bodyfat_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 2);
 				bdl.setfScore(bodyData.getfLastbodyfat());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!shouldersize.equals("")) {
 			bodyData.setfLastshouldersize(new Float(shouldersize));
 			if (shouldersize_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 3);
 				bdl.setfScore(bodyData.getfLastshouldersize());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!bust.equals("")) {
 			bodyData.setfLastbust(new Float(bust));
 			if (bust_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 4);
 				bdl.setfScore(bodyData.getfLastbust());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!abdominalsize.equals("")) {
 			bodyData.setfLastabdominalsize(new Float(abdominalsize));
 			if (abdominalsize_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 5);
 				bdl.setfScore(bodyData.getfLastabdominalsize());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!waistline.equals("")) {
 			bodyData.setfLastwaistline(new Float(waistline));
 			if (waistline_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 6);
 				bdl.setfScore(bodyData.getfLastwaistline());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!hipline.equals("")) {
 			bodyData.setfLasthipline(new Float(hipline));
 			if (hipline_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 7);
 				bdl.setfScore(bodyData.getfLasthipline());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!larmsize.equals("")) {
 			bodyData.setfLastlarmsize(new Float(larmsize));
 			if (larmsize_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 8);
 				bdl.setfScore(bodyData.getfLastlarmsize());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!lforearmsize.equals("")) {
 			bodyData.setfLastlforearmsize(new Float(lforearmsize));
 			if (lforearmsize_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 10);
 				bdl.setfScore(bodyData.getfLastlforearmsize());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!rarmsize.equals("")) {
 			bodyData.setfLastrarmsize(new Float(rarmsize));
 			if (rarmsize_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 9);
 				bdl.setfScore(bodyData.getfLastrarmsize());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!rforearmsize.equals("")) {
 			bodyData.setfLastrforearmsize(new Float(rforearmsize));
 			if (rforearmsize_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 11);
 				bdl.setfScore(bodyData.getfLastrforearmsize());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!lthighsize.equals("")) {
 			bodyData.setfLastlthighsize(new Float(lthighsize));
 			if (lthighsize_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 12);
 				bdl.setfScore(bodyData.getfLastlthighsize());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!lcrussize.equals("")) {
 			bodyData.setfLastlcrussize(new Float(lcrussize));
 			if (lcrussize_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 14);
 				bdl.setfScore(bodyData.getfLastlcrussize());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!rthighsize.equals("")) {
 			bodyData.setfLastrthighsize(new Float(rthighsize));
 			if (rthighsize_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 13);
 				bdl.setfScore(bodyData.getfLastrthighsize());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
 		if (!rcrussize.equals("")) {
 			bodyData.setfLastrcrussize(new Float(rcrussize));
 			if (rcrussize_isUpdate == 1) {
 				BodyDataLog bdl = new BodyDataLog();
-				bdl.setiId(new IdWorker().nextId());
+				bdl.setiId(idWorker.nextId());
 				bdl.setiUserid(user.getiId());
 				bdl.setDtCdate(new Date());
 				bdl.setvComments("");
 				bdl.setTiIndex((byte) 15);
 				bdl.setfScore(bodyData.getfLastrcrussize());
-				bodyDataLogService.addBodyDataLog(bdl);
+				logList.add(bdl);
 			}
 		}
-
+		if(logList.size()>0) {
+			bodyDataLogService.insertList(logList);
+		}
 		userService.updateUser(user);
 		bodyDataService.updateBodyData(bodyData);
 		Commons.ajaxResponse(response, "success");
 
 	}
 
-	@RequestMapping("/signup")
-	public String signup(HttpServletRequest request, Model model) throws Exception {
-		User user = new User();
-		// 从微信用户信息中取出昵称、头像链接、openid
-		// String name = session.getAttribute("wechat_name").toString();
-		// String img_url = session.getAttribute("wechat_imgurl").toString();
-		// String wechat_id = session.getAttribute("wechat_id").toString();
-
-		String name = "李平平";
-		String img_url = "https://z1.muscache.cn/im/pictures/user/efb8c8e8-37da-4023-a715-95287ac7179c.jpg?aki_policy=profile_x_medium";
-		String wechat_id = new IdWorker().nextId() + "";
-
-		// 组装用户对象
-		user.setvName(name);
-		user.setvImgurl(img_url);
-		user.setvWechatuid(wechat_id);
-		user.setdBirthday(Commons.getDateByAge(Integer.valueOf(request.getParameter("age"))));
-		user.setTiSex(Byte.valueOf(request.getParameter("sex")));
-		user.setiId(new IdWorker().nextId());
-		user.setDtCdate(new Date());
-
-		// 保存到数据库并保存到session中
-		if (userService.addUser(user) == 1) {
-			request.getSession().setAttribute("user", user);
-			return "redirect:../home";
-		} else {
-			return "error";
-		}
-	}
+//	@RequestMapping("/signup")
+//	public String signup(HttpServletRequest request, Model model) throws Exception {
+//		User user = new User();
+//		// 从微信用户信息中取出昵称、头像链接、openid
+//		// String name = session.getAttribute("wechat_name").toString();
+//		// String img_url = session.getAttribute("wechat_imgurl").toString();
+//		// String wechat_id = session.getAttribute("wechat_id").toString();
+//
+//		String name = "李平平";
+//		String img_url = "https://z1.muscache.cn/im/pictures/user/efb8c8e8-37da-4023-a715-95287ac7179c.jpg?aki_policy=profile_x_medium";
+//		String wechat_id = idWorker.nextId() + "";
+//
+//		// 组装用户对象
+//		user.setvName(name);
+//		user.setvImgurl(img_url);
+//		user.setvWechatuid(wechat_id);
+//		user.setdBirthday(Commons.getDateByAge(Integer.valueOf(request.getParameter("age"))));
+//		user.setTiSex(Byte.valueOf(request.getParameter("sex")));
+//		user.setiId(idWorker.nextId());
+//		user.setDtCdate(new Date());
+//
+//		// 保存到数据库并保存到session中
+//		if (userService.addUser(user) == 1) {
+//			request.getSession().setAttribute("user", user);
+//			return "redirect:../home";
+//		} else {
+//			return "error";
+//		}
+//	}
 }

@@ -87,5 +87,14 @@ public interface IBodyDataLogService {
 	 *            查询样本量
 	 * @return
 	 */
-	List<BodyDataLog> selectByIndex(byte index, long uid, int m, int n);
+	public List<BodyDataLog> selectByIndex(byte index, long uid, int m, int n);
+
+	/**
+	 * 添加一批身体指标记录
+	 * 
+	 * @param list
+	 *            要添加的集合
+	 * @return 插入总数
+	 */
+	public int insertList(List<BodyDataLog> list);
 }
