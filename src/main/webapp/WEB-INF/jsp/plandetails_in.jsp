@@ -60,11 +60,11 @@
 	%>
 
 	<div class="list_panel" style="padding-bottom: 0px;">
-		<div class="item_50h" style="height: 60px">
-			<div class="item_50h_d1" style="height: 60px;line-height: 60px;">
+		<div class="item_60h" >
+			<div class="item_60h_d1">
 				<span style="color: #333;font-size: 20px;width: auto;"><%=action.getAname()%></span>
 			</div>
-			<img src="<%=basePath %>img/history_data.png" width="30px" style="top:23px;" planid="<%=plan.getiId()%>" actionid="<%=action.getAid()%>">
+			<img class="history_data" src="<%=basePath %>img/history_data.png" width="30px" planid="<%=plan.getiId()%>" actionid="<%=action.getAid()%>" planlogid="<%=planLog.getId()%>">
 		</div>
 		<div class="line_01"></div>
 
@@ -170,6 +170,30 @@
 	</div>
 
 </div>
+
+
+
+<!-- 日志详情页 -->
+	<div id="loglist_panel" style="position: fixed; display: none; width: 100%; height: 100%; background: #f8f8f8;">
+		<!-- 顶部导航 -->
+		<div id="loglist_panel_nav">
+			<img id="loglist_panel_nav_close" src="<%=basePath%>img/close.png">
+		</div>
+		<div id="loglist_panel_nav_blank"></div>
+		<div id="loglist_panel_loding_panel" style="display: none;">
+			<img src="<%=basePath%>/img/big_loding.gif" width="50px">
+			<br> <br> <span>...正在加载...</span>
+		</div>
+		<div id="loglist_panel_nodata_panel" style="display: none;">
+			<img src="<%=basePath%>/img/nodata.png" width="100px">
+			<br> <span>未找到往期训练记录</span>
+		</div>
+		<div id="loglist_panel_error_panel" style="display: none;">
+			<img src="<%=basePath%>/img/error.png" width="100px">
+			<br> <span>系统懵逼了，要不再试一次</span>
+			<div class="error_panel_button" id="loglist_panel_error_panel_button">再试一次</div>
+		</div>
+	</div>
 
 </html>
 

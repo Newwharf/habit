@@ -1,16 +1,52 @@
-$(function() {
+var ajaxObj;
+var myChart;
+var option;
+var scoreLogNum=0;
+var weightLogNum=0;
+var page_index = 0;
+var page_offset = 30;
+var noPageData = false;
+var nextPageLoding = false;
+var logListIsHasData = false;
 
-	var myChart;
-	var option;
-	var scoreLogNum=0;
-	var weightLogNum=0;
+$(function() {
 	
-	//返回按钮处理事件
+	// 返回按钮处理事件
 	$(".nvabar_back").on("click",function(){
 		keyback = true;
 		toUrl("/habit/home");
 	});
 	
+	// 历史记录详情中再试一次按钮点击处理事件
+	$("#loglist_panel_error_panel_button").on("click",function(){
+			loadActionLogData();
+	});
+	
+	// 历史记录详情列表点击关闭按钮处理事件
+	$("#loglist_panel_nav_close").on("click", function() {
+		closeLogListPanel();
+	});
+	
+	// 历史记录详情列表滚动条触底处理事件
+	$("#loglist_panel").on("touchend", function(e) {
+		if (!logListIsHasData) {
+			return;
+		}
+		let panel_h = document.getElementById("loglist_panel").scrollHeight;
+		let client_h = $(window).height();
+		let scrollTop_h = $("body").scrollTop();
+		let scrollBottom_h = panel_h - client_h - scrollTop_h;
+
+		if (scrollBottom_h < 200) {
+				nextActionLogData();
+		}
+	});
+	
+	// 动作历史记录点击处理时间
+	$(".history_data").on("click", function() {
+		$(this).attr("id", "selectaction");
+		showLogListPanel();
+	});
 	
 	// 次数失去焦点处理事件
 	$("#score").on("blur", function() {
@@ -222,7 +258,9 @@ $(function() {
 	});
 	ctrlBack("/habit/home");
 	$("#button_es").on("click", function() {
-
+		if(confirm("确定要结束训练")){
+			return;
+		}
 		if ($(this).attr("state") == 0) {
 			startPlan($(this).attr("planid"));
 		} else {
@@ -386,6 +424,219 @@ function startPlan(pid) {
 
 function setGridOffSet(option,size,center){
 	var offSet = ((center+1)/size).toString().Number(15.7784514000.toString().match(/^\d+(?:\.\d{0,2})?/));
+}
+
+// 加载下一页动作训练历史记录，加载条数为page_offset
+function nextActionLogData() {
+	if (noPageData || nextPageLoding) {
+		return;
+	}
+	nextPageLoding = true;
+	ajaxObj = $.ajax({
+		url : "../chart/actionloglistbypid",
+		type : "post",
+		dataType : "json",
+		data : {
+			"aid" : $("#selectaction").attr("actionid"),
+			"pid":$("#selectaction").attr("planid"),
+			"deviceid" : $("#deviceid").val(),
+			"page_index" : page_index,
+			"page_offset" : page_offset
+		},
+		error : function(data) {
+			showErrorMsg("加载下一页时发生错误");
+		},
+		success : function(data) {
+			page_index += data.length;
+			if (data.length > 0) {
+				for (let i = 0; i < data.length; i++) {
+					addActionLogToPanel(data[i]);
+				}
+				$("body").scrollTop($("body").scrollTop() + 50);
+				if (data.length < page_offset) {
+					noPageData = true;
+				}
+			} else {
+				showToastMsg("没有更多数据了");
+				noPageData = true;
+			}
+		}
+	});
+}
+
+// 显示二级页面，有过渡动画
+function showLogListPanel() {
+	mainSwiperScrollTop = $("body").scrollTop();
+	let logListPanel = $("#loglist_panel");
+	logListPanel.css({
+		"top" : "100%",
+		"z-index" : "99999"
+	});
+	$("#loglist_panel_nav_close").hide();
+	$("#loglist_panel_nav").css({
+		"position" : "absolute"
+	});
+	logListPanel.show();
+	logListPanel.animate({
+		top : "0"
+	}, 300, function() {
+		logListPanel.css({
+			"position" : "absolute"
+		});
+		$("#loglist_panel_nav").css({
+			"position" : "fixed"
+		});
+		logListPanel.css({
+			"height" : "auto"
+		});
+		$("#loglist_panel_nav_close").fadeIn("normal");
+		$(".list_panel").hide();
+		$(".bottom_black_button").hide();
+			loadActionLogData();
+	});
+}
+
+// 关闭二级页面，有过渡动画
+function closeLogListPanel() {
+	$(".list_panel").show();
+	$(".bottom_black_button").show();
+	let logListPanel = $("#loglist_panel");
+	logListPanel.css({
+		"position" : "fixed"
+	});
+	$("#loglist_panel_nav").css({
+		"position" : "absolute"
+	});
+	logListPanel.css({
+		"height" : "100%"
+	});
+	$("body").scrollTop(mainSwiperScrollTop);
+	logListPanel.animate({
+		top : "100%"
+	}, 300, function() {
+		logListPanel.hide();
+		clearLogListPanel();
+		hideLogListErrorPanel();
+		hideLogListNodataPanel();
+		showLogListLodingPanel();
+	});
+}
+
+
+// 加载动作训练历史记录，本方法为初次加载，加载条数为page_offset
+function loadActionLogData() {
+	page_index = 0;
+	hideLogListErrorPanel();
+	hideLogListNodataPanel();
+	showLogListLodingPanel();
+
+	ajaxObj = $.ajax({
+		url : "../chart/actionloglistbypid",
+		type : "post",
+		dataType : "json",
+		data : {
+			"aid" : $("#selectaction").attr("actionid"),
+			"deviceid" : $("#deviceid").val(),
+			"pid":$("#selectaction").attr("planid"),
+			"page_index" : page_index,
+			"page_offset" : page_offset
+		},
+		error : function(data) {
+			hideLogListLodingPanel();
+			showLogListErrorPanel();
+		},
+		success : function(data) {
+			page_index += data.length;
+			if (data.length > 0) {
+				for (let i = 0; i < data.length; i++) {
+					addActionLogToPanel(data[i]);
+				}
+				logListIsHasData = true;
+				if (data.length < page_offset) {
+					noPageData = true;
+				}
+			} else {
+				showLogListNodataPanel();
+				hideLogListLodingPanel();
+			}
+		}
+	});
+}
+
+// 将一条动作训练历史记录append到二级页面中
+function addActionLogToPanel(log) {
 	
-	
+	hideLogListLodingPanel();
+	hideLogListErrorPanel();
+	hideLogListNodataPanel();
+
+	let log_panel = $("#loglist_panel_noimg_" + log.planLogId);
+	if (log_panel.length == 0) {
+		let logHtml;
+		if (log.actionType == 0) {
+			logHtml = '<div class="loglist_panel_noimg" id="loglist_panel_noimg_' + log.planLogId
+					+ '"><div class="loglist_panel_noimg_title"><span class="loglist_panel_noimg_title_main">' + log.planLogCdate
+					+ '</span><br><span class="loglist_panel_noimg_title_sub">' + log.planName
+					+ '</span></div><div class="line_dashed"></div><div class="loglist_panel_noimg_item" id="loglist_panel_noimg_item_' + log.actionLogId
+					+ '"><span class="loglist_panel_noimg_item_main">' + log.actionLogScoreweight + 'kg/' + log.actionLogScorenum + log.actionUnit
+					+ '</span><br><span class="loglist_panel_noimg_item_sub">' + (log.actionLogComments == '' ? '——' : log.actionLogComments) + '</span></div></div>';
+		} else {
+			logHtml = '<div class="loglist_panel_noimg" id="loglist_panel_noimg_' + log.planLogId
+					+ '"><div class="loglist_panel_noimg_title"><span class="loglist_panel_noimg_title_main">' + log.planLogCdate
+					+ '</span><br><span class="loglist_panel_noimg_title_sub">' + log.planName
+					+ '</span></div><div class="line_dashed"></div><div class="loglist_panel_noimg_item" id="loglist_panel_noimg_item_' + log.actionLogId
+					+ '"><span class="loglist_panel_noimg_item_main">' + log.actionLogScoreweight + 'kg/' + log.actionLogScoretime
+					+ '秒</span><br><span class="loglist_panel_noimg_item_sub">' + (log.actionLogComments == '' ? '——' : log.actionLogComments) + '</span></div></div>';
+		}
+		$("#loglist_panel").append(logHtml);
+	} else {
+		let logHtml;
+		if (log.actionType == 0) {
+			logHtml = '<div class="line_dashed"></div><div class="loglist_panel_noimg_item" id="loglist_panel_noimg_item_' + log.actionLogId
+					+ '"><span class="loglist_panel_noimg_item_main">' + log.actionLogScoreweight + 'kg/' + log.actionLogScorenum + log.actionUnit
+					+ '</span><br><span class="loglist_panel_noimg_item_sub">' + (log.actionLogComments == '' ? '——' : log.actionLogComments) + '</span></div>';
+		} else {
+			logHtml = '<div class="line_dashed"></div><div class="loglist_panel_noimg_item" id="loglist_panel_noimg_item_' + log.actionLogId
+					+ '"><span class="loglist_panel_noimg_item_main">' + log.actionLogScoreweight + 'kg/' + actionLogScoretime
+					+ '秒</span><br><span class="loglist_panel_noimg_item_sub">' + (log.actionLogComments == '' ? '——' : log.actionLogComments) + '</span></div>';
+		}
+		log_panel.append(logHtml);
+	}
+}
+
+// 清除二级页面相关数据
+function clearLogListPanel() {
+	if(ajaxObj!=null){
+		ajaxObj.abort();
+	}
+	logListIsHasData = false;
+	$("#selectaction").removeAttr("id");
+	$(".loglist_panel_noimg").remove();
+	noPageData = false;
+	nextPageLoding = false;
+}
+
+// 显示二级页面加载动画面板
+function showLogListLodingPanel() {
+	$("#loglist_panel_loding_panel").show();
+}
+// 隐藏二级页面加载动画面板
+function hideLogListLodingPanel() {
+	$("#loglist_panel_loding_panel").hide();
+}
+// 显示二级页面无数据提示面板
+function showLogListNodataPanel() {
+	$("#loglist_panel_nodata_panel").show();
+}
+// 隐藏二级页面无数据提示面板
+function hideLogListNodataPanel() {
+	$("#loglist_panel_nodata_panel").hide();
+}
+// 显示二级页面错误提示面板
+function showLogListErrorPanel() {
+	$("#loglist_panel_error_panel").show();
+}
+// 隐藏二级页面错误提示面板
+function hideLogListErrorPanel() {
+	$("#loglist_panel_error_panel").hide();
 }

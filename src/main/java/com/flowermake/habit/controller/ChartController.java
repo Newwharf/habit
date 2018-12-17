@@ -62,7 +62,7 @@ public class ChartController {
 	// }
 
 	@RequestMapping("/bdllist")
-	public void bdlList(HttpServletRequest request,HttpServletResponse response) throws Exception {
+	public void bdlList(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		User user = (User) request.getSession().getAttribute("user");
 		int m = new Integer(request.getParameter("page_index"));
 		int n = new Integer(request.getParameter("page_offset"));
@@ -93,7 +93,12 @@ public class ChartController {
 			json.put("actionUnit", log.getActionUnit());
 			json.put("planId", log.getPlanId() + "");
 			json.put("planLogCdate", Commons.formatDate(log.getPlanLogCdate(), "MM月dd日 HH:mm"));
-			json.put("planLogEdate", Commons.formatDate(log.getPlanLogEdate(), "MM月dd日 HH:mm"));
+			if (log.getPlanLogEdate() != null) {
+				json.put("planLogEdate", Commons.formatDate(log.getPlanLogEdate(), "MM月dd日 HH:mm"));
+			} else {
+				json.put("planLogEdate", "训练中");
+			}
+
 			json.put("planLogId", log.getPlanLogId() + "");
 			json.put("planName", log.getPlanName());
 			array.add(json);
@@ -123,8 +128,12 @@ public class ChartController {
 			json.put("actionType", log.getActionType());
 			json.put("actionUnit", log.getActionUnit());
 			json.put("planId", log.getPlanId() + "");
-			json.put("planLogCdate", log.getPlanLogCdate());
-			json.put("planLogEdate", log.getPlanLogEdate());
+			json.put("planLogCdate", Commons.formatDate(log.getPlanLogCdate(), "MM月dd日 HH:mm"));
+			if (log.getPlanLogEdate() != null) {
+				json.put("planLogEdate", Commons.formatDate(log.getPlanLogEdate(), "MM月dd日 HH:mm"));
+			} else {
+				json.put("planLogEdate", "训练中");
+			}
 			json.put("planLogId", log.getPlanLogId() + "");
 			json.put("planName", log.getPlanName());
 			array.add(json);

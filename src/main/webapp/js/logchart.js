@@ -1,5 +1,5 @@
 var page_index = 0;
-var page_offset = 20;
+var page_offset = 30;
 var noPageData = false;
 var nextPageLoding = false;
 var logListIsHasData = false;
@@ -49,7 +49,6 @@ $(function() {
 
 	// 历史记录详情列表滚动条触底处理事件
 	$("#loglist_panel").on("touchend", function(e) {
-		// TODO 判断当前是何种类型的历史记录
 		if (!logListIsHasData) {
 			return;
 		}
@@ -262,7 +261,7 @@ function showLogListPanel() {
 			"height" : "auto"
 		});
 		$("#loglist_panel_nav_close").fadeIn("normal");
-		$("#mainswiper").height("0");
+		$("#mainswiper").hide();
 		if ($("#selectbodydata").length > 0) {
 			loadBodyDataLogData();
 		} else if ($("#selectaction").length > 0) {
@@ -274,7 +273,7 @@ function showLogListPanel() {
 
 // 关闭二级页面，有过渡动画
 function closeLogListPanel() {
-	$("#mainswiper").height("auto");
+	$("#mainswiper").show();
 	let logListPanel = $("#loglist_panel");
 	logListPanel.css({
 		"position" : "fixed"

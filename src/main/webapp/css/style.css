@@ -669,11 +669,41 @@ body select {
 	position: relative
 }
 
+.item_60h {
+	width: 100%;
+	height: 60px;
+	margin: 10px 0 10px 0;
+	color: #727272;
+	position: relative
+}
+
 .item_50h_d1 {
 	height: 40px;
 	float: left;
 	font-size: 15px;
 	padding-left: 20px
+}
+
+.item_60h_d1 {
+	height: 60px;
+	line-height: 60px;
+	float: left;
+	font-size: 15px;
+	padding-left: 20px
+}
+
+.item_60h_d1 span {
+	position: relative;
+	top: 9px;
+	color: #6b6b6b;
+	width: auto;
+	display: block
+}
+
+.item_60h img {
+	position: absolute;
+	right: 20px;
+	top: 23px
 }
 
 .item_50h_d1 span {
