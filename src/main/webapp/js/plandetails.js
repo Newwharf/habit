@@ -258,7 +258,7 @@ $(function() {
 	});
 	ctrlBack("/habit/home");
 	$("#button_es").on("click", function() {
-		if(confirm("确定要结束训练")){
+		if(!confirm("确定要结束训练")){
 			return;
 		}
 		if ($(this).attr("state") == 0) {
