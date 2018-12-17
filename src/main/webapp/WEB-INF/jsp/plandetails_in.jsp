@@ -43,7 +43,7 @@
 </head>
 
 <body class="background_img" style="background-size: 100% 500px;">
-<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
+	<input type="hidden" id="deviceid" value="<%=user.getvDeviceId()%>">
 	<!-- 顶部导航栏 -->
 	<div class="nvabar">
 		<img class="nvabar_back" src="<%=basePath%>img/back.png">
@@ -60,7 +60,12 @@
 	%>
 
 	<div class="list_panel" style="padding-bottom: 0px;">
-		<div class="title_60h"><%=action.getAname()%></div>
+		<div class="item_50h" style="height: 60px">
+			<div class="item_50h_d1" style="height: 60px;line-height: 60px;">
+				<span style="color: #333;font-size: 20px;width: auto;"><%=action.getAname()%></span>
+			</div>
+			<img src="<%=basePath %>img/history_data.png" width="30px" style="top:23px;" planid="<%=plan.getiId()%>" actionid="<%=action.getAid()%>">
+		</div>
 		<div class="line_01"></div>
 
 		<%

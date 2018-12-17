@@ -53,7 +53,7 @@
 		<div class="tab_h50_line"></div>
 	</div>
 
-	<div id="mainswiper" class="swiper-container" style="margin-top: 50px;">
+	<div id="mainswiper" class="swiper-container" style="margin-top: 50px;" >
 		<div class="swiper-wrapper">
 			<!-- 内容页：身体指标 -->
 			<div id="bodylogchart" style="width: 100%;" class="swiper-slide">
@@ -174,9 +174,9 @@
 
 		</div>
 	</div>
-
-	<!-- 日志详情页 -->
-	<div id="loglist_panel" style="position: absolute; display: none; width: 100%; height: 100%; background: #f8f8f8;">
+</body>
+<!-- 日志详情页 -->
+	<div id="loglist_panel" style="position: fixed; display: none; width: 100%; height: 100%; background: #f8f8f8;">
 		<!-- 顶部导航 -->
 		<div id="loglist_panel_nav">
 			<img id="loglist_panel_nav_close" src="<%=basePath%>img/close.png">
@@ -193,11 +193,9 @@
 		<div id="loglist_panel_error_panel" style="display: none;">
 			<img src="<%=basePath%>/img/error.png" width="100px">
 			<br> <span>系统懵逼了，要不再试一次</span>
-			<div class="error_panel_button">再试一次</div>
+			<div class="error_panel_button" id="loglist_panel_error_panel_button">再试一次</div>
 		</div>
 	</div>
-
-</body>
 </html>
 
 

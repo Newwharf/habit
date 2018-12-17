@@ -163,7 +163,7 @@ public class ActionController {
 			actionType.setTiState((byte) 0);
 			actionType.setvName(name);
 			if (remarks == null || "".equals(remarks)) {
-				remarks = "给它写个备注吧";
+				remarks = "点我管理具体动作";
 			}
 			actionType.setvRemarks(remarks);
 			if (actionTypeService.insert(actionType) == 1) {

@@ -21,11 +21,14 @@
 <script src="<%=basePath%>plugs/layui/layui.js"></script>
 <script type="text/javascript">
 	$(function() {
-		var mySwiper = new Swiper('.swiper-container', {
-			autoplay : false,
-			initialSlide : 0,
-			direction : "horizontal",
-			autoHeight : true
+		$("#clickme").on("click", function() {
+			$("#dialog").css({
+				"top" : "100%"
+			});
+			$("#dialog").show();
+			$("#dialog").animate({
+				top : "0"
+			}, 300);
 		});
 	});
 </script>
@@ -37,37 +40,91 @@
 </style>
 </head>
 <body>
-	<div class="swiper-container">
-		<div class="swiper-wrapper">
-			<div class="swiper-slide" style="background-color: red;">slider1</div>
-			<div class="swiper-slide" style="background-color: yellow;">
-				<div style="width: 100px; height: auto; background-color: pink; font-size: 30px;">
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-					<p>aaaaa</p>
-				</div>
-			</div>
+	<div id="dialog" style="width: 100%; height: 100%; overflow: hidden; background-color: white;">
+		<div style="width: 100%; height: 50px; background-color: yellow;">top nav</div>
+		<div style="width: 100%; height: 200%; overflow: visible;">
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			<p>aaaaaa</p>
+			
 		</div>
 	</div>
 </body>

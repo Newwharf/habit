@@ -5,10 +5,12 @@ var nextPageLoding = false;
 var logListIsHasData = false;
 var mainSwiperScrollTop;
 var swiperIndex = 0;
+var ajaxObj;
+var mainSwiper;
 
 $(function() {
 	// 注册swiper
-	var mainSwiper = new Swiper('#mainswiper', {
+	mainSwiper = new Swiper('#mainswiper', {
 		autoplay : false,
 		direction : "horizontal",
 		autoHeight : true,
@@ -29,6 +31,15 @@ $(function() {
 	// 再试一次按钮点击处理事件
 	$(".error_panel_button").on("click", function() {
 		initActionList();
+	});
+	
+	//历史记录详情中再试一次按钮点击处理事件
+	$("#loglist_panel_error_panel_button").on("click",function(){
+		if ($("#selectbodydata").length > 0) {
+			loadBodyDataLogData();
+		} else if ($("#selectaction").length > 0) {
+			loadActionLogData();
+		}
 	});
 
 	// 历史记录详情列表点击关闭按钮处理事件
@@ -92,17 +103,6 @@ $(function() {
 		toUrl("/habit/home");
 	});
 
-//	// 身体记录列表项内容点击处理事件
-//	$(".logochart_bodydata_item").on("click", function() {
-//
-//		if ($(this).attr("isJump") == "true") {
-//			layer.load(2, {
-//				shade : [ 0.5, '#000' ]
-//			});
-//			toUrl('bdllist?type=0&index=' + $(this).attr("data"));
-//		}
-//	});
-
 	ctrlBack("/habit/home");
 });
 
@@ -155,8 +155,9 @@ function initActionList() {
 				}
 			}
 		});
-
 	}
+	$(".swiper-wrapper").css({"height":"auto"});
+	
 }
 
 // 将每条动作append到页面上
@@ -251,6 +252,9 @@ function showLogListPanel() {
 	logListPanel.animate({
 		top : "0"
 	}, 300, function() {
+		logListPanel.css({
+			"position" : "absolute"
+		});
 		$("#loglist_panel_nav").css({
 			"position" : "fixed"
 		});
@@ -272,6 +276,9 @@ function showLogListPanel() {
 function closeLogListPanel() {
 	$("#mainswiper").height("auto");
 	let logListPanel = $("#loglist_panel");
+	logListPanel.css({
+		"position" : "fixed"
+	});
 	$("#loglist_panel_nav").css({
 		"position" : "absolute"
 	});
@@ -292,6 +299,9 @@ function closeLogListPanel() {
 
 // 清除二级页面相关数据
 function clearLogListPanel() {
+	if(ajaxObj!=null){
+		ajaxObj.abort();
+	}
 	logListIsHasData = false;
 	$("#selectaction").removeAttr("id");
 	$("#selectbodydata").removeAttr("id");
@@ -307,7 +317,7 @@ function loadActionLogData() {
 	hideLogListNodataPanel();
 	showLogListLodingPanel();
 
-	$.ajax({
+	ajaxObj = $.ajax({
 		url : "../chart/actionloglistbyaid",
 		type : "post",
 		dataType : "json",
@@ -345,7 +355,7 @@ function nextActionLogData() {
 		return;
 	}
 	nextPageLoding = true;
-	$.ajax({
+	ajaxObj = $.ajax({
 		url : "../chart/actionloglistbyaid",
 		type : "post",
 		dataType : "json",
@@ -423,7 +433,7 @@ function loadBodyDataLogData() {
 	hideLogListNodataPanel();
 	showLogListLodingPanel();
 
-	$.ajax({
+	ajaxObj= $.ajax({
 		url : "../chart/bdllist",
 		type : "post",
 		dataType : "json",
@@ -462,7 +472,7 @@ function nextBodyDataLogData() {
 	}
 	nextPageLoding = true;
 
-	$.ajax({
+	ajaxObj=$.ajax({
 		url : "../chart/bdllist",
 		type : "post",
 		dataType : "json",
@@ -504,15 +514,17 @@ function addBodyDataLogToPanel(log) {
 	} else if (log.tiIndex == 2) {
 		unit = "%";
 	}
+	let date = new Date(log.dtCdate);
+	let dateStr = date.getMonth()+"月"+date.getDay()+"日 "+date.getHours()+":"+date.getMinutes();
 	if ($("#loglist_panel_noimg_" + log.tiIndex).length == 0) {
 		let logHtml = '<div class="loglist_panel_noimg" id="loglist_panel_noimg_' + log.tiIndex
 				+ '"><div class="line_dashed"></div><div class="loglist_panel_noimg_item" id="loglist_panel_noimg_item_' + log.iId
-				+ '"><span class="loglist_panel_noimg_item_main">' + log.fScore + unit + '</span><br><span class="loglist_panel_noimg_item_sub">' + log.dtCdate
+				+ '"><span class="loglist_panel_noimg_item_main">' + log.fScore + unit + '</span><br><span class="loglist_panel_noimg_item_sub">' + dateStr
 				+ '</span></div></div>';
 		$("#loglist_panel").append(logHtml);
 	} else {
 		let logHtml = '<div class="loglist_panel_noimg_item" id="loglist_panel_noimg_item_' + log.iId + '"><span class="loglist_panel_noimg_item_main">' + log.fScore + unit
-				+ '</span><br><span class="loglist_panel_noimg_item_sub">' + log.dtCdate + '</span></div>';
+				+ '</span><br><span class="loglist_panel_noimg_item_sub">' + dateStr + '</span></div>';
 		$("#loglist_panel_noimg_" + log.tiIndex).append(logHtml);
 	}
 	$(".line_dashed").eq(0).remove();

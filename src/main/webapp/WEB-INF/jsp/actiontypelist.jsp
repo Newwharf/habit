@@ -44,7 +44,7 @@
 	<div class="list_panel">
 		<div class="list_panel_title">
 			<div style="width: 20%; text-align: center;">
-				<img alt="" src="<%=basePath%>img/actiontype.png" height="50px" style="margin: 10px 0 10px 20;">
+				<img alt="" src="<%=basePath%>img/actiontype.png" height="40px" style="margin: 15px 0 10px 20;">
 			</div>
 			<div style="width: 60%; line-height: 70px;">
 				<span style="font-size: 26px; color: black; margin-left: 15px;">动作分类</span>

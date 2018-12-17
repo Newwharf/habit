@@ -64,8 +64,16 @@ window.addEventListener("popstate", function(e) {
 		let clip_div = $("#clip_div");
 		let recard_dialog = $("#recard_dialog");
 		let list_panel_dialog = $(".list_panel_dialog");
+		let loglist_panel = $("#loglist_panel");
 		let isReturn = false;
 
+		if (loglist_panel.length > 0) {
+			if (loglist_panel.is(':visible')) {
+				$("#loglist_panel_nav_close").click();
+				ctrlBack(preUrl);
+				isReturn = true;
+			}
+		}
 		if (more_panel_body.length > 0) {
 			if (more_panel_body.is(':visible')) {
 				$("#more_panel_close").click();

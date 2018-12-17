@@ -76,7 +76,7 @@
 		where ha.i_id=#{aid}
 		and hal.i_userid=#{uid}
 		order by
-		hpl.dt_cdate,hpl.id desc,
+		hpl.dt_cdate desc,
 		hal.i_numbyplan asc
 		limit #{m},#{n}
 	</select>
@@ -95,7 +95,7 @@
 		and
 		hal.i_userid=#{uid}
 		order by
-		hpl.dt_cdate,hpl.id desc,
+		hpl.dt_cdate desc,
 		hal.i_numbyplan
 		asc
 		limit #{m},#{n}
