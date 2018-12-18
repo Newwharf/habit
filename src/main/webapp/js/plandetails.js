@@ -258,12 +258,12 @@ $(function() {
 	});
 	ctrlBack("/habit/home");
 	$("#button_es").on("click", function() {
-		if(!confirm("确定要结束训练")){
-			return;
-		}
 		if ($(this).attr("state") == 0) {
 			startPlan($(this).attr("planid"));
 		} else {
+			if(!confirm("确定要结束训练")){
+				return;
+			}
 			endPlan($(this).attr("planid"), $(this).attr("planlogid"));
 		}
 	});
