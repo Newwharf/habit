@@ -44,7 +44,7 @@ public class UserServiceImpl implements IUserService {
 		user.setiId(iw.nextId());
 		user.setTiSex((byte) 0);
 		user.setvDeviceId(deviceid);
-		user.setvImgurl("img/default_headimg.png");
+		user.setvImgurl("/habit/img/default_headimg.png");
 		user.setvName("点此设置个人信息");
 		user.setvTel("");
 		user.setvWechatuid(iw.nextId()+"");

@@ -5,16 +5,38 @@
 <head>
 <title>habit</title>
 
-<link rel="icon" href="img/favicon.ico" type="image/x-icon" />
-<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-<link rel="bookmark" href="img/favicon.ico" type="image/x-icon" />
-<link rel="stylesheet" href="css/style.css" type="text/css" />
+
+<style type="text/css">
+.nvabar {
+	position: fixed;
+	z-index: 9999;
+	width: 100%;
+	height: 50px;
+	top: 0;
+	background-color: #fff;
+	text-align: center;
+	line-height: 50px;
+	font-size: 18px;
+}
+
+.nvabar_back {
+	width: 25px;
+	position: absolute;
+	top: 13px;
+	left: 10px;
+}
+
+.nvabar_blank {
+	width: 100%;
+	height: 50px
+}
+</style>
 
 </head>
 
 <body style="background-color: #f8f8f8;">
 	<!-- 顶部导航栏 -->
-	<div class="nvabar" >
+	<div class="nvabar">
 		<img class="nvabar_back" src="img/back.png" onClick="history.back();">
 		<span class="nvabar_title"></span>
 	</div>
