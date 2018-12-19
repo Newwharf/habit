@@ -21,8 +21,8 @@ $(function() {
 				anim : "6"
 			});
 			return;
-		}else if(name.length>10){
-			showErrorMsg("训练名称最多10个字");
+		}else if(name.length>8){
+			showErrorMsg("训练名称最多8个字");
 			return;
 		} 
 		else if (actionList.length == 0) {

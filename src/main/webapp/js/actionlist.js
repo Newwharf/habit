@@ -146,6 +146,10 @@ $(function() {
 						let ti_type = $("#action_type").val();
 						let v_unit = $("#action_unit_value").val();
 						if (v_name != "") {
+							if (v_name.length > 10) {
+								showErrorMsg("动作名称最多10个字");
+								return;
+							}
 							if (ti_type == 0) {
 								if (v_unit == "") {
 									layer.msg("请填写以什么单位来计算次数", {
