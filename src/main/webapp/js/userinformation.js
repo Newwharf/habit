@@ -61,58 +61,58 @@ $(function() {
 	$("form").submit(function() {
 
 		if ($("#username").val().length < 1 || $("#username").val().length > 10) {
-			alert("没有名字是不行的！");
+			showErrorMsg("智人的名称应在1~10个字的范围");
 			return false;
 		} else if ($("#birthday").val() == "") {
-			alert("没有生日是不行的！");
+			showErrorMsg("没有生日是不行的！");
 			return false;
 		} else if ($("#height").val() != "" && ($("#height").val() <= 50 || $("#height").val() >= 250)) {
-			alert("我没有歧视的意思，但你这个身高怕是不适合健身");
+			showErrorMsg("我没有歧视的意思，但你这个身高怕是不适合健身");
 			return false;
 		} else if ($("#weight").val() != "" && ($("#weight").val() <= 30 || $("#weight").val() >= 150)) {
-			alert("你这个体重先去医院吧朋友！");
+			showErrorMsg("你这个体重先去医院吧朋友！");
 			return false;
 		} else if ($("#bodyfat").val() != "" && ($("#bodyfat").val() <= 5 || $("#bodyfat").val() >= 60)) {
-			alert("你这个体脂绝对是病！得先治！");
+			showErrorMsg("你这个体脂绝对是病！得先治！");
 			return false;
 		} else if ($("#shouldersize").val() != "" && ($("#shouldersize").val() <= 5 || $("#shouldersize").val() >= 60)) {
-			alert("这个肩宽不正常，不支持");
+			showErrorMsg("这个肩宽不正常，不支持");
 			return false;
 		} else if ($("#bust").val() != "" && ($("#bust").val() <= 20 || $("#bust").val() >= 150)) {
-			alert("这个胸围不正常，不支持");
+			showErrorMsg("这个胸围不正常，不支持");
 			return false;
 		} else if ($("#abdominalsize").val() != "" && ($("#abdominalsize").val() <= 20 || $("#abdominalsize").val() >= 150)) {
-			alert("这个腹围不正常，不支持");
+			showErrorMsg("这个腹围不正常，不支持");
 			return false;
 		} else if ($("#waistline").val() != "" && ($("#waistline").val() <= 20 || $("#waistline").val() >= 150)) {
-			alert("这个腰围不正常，不支持");
+			showErrorMsg("这个腰围不正常，不支持");
 			return false;
 		} else if ($("#hipline").val() != "" && ($("#hipline").val() <= 20 || $("#hipline").val() >= 150)) {
-			alert("这个臀围不正常，不支持");
+			showErrorMsg("这个臀围不正常，不支持");
 			return false;
 		} else if ($("#larmsize").val() != "" && ($("#larmsize").val() <= 5 || $("#larmsize").val() >= 150)) {
-			alert("这个左上臂围不正常，不支持");
+			showErrorMsg("这个左上臂围不正常，不支持");
 			return false;
 		} else if ($("#lforearmsize").val() != "" && ($("#lforearmsize").val() <= 5 || $("#lforearmsize").val() >= 150)) {
-			alert("这个左前臂围不正常，不支持");
+			showErrorMsg("这个左前臂围不正常，不支持");
 			return false;
 		} else if ($("#rarmsize").val() != "" && ($("#rarmsize").val() <= 5 || $("#rarmsize").val() >= 150)) {
-			alert("这个右上臂围不正常，不支持");
+			showErrorMsg("这个右上臂围不正常，不支持");
 			return false;
 		} else if ($("#rforearmsize").val() != "" && ($("#rforearmsize").val() <= 5 || $("#rforearmsize").val() >= 150)) {
-			alert("这个右前臂围不正常，不支持");
+			showErrorMsg("这个右前臂围不正常，不支持");
 			return false;
 		} else if ($("#lthighsize").val() != "" && ($("#lthighsize").val() <= 5 || $("#lthighsize").val() >= 150)) {
-			alert("这个左大腿围不正常，不支持");
+			showErrorMsg("这个左大腿围不正常，不支持");
 			return false;
 		} else if ($("#lcrussize").val() != "" && ($("#lcrussize").val() <= 5 || $("#lcrussize").val() >= 150)) {
-			alert("这个左小腿围不正常，不支持");
+			showErrorMsg("这个左小腿围不正常，不支持");
 			return false;
 		} else if ($("#rthighsize").val() != "" && ($("#rthighsize").val() <= 5 || $("#rthighsize").val() >= 150)) {
-			alert("这个右大腿围不正常，不支持");
+			showErrorMsg("这个右大腿围不正常，不支持");
 			return false;
 		} else if ($("#rcrussize").val() != "" && ($("#rcrussize").val() <= 5 || $("#rcrussize").val() >= 150)) {
-			alert("这个右小腿围不正常，不支持");
+			showErrorMsg("这个右小腿围不正常，不支持");
 			return false;
 		} else {
 			return true;

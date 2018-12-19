@@ -21,6 +21,9 @@ $(function() {
 				anim : "6"
 			});
 			return;
+		} else if (name.length > 10) {
+			showErrorMsg("训练名称最多10个字");
+			return;
 		} else if (actionList.length == 0) {
 			layer.msg("训练中至少得有一个动作吧", {
 				time : "2000",

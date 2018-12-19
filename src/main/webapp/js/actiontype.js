@@ -29,6 +29,13 @@ $(function() {
 
 						let type_name = $("#type_name").val();
 						let type_remarks = $("#type_remarks").val();
+						if(type_name.length>10){
+							showErrorMsg("分类名称最多10个字");
+							return;
+						}if(type_remarks.length>15){
+							showErrorMsg("分类备注最多15个字");
+							return;
+						}
 						if (type_name == "") {
 							layer.msg("分类名称还是要有的", {
 								time : "2000",

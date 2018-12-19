@@ -2,13 +2,13 @@ $(function() {
 
 	var editActionDialog;
 	var newActionDialog;
-	
-	//返回按钮处理事件
-	$(".nvabar_back").on("click",function(){
+
+	// 返回按钮处理事件
+	$(".nvabar_back").on("click", function() {
 		keyback = true;
 		toUrl("actiontypelist");
 	});
-	
+
 	// 修改动作相应处理
 	$("#action_list").on("click", ".action_edit", function() {
 
@@ -50,8 +50,18 @@ $(function() {
 				});
 				v_name = $("#action_name_edit").val();
 				v_unit = $("#action_unit_value_edit").val();
+
 				if (v_name != "") {
+					if (v_name.length > 10) {
+						showErrorMsg("动作名称最多10个字");
+						return;
+					}
 					if (ti_type == 0) {
+
+						if (v_unit.length > 3) {
+							showErrorMsg("动作单位最多3个字");
+							return;
+						}
 						if (v_unit == "") {
 							layer.msg("请填写以什么单位来计算次数", {
 								time : "3000",
@@ -76,7 +86,7 @@ $(function() {
 						"v_name" : v_name,
 						"v_unit" : v_unit,
 						"i_id" : i_id,
-						"deviceid":$("#deviceid").val()
+						"deviceid" : $("#deviceid").val()
 					},
 					dataType : "json",
 					error : function(data) {
@@ -167,7 +177,7 @@ $(function() {
 								"ti_type" : ti_type,
 								"v_unit" : v_unit,
 								"actiontypeid" : actiontypeid,
-								"deviceid":$("#deviceid").val()
+								"deviceid" : $("#deviceid").val()
 							},
 							dataType : "json",
 							error : function(data) {
@@ -233,7 +243,7 @@ $(function() {
 			url : "deleteaction",
 			data : {
 				"a_id" : a_id,
-				"deviceid":$("#deviceid").val()
+				"deviceid" : $("#deviceid").val()
 			},
 			dataType : "html",
 			error : function(data) {
@@ -270,6 +280,6 @@ $(function() {
 			$("#action_unit").slideUp(200);
 		}
 	});
-	
+
 	ctrlBack("actiontypelist");
 });
