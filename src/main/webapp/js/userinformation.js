@@ -61,7 +61,7 @@ $(function() {
 	$("form").submit(function() {
 
 		if ($("#username").val().length < 1 || $("#username").val().length > 10) {
-			showErrorMsg("智人的名称应在1~10个字的范围");
+			showErrorMsg("名称应在1~5个字的范围");
 			return false;
 		} else if ($("#birthday").val() == "") {
 			showErrorMsg("没有生日是不行的！");
